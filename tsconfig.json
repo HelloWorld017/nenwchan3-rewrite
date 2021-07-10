@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"module": "esnext",
+		"moduleResolution": "node",
 		"strict": true,
 		"typeRootes": ["./node_modules/@types", "./app/types/*.d.ts"],
 		"esModuleInterop": true,
