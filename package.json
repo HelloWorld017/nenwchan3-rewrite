@@ -1,0 +1,36 @@
+{
+  "name": "nenwdev-2021",
+  "version": "1.0.0",
+  "description": "2021-Redesigned version of nenw.dev",
+  "main": "src/index.js",
+  "repository": "https://github.com/nenwchan4",
+  "author": "Khinenw",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "snowpack dev",
+    "build": "snowpack build",
+    "format": "prettier --write \"app/**/*.{ts,tsx}",
+    "lint": "prettier --check \"app/**/*.{ts,tsx}"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@linaria/babel-preset": "^3.0.0-beta.7",
+    "@linaria/core": "^3.0.0-beta.4",
+    "@linaria/react": "^3.0.0-beta.7",
+    "@linaria/shaker": "^3.0.0-beta.7",
+    "@snowpack/plugin-dotenv": "^2.1.0",
+    "@snowpack/plugin-react-refresh": "^2.5.0",
+    "@snowpack/plugin-webpack": "^3.0.0",
+    "@svgr/core": "^5.5.0",
+    "@swc/core": "^1.2.63",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/snowpack-env": "^2.3.4",
+    "merge-source-map": "^1.1.0",
+    "snowpack": "^3.7.1"
+  }
+}

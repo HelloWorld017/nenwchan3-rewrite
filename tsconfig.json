@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"jsx": "preserve",
+		"module": "esnext",
+		"strict": true,
+		"typeRootes": ["./node_modules/@types", "./app/types/*.d.ts"],
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["./app/*"]
+		}
+	},
+	"exclude": ["node_modules"],
+	"include": ["**/*.ts", "**/*.tsx"]
+}
