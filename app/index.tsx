@@ -1,6 +1,5 @@
-import { App } from './App';
-import { StrictMode } from 'react';
 import { hydrate, render } from 'react-dom';
+import { App } from './App';
 
 const isServerSideRendered =
 	import.meta.env.RENDER_MODE === 'universal';
@@ -10,8 +9,6 @@ const renderFunction = isServerSideRendered
 	: render;
 
 renderFunction(
-	<StrictMode>
-		<App />
-	</StrictMode>,
+	<App lang="ko" />,
 	document.getElementById('app')
 );

@@ -14,15 +14,19 @@
     "lint": "prettier --check \"app/**/*.{ts,tsx}"
   },
   "dependencies": {
+    "i18next": "^20.3.3",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.11.3"
   },
   "devDependencies": {
     "@linaria/core": "^3.0.0-beta.4",
     "@linaria/react": "^3.0.0-beta.7",
     "@linaria/rollup": "^3.0.0-beta.7",
     "@linaria/shaker": "^3.0.0-beta.7",
+    "@rollup/plugin-yaml": "^3.1.0",
     "@svgr/core": "^5.5.0",
+    "@svgr/rollup": "^5.5.0",
     "@swc/core": "^1.2.63",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
