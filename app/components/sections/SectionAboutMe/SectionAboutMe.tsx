@@ -1,6 +1,7 @@
+import SectionAboutMeI18n from './SectionAboutMe.i18n.yml';
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useI18n } from '@simplei18n/react';
 import { Card } from '@/components/common/Card';
 import { Container } from '@/components/common/Container';
 import { ReactComponent as Logo } from '@/components/images/Logo.svg';
@@ -27,7 +28,7 @@ const ProfileBio = styled.p`
 `;
 
 const ProfileCard = () => {
-	const { t } = useTranslation();
+	const { t } = useI18n(SectionAboutMeI18n);
 
 	return (
 		<Card>
@@ -35,12 +36,16 @@ const ProfileCard = () => {
 				<ProfileLogo />
 				<ProfileColumn>
 					<ProfileName />
-					<ProfileBio>`{t('SectionAboutMe.bio')}`</ProfileBio>
+					<ProfileBio>`{t('bio')}`</ProfileBio>
 				</ProfileColumn>
 			</ProfileRow>
 			<ProfileBio>
-				<Trans i18nKey='SectionAboutMe.description' t={ t } components={{ tagKhinenw: <span style={{background: '#000'}}></span> }} />
-				{t('SectionAboutMe.description', [ <span>aa</span> ])}
+				{
+					t('description', {
+						br: <br />,
+						tag: ({ children }) => <span style={{ background: '#000'}}>{children}</span>
+					})
+				}
 			</ProfileBio>
 		</Card>
 	);

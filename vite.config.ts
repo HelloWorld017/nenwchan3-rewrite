@@ -1,8 +1,8 @@
 import linaria from '@linaria/rollup';
 import react from 'vite-preset-react';
 import path from 'path';
+import simplei18n from '@simplei18n/vite-plugin';
 import svgr from '@svgr/rollup';
-import yaml from '@rollup/plugin-yaml';
 
 import { defineConfig } from 'vite';
 
@@ -13,7 +13,7 @@ export default defineConfig({
 		react({ removeDevtoolsInProd: true, injectReact: true }),
 		svgr({ svgo: false }),
 		linaria(),
-		yaml()
+		simplei18n()
 	],
 
 	resolve: {

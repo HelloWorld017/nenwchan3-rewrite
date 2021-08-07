@@ -1,5 +1,5 @@
 import { css } from '@linaria/core';
-import { I18nProvider } from './I18nProvider';
+import { I18nContext } from '@simplei18n/react';
 import { IndexPage } from './pages/index.page';
 import { StrictMode } from 'react';
 import type { I18nKeys } from './utils/i18n';
@@ -32,11 +32,11 @@ type AppProps = {
 export const App = ({ lang }: AppProps): JSX.Element => {
 	return (
 		<StrictMode>
-			<I18nProvider lang={ lang }>
+			<I18nContext.Provider value={ { lang } }>
 				<main className={ globalStyles }>
 					<IndexPage />
 				</main>
-			</I18nProvider>
+			</I18nContext.Provider>
 		</StrictMode>
 	);
 };
