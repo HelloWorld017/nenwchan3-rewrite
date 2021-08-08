@@ -1,0 +1,18 @@
+ko:
+  profile:
+    bio: 'Aviate in Progress'
+
+    description: >
+      안녕하세요! 저는 소프트웨어 개발에 관심이 많은 김요한이라고 합니다.<br></br>
+      저는 주로 <tag>nenw*</tag> 또는 <tag>Khinenw</tag> 라는 이름으로 활동하고 있습니다.
+
+  quote:
+    text: '난 있지, 특별해지고 싶어.'
+    source: '「울려라! 유포니엄」 작중 대사'
+
+  abstract: >
+      저는 타인의 기억에 남는 무언가를 만들고 싶습니다.<br></br>
+      그렇기에 저는 사람의 마음에 다가가는 디자인, 그리고<br></br>
+      이를 이상적으로 실현시키기 위한 엔지니어링을 하고 싶습니다.
+
+  index: 'Abstract'
