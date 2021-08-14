@@ -8,7 +8,6 @@ const SectionWrapper = styled.section`
 	background-size: cover;
 
 	padding: 10vh 0;
-	box-sizing: border-box;
 	min-height: 100vh;
 `;
 

@@ -27,6 +27,7 @@ const globalStyles = css`
 
 			--grey-100:     #101010;
 			--grey-200:     #202020;
+			--grey-280:     #404040;
 			--grey-300:     #505050;
 			--grey-400:     #808080;
 			--grey-600:     #a0a0a0;
@@ -41,6 +42,7 @@ const globalStyles = css`
 		}
 
 		* {
+			box-sizing: border-box;
 			font-family: inherit;
 			letter-spacing: inherit;
 		}

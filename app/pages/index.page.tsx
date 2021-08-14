@@ -1,11 +1,13 @@
-import { SectionAbstract } from '@/components/sections/SectionAbstract';
-import { SectionIntroduction } from '@/components/sections/SectionIntroduction';
-import { SectionLanding } from '@/components/sections/SectionLanding';
+import { SectionAbstract } from '@/components/fragments/SectionAbstract';
+import { SectionIntroduction } from '@/components/fragments/SectionIntroduction';
+import { SectionLanding } from '@/components/fragments/SectionLanding';
+import { Sidebar } from '@/components/fragments/Sidebar';
 
 export const IndexPage = (): JSX.Element => (
 	<>
 		<SectionLanding />
 		<SectionAbstract />
 		<SectionIntroduction />
+		<Sidebar />
 	</>
 );

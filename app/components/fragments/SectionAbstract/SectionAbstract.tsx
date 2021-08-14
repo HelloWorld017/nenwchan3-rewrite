@@ -14,7 +14,7 @@ import { Tag } from '@/components/common/Tag';
 
 const DescriptionText = styled.p`
 	margin: 0;
-	font-size: 2.2rem;
+	font-size: 2rem;
 	font-weight: 500;
 	line-height: 1.6em;
 	color: var(--grey-400);
@@ -37,7 +37,7 @@ const ProfileColumn = styled.div`
 `;
 
 const ProfileLogo = () => <Logo className={ css`font-size: 9rem;` } />;
-const ProfileName = () => <LogoName className={ css`font-size: 14rem;` } />;
+const ProfileName = () => <LogoName className={ css`font-size: 14rem;` } aria-label="nenw*" />;
 
 const ProfileBio = styled.span`
 	margin-top: 2rem;
