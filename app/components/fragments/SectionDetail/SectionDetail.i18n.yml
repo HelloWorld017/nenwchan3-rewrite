@@ -1,0 +1,45 @@
+ko:
+  activities:
+    title: 'Activities'
+
+    timeline:
+      if-team:
+        title: 'if-Team, <Lighten>Organic</Lighten>'
+        description: '청소년 개발팀'
+        roles:
+          - '풀스택 개발자'
+          - '디자이너'
+
+      sparcs:
+        title: 'SPARCS'
+        description: '교내 서비스 개발 동아리'
+        roles:
+          - '교내 커뮤니티 개발팀 <Lighten>리드 프론트엔드 개발자</Lighten>'
+          - '카이스트 미러팀 <Lighten>팀장</Lighten>'
+          - '서버 관리팀 <Lighten>팀장</Lighten>'
+
+      ridi:
+        title: 'RIDI'
+        description: '웹 팀'
+        roles:
+          - '프론트엔드 엔지니어'
+
+  education:
+    title: 'Education'
+
+    timeline:
+      daedeok:
+        title: '대덕고등학교'
+        description: '과학중점과정'
+
+      kaist:
+        title: 'KAIST'
+        description: '전산학부'
+        status: '휴학중'
+
+  contact:
+    title: 'Contact'
+
+    github: '@HelloWorld017'
+    telegram: '@Khinenw'
+    mail: 'khi@nenw.dev'

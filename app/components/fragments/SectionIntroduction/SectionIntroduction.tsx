@@ -71,8 +71,8 @@ const DeveloperCode = () => {
 	return (
 		<DeveloperCodeWrapper>
 			{ t('developer.code', {
-				str: ({ children }) => <span className={ css`color: var(--blue-400)`  }>{ children }</span>,
-				obj: ({ children }) => <span className={ css`color: var(--green-400)` }>{ children }</span>
+				String: ({ children }) => <span className={ css`color: var(--syntax-scheme-0)`}>{ children }</span>,
+				Object: ({ children }) => <span className={ css`color: var(--syntax-scheme-1)`}>{ children }</span>
 			}) }
 		</DeveloperCodeWrapper>
 	);

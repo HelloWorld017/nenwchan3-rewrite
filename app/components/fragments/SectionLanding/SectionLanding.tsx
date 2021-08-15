@@ -64,8 +64,8 @@ const ScrollIndicator = styled.a`
 `;
 
 const ScrollIndicatorIcon = styled(IconChevronDown)`
-	margin-left: 2.5rem;
-	font-size: 2.8rem;
+	margin-left: 2.4rem;
+	font-size: 1.8rem;
 	color: var(--grey-900);
 `;
 
@@ -90,7 +90,7 @@ export const SectionLanding = (): JSX.Element => {
 						<LandingCardTitle>
 							<LandingCardDescription>{ t('card.description') }</LandingCardDescription>
 
-							{ t('card.title', { asterisk: IconAsterisk }) }
+							{ t('card.title', { Asterisk: IconAsterisk }) }
 						</LandingCardTitle>
 					</LandingCardColumn>
 				</LandingCard>

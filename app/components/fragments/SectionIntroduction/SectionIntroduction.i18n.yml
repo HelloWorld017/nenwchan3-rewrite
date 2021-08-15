@@ -4,7 +4,7 @@ ko:
       prefix: 'I am a'
       content: 'developer'
 
-    code: '<obj>console</obj>.log(<str>`Aviation in progress`</str>)'
+    code: '<Object>console</Object>.log(<String>`Aviation in progress`</String>)'
 
     description: >
       저는 개발에 관심과 열정이 많은 개발자입니다.

@@ -16,16 +16,16 @@ const globalStyles = css`
 			--font-letter:      'RIDIBatang', 'Pretendard', serif;
 			--font-display:     'Metropolis', 'Pretendard', sans-serif;
 			--font-code:        'Iosevka', 'Pretendard', monospace;
+			--font-number:      'Lato', 'Pretendard', sans-serif;
 
 			--shadow-400:       rgba(0, 0, 0, 0.12);
 
-			--blue-300:         #0b9fa9;
-			--blue-300_rgb:     11, 159, 169;
-			--blue-400:         #24cbd6;
-			--blue-400_rgb:     36, 203, 214;
+			--link-scheme-0:    #008383;
+			--link-scheme-1:    #005B83;
+			--link-scheme-2:    #003C83;
 
-			--green-400:        #4fcf6c;
-			--green-400_rgb:    79, 207, 108;
+			--syntax-scheme-0:  #24cbd6;
+			--syntax-scheme-1:  #4fcf6c;
 
 			--bluegrey-600:     #617374;
 			--bluegrey-600_rgb: 97, 115, 116;
