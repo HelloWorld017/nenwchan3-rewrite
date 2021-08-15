@@ -1,9 +1,19 @@
 import I18n from './Sidebar.i18n.yml';
-import { SidebarButton } from './SidebarButton';
-import { SidebarBranding } from './SidebarItem';
 import { styled } from '@linaria/react';
 import { useCallback, useState } from 'react';
 import { useI18n } from '@simplei18n/react';
+import { SidebarButton } from './SidebarButton';
+import { SidebarBranding, SidebarItem } from './SidebarItem';
+
+const SidebarWrapper = styled.div`
+	visibility: hidden;
+	pointer-events: none;
+
+	&[data-is-visible="true"] {
+		visibility: visible;
+		pointer-events: auto;
+	}
+`;
 
 const SidebarContainer = styled.aside`
 	position: fixed;
@@ -17,7 +27,7 @@ const SidebarContainer = styled.aside`
 	transform: translateX(-50rem);
 	transition: transform .4s ease;
 
-	&[data-is-opened="true"] {
+	[data-is-opened="true"] > & {
 		transform: translateX(0rem);
 	}
 `;
@@ -32,31 +42,50 @@ const SidebarBackdrop = styled.div`
 	opacity: 0;
 	transition: opacity .4s ease;
 
-	&[data-is-opened="true"] {
+	[data-is-opened="true"] > & {
 		opacity: .7;
 	}
 `;
 
 export const Sidebar = () => {
-	const { ts } = useI18n(I18n);
+	const { t, ts } = useI18n(I18n);
 
 	const [ isOpened, setIsOpened ] = useState(false);
-	const isOpenedAttr = isOpened ? 'true' : 'false';
+	const [ isAnimating, setIsAnimating ] = useState(false);
 
 	const onClose = useCallback(() => {
 		setIsOpened(false);
+		setIsAnimating(true);
 	}, []);
 
 	const onToggle = useCallback(() => {
 		setIsOpened(!isOpened);
+		setIsAnimating(true);
 	}, [ isOpened ]);
+
+	const onTransitionEnd = useCallback(() => {
+		setIsAnimating(false);
+	}, []);
 
 	return (
 		<>
-			<SidebarBackdrop data-is-opened={ isOpenedAttr } onClick={ onClose } />
-			<SidebarContainer data-is-opened={ isOpenedAttr }>
-				<SidebarBranding header={ ts('header') } description={ ts('description') } />
-			</SidebarContainer>
+			<SidebarWrapper data-is-opened={ isOpened } data-is-visible={ isOpened || isAnimating }>
+				<SidebarBackdrop onClick={ onClose } />
+				<SidebarContainer onTransitionEnd={ onTransitionEnd }>
+					<SidebarBranding header={ ts('header') } description={ ts('description') } />
+					<SidebarItem title={ ts('blog.title') } href="https://blog.nenw.dev">
+						{ t('blog.description') }
+					</SidebarItem>
+					<SidebarItem title={ ts('telegram.title') } href="https://t.me/Khinenw">
+						{ t('telegram.description') }
+					</SidebarItem>
+					<SidebarItem title={ ts('github.title') } href="https://github.com/HelloWorld017">
+						{ t('github.description') }
+					</SidebarItem>
+				</SidebarContainer>
+			</SidebarWrapper>
+
+
 			<SidebarButton onToggle={ onToggle } isOpened={ isOpened } />
 		</>
 	)

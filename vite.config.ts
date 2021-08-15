@@ -6,17 +6,31 @@ import svgr from '@svgr/rollup';
 
 import { defineConfig } from 'vite';
 
+const alias = { '@': path.resolve(__dirname, 'app') };
+
 export default defineConfig({
 	publicDir: './public',
 
 	plugins: [
 		react({ removeDevtoolsInProd: true, injectReact: true }),
 		svgr({ svgo: false }),
-		linaria(),
+		linaria({
+			babelOptions: {
+				plugins: [
+					[
+						'babel-plugin-module-resolver',
+						{
+							extensions: [".tsx", ".ts"],
+							alias
+						}
+					]
+				]
+			}
+		}),
 		simplei18n()
 	],
 
 	resolve: {
-		alias: { '@': path.resolve(__dirname, 'app') }
+		alias
 	}
 });

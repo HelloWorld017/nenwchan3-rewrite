@@ -1,3 +1,15 @@
 ko:
   header: 'nenw.dev'
   description: '2021 Redesigned'
+
+  blog:
+    title: 'Blog'
+    description: '저에 관한 글이 올라오는 곳'
+
+  telegram:
+    title: 'Telegram'
+    description: '저에게 연락을 하실 수 있는 곳'
+
+  github:
+    title: 'GitHub'
+    description: '저의 프로젝트를 보실 수 있는 곳'

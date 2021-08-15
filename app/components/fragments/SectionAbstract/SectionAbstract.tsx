@@ -79,12 +79,12 @@ const QuoteInner = styled.blockquote`
 `;
 
 const QuoteIcon = () => <IconQuote className={ css`
-	color: var(--blue-900);
+	color: var(--bluegrey-900);
 	font-size: 2rem;
 ` } />;
 
 const QuoteText = styled.p`
-	color: var(--blue-800);
+	color: var(--bluegrey-800);
 	font-size: 2.4rem;
 	font-family: var(--font-letter);
 	margin-top: 2rem;
@@ -92,7 +92,7 @@ const QuoteText = styled.p`
 `;
 
 const QuoteSource = styled.cite`
-	color: var(--blue-800);
+	color: var(--bluegrey-800);
 	font-size: 1.6rem;
 	font-style: normal;
 	font-weight: 300;
@@ -141,7 +141,7 @@ export const SectionAbstract = () => {
 	const { t } = useI18n(I18n);
 
 	return (
-		<SectionAbstractWrapper>
+		<SectionAbstractWrapper id="Abstract">
 			<Container>
 				<Profile />
 				<Quote />

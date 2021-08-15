@@ -124,7 +124,7 @@ const SectionIntroductionWrapper = styled.section`
 export const SectionIntroduction = () => {
 	const { t } = useI18n(I18n);
 	return (
-		<SectionIntroductionWrapper>
+		<SectionIntroductionWrapper id="Introduction">
 			<Container>
 				<DeveloperIntroduction />
 				<DesignerIntroduction />

@@ -12,33 +12,53 @@ const globalStyles = css`
 		}
 
 		:root {
-			--font-sans:    'Pretendard', sans-serif;
-			--font-letter:  'RIDIBatang', 'Pretendard', serif;
-			--font-display: 'Metropolis', 'Pretendard', sans-serif;
-			--font-code:    'Iosevka', 'Pretendard', monospace;
+			--font-sans:        'Pretendard', sans-serif;
+			--font-letter:      'RIDIBatang', 'Pretendard', serif;
+			--font-display:     'Metropolis', 'Pretendard', sans-serif;
+			--font-code:        'Iosevka', 'Pretendard', monospace;
 
-			--shadow-400:   rgba(0, 0, 0, 0.12);
-			--blue-300:     #0b9fa9;
-			--blue-400:     #24cbd6;
-			--blue-800:     #a2adba;
-			--blue-900:     #c9dbef;
+			--shadow-400:       rgba(0, 0, 0, 0.12);
 
-			--green-400:    #4fcf6c;
+			--blue-300:         #0b9fa9;
+			--blue-300_rgb:     11, 159, 169;
+			--blue-400:         #24cbd6;
+			--blue-400_rgb:     36, 203, 214;
 
-			--grey-100:     #101010;
-			--grey-200:     #202020;
-			--grey-280:     #404040;
-			--grey-300:     #505050;
-			--grey-400:     #808080;
-			--grey-600:     #a0a0a0;
-			--grey-700:     #cbcbcb;
-			--grey-800:     #efefef;
-			--grey-850:     #f8f8f8;
-			--grey-900:     #ffffff;
+			--green-400:        #4fcf6c;
+			--green-400_rgb:    79, 207, 108;
+
+			--bluegrey-600:     #617374;
+			--bluegrey-600_rgb: 97, 115, 116;
+			--bluegrey-800:     #a2adba;
+			--bluegrey-800_rgb: 162, 173, 186;
+			--bluegrey-900:     #c9dbef;
+			--bluegrey-900_rgb: 201, 219, 239;
+
+			--grey-100:         #101010;
+			--grey-100_rgb:     16, 16, 16;
+			--grey-200:         #202020;
+			--grey-200_rgb:     32, 32, 32;
+			--grey-280:         #404040;
+			--grey-280_rgb:     64, 64, 64;
+			--grey-300:         #505050;
+			--grey-300_rgb:     80, 80, 80;
+			--grey-400:         #808080;
+			--grey-400_rgb:     108, 108, 108;
+			--grey-600:         #a0a0a0;
+			--grey-600_rgb:     160, 160, 160;
+			--grey-700:         #cbcbcb;
+			--grey-700_rgb:     203, 203, 203;
+			--grey-800:         #efefef;
+			--grey-800_rgb:     239, 239, 239;
+			--grey-850:         #f8f8f8;
+			--grey-850_rgb:     248, 248, 248;
+			--grey-900:         #ffffff;
+			--grey-900_rgb:     255, 255, 255;
 
 			font-family: var(--font-sans);
 			font-size: 9px;
 			letter-spacing: -0.03em;
+			scroll-behavior: smooth;
 		}
 
 		* {
