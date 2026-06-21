@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // Strictness
+    "strict": true,
+    "exactOptionalPropertyTypes": false,
+
+    // Module / Resolution
+    "module": "preserve",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Types
+    "target": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable", "dom.asynciterable", "webworker"],
+    "types": ["node", "react", "react/canary", "react-dom", "vite/client"],
+    "typeRoots": ["./node_modules", "./node_modules/@types"],
+
+    // Others
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "outDir": "./dist"
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "oxfmt.config.ts",
+    "oxlint.config.ts",
+    "vite.config.ts"
+  ]
+}
