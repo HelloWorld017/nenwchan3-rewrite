@@ -1,17 +1,18 @@
 {
-  "name": "nenwdev-2021",
+  "name": "nenwdev-2026",
   "version": "1.0.0",
-  "description": "2021-Redesigned version of nenw.dev",
-  "main": "src/index.js",
-  "repository": "https://github.com/HelloWorld017/nenwchan3-rewrite",
-  "author": "Khinenw",
-  "license": "MIT",
   "private": true,
+  "description": "2026-Redesigned version of nenw.dev",
+  "license": "MIT",
+  "author": "Khinenw",
+  "repository": "https://github.com/HelloWorld017/nenwchan3-rewrite",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "format": "prettier --write \"app/**/*.{ts,tsx}",
-    "lint": "prettier --check \"app/**/*.{ts,tsx}"
+    "format": "oxfmt",
+    "lint": "oxlint"
   },
   "dependencies": {
     "@simplei18n/core": "^0.1.1",
@@ -28,6 +29,7 @@
     "@vitejs/plugin-react": "^6.0.3",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
+    "oxlint-tsgolint": "^0.23.0",
     "vite": "^8.0.16",
     "vite-plugin-svgr": "^5.2.0"
   }

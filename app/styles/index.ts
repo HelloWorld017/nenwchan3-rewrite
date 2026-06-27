@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css } from '@linaria/core';
 
 export const globalStyles = css`
   :global() {
@@ -18,28 +18,28 @@ export const globalStyles = css`
     }
 
     :root {
-      --font-sans:        'Pretendard', sans-serif;
-      --font-letter:      'RIDIBatang', 'Pretendard', serif;
-      --font-display:     'Metropolis', 'Pretendard', sans-serif;
-      --font-code:        'Iosevka', 'Pretendard', monospace;
+      --font-sans: 'Pretendard', sans-serif;
+      --font-letter: 'RIDIBatang', 'Pretendard', serif;
+      --font-display: 'Metropolis', 'Pretendard', sans-serif;
+      --font-code: 'Iosevka', 'Pretendard', monospace;
 
-      --syntax-scheme-0:  #24cbd6;
-      --syntax-scheme-1:  #4fcf6c;
+      --syntax-scheme-0: #24cbd6;
+      --syntax-scheme-1: #4fcf6c;
 
-      --bluegrey-600:     #617374;
-      --bluegrey-800:     #a2adba;
-      --bluegrey-900:     #c9dbef;
+      --bluegrey-600: #617374;
+      --bluegrey-800: #a2adba;
+      --bluegrey-900: #c9dbef;
 
-      --grey-100:         #101010;
-      --grey-200:         #202020;
-      --grey-280:         #404040;
-      --grey-300:         #505050;
-      --grey-400:         #808080;
-      --grey-600:         #a0a0a0;
-      --grey-700:         #cbcbcb;
-      --grey-800:         #efefef;
-      --grey-850:         #f8f8f8;
-      --grey-900:         #ffffff;
+      --grey-100: #101010;
+      --grey-200: #202020;
+      --grey-280: #404040;
+      --grey-300: #505050;
+      --grey-400: #808080;
+      --grey-600: #a0a0a0;
+      --grey-700: #cbcbcb;
+      --grey-800: #efefef;
+      --grey-850: #f8f8f8;
+      --grey-900: #ffffff;
 
       font-family: var(--font-sans);
       font-size: 10px;
