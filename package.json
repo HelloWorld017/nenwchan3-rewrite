@@ -14,22 +14,21 @@
     "lint": "prettier --check \"app/**/*.{ts,tsx}"
   },
   "dependencies": {
-    "@simplei18n/react": "link:../simplei18n/packages/react",
-    "@simplei18n/vite-plugin": "link:../simplei18n/packages/vite-plugin",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@simplei18n/core": "^0.1.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@linaria/core": "^3.0.0-beta.4",
-    "@linaria/react": "^3.0.0-beta.7",
-    "@linaria/rollup": "^3.0.0-beta.7",
-    "@linaria/shaker": "^3.0.0-beta.7",
-    "@svgr/core": "^5.5.0",
-    "@svgr/rollup": "^5.5.0",
-    "@types/react": "^17.0.14",
-    "@types/react-dom": "^17.0.9",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "vite": "^2.4.1",
-    "vite-preset-react": "^1.3.0"
+    "@linaria/core": "^8.0.0",
+    "@linaria/react": "^8.0.0",
+    "@types/node": "^26.0.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxfmt": "^0.56.0",
+    "oxlint": "^1.71.0",
+    "vite": "^8.0.16",
+    "vite-plugin-svgr": "^5.2.0"
   }
 }

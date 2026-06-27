@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react';
 
-export const FullPageDimmer = styled.div`
+export const Backdrop = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
