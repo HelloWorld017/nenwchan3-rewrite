@@ -1,0 +1,7 @@
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+  - '@simplei18n/core'
+
+onlyBuiltDependencies:
+  - esbuild
