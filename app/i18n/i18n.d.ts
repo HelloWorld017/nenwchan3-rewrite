@@ -23,6 +23,49 @@ declare module '@simplei18n/core' {
         text: TranslationDescriptor<never, never>;
       };
     };
+    activities: {
+      org: {
+        /** if-Team, <Light>Organic</Light> */
+        ifteam: TranslationDescriptor<never, "Light"> & {
+          /** 청소년 개발팀 */
+          description: TranslationDescriptor<never, never>;
+        };
+        /** RIDI */
+        ridi: TranslationDescriptor<never, never> & {
+          /** 리디 주식회사 */
+          description: TranslationDescriptor<never, never>;
+        };
+        /** SPARCS */
+        sparcs: TranslationDescriptor<never, never> & {
+          /** 교내 서비스 개발 동아리 */
+          description: TranslationDescriptor<never, never>;
+        };
+      };
+      role: {
+        /** 프론트엔드 엔지니어 */
+        frontend_engineer: TranslationDescriptor<never, never>;
+        /** 프론트엔드 리드 */
+        frontend_lead: TranslationDescriptor<never, never>;
+        /** 풀스택 엔지니어 */
+        fullstack_engineer: TranslationDescriptor<never, never>;
+        /** 팀장 */
+        team_lead: TranslationDescriptor<never, never>;
+      };
+      team: {
+        ridi: {
+          /** 웹팀 */
+          web: TranslationDescriptor<never, never>;
+        };
+        sparcs: {
+          /** 카이스트 미러팀 */
+          geoul: TranslationDescriptor<never, never>;
+          /** 교내 커뮤니티 개발팀 */
+          newara: TranslationDescriptor<never, never>;
+          /** 서버 관리팀 */
+          wheel: TranslationDescriptor<never, never>;
+        };
+      };
+    };
     introduction: {
       developer: {
         /** 저는 개발에 관심과 열정이 많은 개발자입니다. <b>프론트엔드 / 백엔드 개발</b>부터 <b>게임 개발, 머신러닝, 데브옵스, 프로그래밍 언어</b> 등 정말 다양한 분야에 관심을 가지고 있습니다.  */

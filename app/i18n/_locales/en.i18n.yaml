@@ -8,6 +8,20 @@ abstract.abstract: !todo |
   저는 누군가의 기억에 남는 무언가를 만들고 싶습니다.<br/>
   그렇기에 저는 사람의 마음에 닿는 디자인을 고민하고,<br/>
   그것을 현실에서 구현하기 위한 엔지니어링을 하고 싶습니다.
+activities.org.ifteam: !todo "if-Team, <Light>Organic</Light>"
+activities.org.ifteam.description: !todo "청소년 개발팀"
+activities.org.ridi: !todo "RIDI"
+activities.org.ridi.description: !todo "리디 주식회사"
+activities.org.sparcs: !todo "SPARCS"
+activities.org.sparcs.description: !todo "교내 서비스 개발 동아리"
+activities.role.frontend_engineer: !todo "프론트엔드 엔지니어"
+activities.role.frontend_lead: !todo "프론트엔드 리드"
+activities.role.fullstack_engineer: !todo "풀스택 엔지니어"
+activities.role.team_lead: !todo "팀장"
+activities.team.ridi.web: !todo "웹팀"
+activities.team.sparcs.geoul: !todo "카이스트 미러팀"
+activities.team.sparcs.newara: !todo "교내 커뮤니티 개발팀"
+activities.team.sparcs.wheel: !todo "서버 관리팀"
 introduction.developer.description: !todo |
   저는 개발에 관심과 열정이 많은 개발자입니다.
   <b>프론트엔드 / 백엔드 개발</b>부터 <b>게임 개발, 머신러닝, 데브옵스, 프로그래밍 언어</b>

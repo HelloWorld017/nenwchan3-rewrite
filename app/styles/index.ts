@@ -52,6 +52,7 @@ export const globalStyles = css`
       font-family: var(--font-sans);
       font-size: 10px;
       letter-spacing: -0.01em;
+      list-style-type: none;
       scroll-behavior: smooth;
     }
   }

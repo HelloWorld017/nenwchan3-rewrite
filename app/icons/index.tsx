@@ -1,8 +1,10 @@
 import {
   AudioWaveformIcon,
   BookTextIcon,
+  CodeXmlIcon,
   GhostIcon,
   MoonStarIcon,
+  ServerIcon,
   SnowflakeIcon,
 } from 'lucide-react';
 import type { ComponentType } from 'react';
@@ -20,6 +22,8 @@ const wrapLucideComponent = <TProps,>(LucideIcon: ComponentType<TProps>) => {
 
 export const IconAudioWaveform = wrapLucideComponent(AudioWaveformIcon);
 export const IconBookText = wrapLucideComponent(BookTextIcon);
+export const IconCodeXml = wrapLucideComponent(CodeXmlIcon);
 export const IconGhost = wrapLucideComponent(GhostIcon);
 export const IconMoonStar = wrapLucideComponent(MoonStarIcon);
+export const IconServer = wrapLucideComponent(ServerIcon);
 export const IconSnowflake = wrapLucideComponent(SnowflakeIcon);

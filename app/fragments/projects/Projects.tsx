@@ -25,7 +25,7 @@ defineI18n(
   `,
 );
 
-const ProjectItemWrapper = styled.div`
+const ProjectItemWrapper = styled.li`
   position: relative;
 `;
 
@@ -127,7 +127,7 @@ export const ProjectItem = ({
   );
 };
 
-const ProjectsColumns = styled.div`
+const ProjectsColumns = styled.ul`
   --grid-gap: 1.8rem;
 
   display: grid;
@@ -183,54 +183,58 @@ const ProjectDescriptionLink = ({ children }: { children?: ReactNode }) => (
 );
 
 export const Projects = () => (
-  <Container wide>
-    <SectionTitle>Projects</SectionTitle>
-    <ProjectDescription>
-      <t._ $tags={{ br: 'br', Link: ProjectDescriptionLink }}>
-        {t.projects.description}
-      </t._>
-    </ProjectDescription>
+  <section>
+    <Container wide>
+      <SectionTitle>Projects</SectionTitle>
+      <ProjectDescription>
+        <t._ $tags={{ br: 'br', Link: ProjectDescriptionLink }}>
+          {t.projects.description}
+        </t._>
+      </ProjectDescription>
+    </Container>
 
-    <ProjectsColumns>
-      <ProjectItem
-        icon={<IconSnowflake />}
-        title='devices'
-        description='nix-based configurations'
-      />
-      <ProjectItem
-        icon={<IconAudioWaveform />}
-        title='tone-marble'
-        description='an unrealistic instrument'
-        image={ImageToneMarble}
-      />
-      <ProjectItem
-        icon={<IconDatabaseSync />}
-        title='clxdb'
-        description='serverless synchronization engine'
-      />
-      <ProjectItem
-        icon={<IconMoonStar />}
-        title='midnightway'
-        description='webkit-based wayland bar and panels'
-        image={ImageMidnightway}
-      />
-      <ProjectItem
-        icon={<IconGhost />}
-        title='kaede'
-        description='neat ghost theme'
-        image={ImageKaede}
-      />
-      <ProjectItem
-        icon={<IconBookText />}
-        title='irodori'
-        description='local-first diary app'
-        image={ImageIrodori}
-      />
-      <ProjectItem
-        icon={<IconGitBranchWrench />}
-        title='kanrinin'
-        description='CI/CD tool for small-scale nixos deployments'
-      />
-    </ProjectsColumns>
-  </Container>
+    <Container wide>
+      <ProjectsColumns>
+        <ProjectItem
+          icon={<IconSnowflake />}
+          title='devices'
+          description='nix-based configurations'
+        />
+        <ProjectItem
+          icon={<IconAudioWaveform />}
+          title='tone-marble'
+          description='an unrealistic instrument'
+          image={ImageToneMarble}
+        />
+        <ProjectItem
+          icon={<IconDatabaseSync />}
+          title='clxdb'
+          description='serverless synchronization engine'
+        />
+        <ProjectItem
+          icon={<IconMoonStar />}
+          title='midnightway'
+          description='webkit-based wayland bar and panels'
+          image={ImageMidnightway}
+        />
+        <ProjectItem
+          icon={<IconGhost />}
+          title='kaede'
+          description='neat ghost theme'
+          image={ImageKaede}
+        />
+        <ProjectItem
+          icon={<IconBookText />}
+          title='irodori'
+          description='local-first diary app'
+          image={ImageIrodori}
+        />
+        <ProjectItem
+          icon={<IconGitBranchWrench />}
+          title='kanrinin'
+          description='CI/CD tool for small-scale nixos deployments'
+        />
+      </ProjectsColumns>
+    </Container>
+  </section>
 );
