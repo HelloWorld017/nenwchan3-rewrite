@@ -1,8 +1,10 @@
-import { hydrate, render } from 'react-dom';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { App } from './App';
 
+const container = document.getElementById('app')!;
 const isServerSideRendered = import.meta.env.RENDER_MODE === 'universal';
-
-const renderFunction = isServerSideRendered ? hydrate : render;
-
-renderFunction(<App lang='ko' />, document.getElementById('app'));
+if (isServerSideRendered) {
+  hydrateRoot(container, <App lang='ko' />);
+} else {
+  createRoot(container).render(<App lang='ko' />);
+}

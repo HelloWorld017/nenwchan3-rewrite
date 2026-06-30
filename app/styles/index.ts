@@ -23,16 +23,24 @@ export const globalStyles = css`
       --font-display: 'Metropolis', 'Pretendard', sans-serif;
       --font-code: 'Iosevka', 'Pretendard', monospace;
 
+      --shadow-400: 0px 0.5rem 2rem rgba(0, 0, 0, 0.12);
+
+      --transition-default: .4s ease;
+      --transition-container: .6s ease;
+      --transition-bounce: .4s cubic-bezier(0.74,-0.51, 0.46, 1.01);
+
       --syntax-scheme-0: #24cbd6;
       --syntax-scheme-1: #4fcf6c;
 
+      --bluegrey-100: #323b42;
+      --bluegrey-300: #455156;
       --bluegrey-600: #617374;
-      --bluegrey-800: #a2adba;
-      --bluegrey-900: #c9dbef;
+      --bluegrey-700: #a2adba;
+      --bluegrey-800: #c9dbef;
+      --bluegrey-900: #f0f9ff;
 
       --grey-100: #101010;
       --grey-200: #202020;
-      --grey-280: #404040;
       --grey-300: #505050;
       --grey-400: #808080;
       --grey-600: #a0a0a0;

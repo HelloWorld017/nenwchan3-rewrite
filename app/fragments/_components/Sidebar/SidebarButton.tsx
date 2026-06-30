@@ -1,7 +1,5 @@
 import { styled } from '@linaria/react';
 
-const TRANSITION_EASING = 'cubic-bezier(0.74,-0.51, 0.46, 1.01)';
-
 const SidebarButtonBar = styled.div<{ direction: number }>`
   position: absolute;
   top: 50%;
@@ -14,8 +12,8 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
   border-radius: 0.3rem;
   background: var(--grey-900);
   transition:
-    background 0.4s ease,
-    transform 0.4s ${TRANSITION_EASING};
+    background var(--transition-default),
+    transform var(--transition-bounce);
   transform: rotate(-45deg) ${({ direction }) => `translate(0, ${direction * -0.5}rem)`};
 
   [data-is-active='true'] & {
@@ -25,8 +23,8 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
 
 const SidebarButtonWrapper = styled.button`
   position: fixed;
-  top: 5rem;
-  left: 10rem;
+  top: 6rem;
+  left: 8rem;
   width: 7rem;
   height: 7rem;
 
@@ -35,8 +33,8 @@ const SidebarButtonWrapper = styled.button`
   border-radius: 1rem;
   background: transparent;
   transition:
-    background 0.4s ease,
-    transform 0.4s ${TRANSITION_EASING};
+    background var(--transition-default),
+    transform var(--transition-bounce);
   transform: rotate(45deg);
 
   &[data-is-active='true'] {

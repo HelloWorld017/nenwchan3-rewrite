@@ -1,0 +1,32 @@
+<svg width="1em" height="1em" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M256 76C192 76 76 192 76 256C76 320 192 436 256 436C320 436 436 320 436 256C436 192 320 76 256 76Z" fill="url(#frag_light_0)"/>
+  <path d="M162.186 388.696L268 320.632L96.2832 198.958C83.7231 219.51 76 239.486 76 256C76 293.638 116.118 349.259 162.186 388.696Z" fill="url(#frag_light_1)" opacity="0.3" />
+  <path d="M356.499 382.822L268 320.632L426.21 218.453C432.435 231.963 436 244.781 436 256C436 291.804 399.695 343.884 356.499 382.822Z" fill="url(#frag_light_2)" opacity="0.3" />
+  <path d="M268 320.632L162.186 388.696C194.452 416.318 229.638 436 256 436C284.196 436 322.484 413.486 356.499 382.822L268 320.632Z" fill="url(#frag_light_3)" opacity="0.3" />
+  <path d="M263.879 289.792C259.88 284.969 252.482 284.969 248.483 289.792L233.58 307.766C230.209 311.832 224.256 312.575 219.989 309.462L219.059 308.784C214.869 305.727 213.711 299.974 216.392 295.534L228.445 275.58C231.61 270.34 229.366 263.513 223.711 261.171L203.752 252.907C198.843 250.874 196.381 245.359 198.144 240.348L198.504 239.327C200.213 234.471 205.33 231.705 210.328 232.937L231.392 238.126C237.369 239.598 243.245 235.372 243.75 229.237L245.65 206.179C246.078 200.992 250.412 197 255.616 197H256.752C261.954 197 266.287 200.988 266.718 206.172L268.613 228.981C269.119 235.079 274.936 239.296 280.889 237.882L301.934 232.883C306.977 231.685 312.1 234.539 313.735 239.458L314.064 240.45C315.719 245.428 313.246 250.837 308.4 252.844L288.366 261.139C282.684 263.492 280.452 270.367 283.668 275.608L295.881 295.513C298.608 299.957 297.463 305.75 293.251 308.822L292.373 309.462C288.106 312.575 282.153 311.832 278.782 307.766L263.879 289.792Z" fill="#ffffff"/>
+
+  <defs>
+    <linearGradient id="frag_light_0" x1="256" y1="76" x2="256" y2="488.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9EAAE8"/>
+      <stop offset="1" stop-color="#92D9D5"/>
+    </linearGradient>
+
+    <linearGradient id="frag_light_1" x1="256" y1="76" x2="256" y2="488.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#CEC6E8"/>
+      <stop offset="1" stop-color="#CED9D5"/>
+    </linearGradient>
+
+    <linearGradient id="frag_light_2" x1="256" y1="76" x2="256" y2="488.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D6D6E8"/>
+      <stop offset="0.936170" stop-color="#D6D6D6"/>
+      <stop offset="0.947368" stop-color="#D6D7D6"/>
+      <stop offset="1" stop-color="#D6D9D6"/>
+    </linearGradient>
+
+    <linearGradient id="frag_light_3" x1="256" y1="76" x2="256" y2="488.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E5E5E8"/>
+      <stop offset="0.157895" stop-color="#E5E5E5"/>
+      <stop offset="1" stop-color="#E5E5E5"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,6 +1,9 @@
 import { resolve } from 'node:path';
+import simplei18n from '@simplei18n/core/vite';
 import react from '@vitejs/plugin-react';
+import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => ({
   define: {
@@ -8,13 +11,8 @@ export default defineConfig(({ mode }) => ({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(__dirname, 'app'),
     },
   },
-  server: {
-    watch: {
-      ignored: [resolve(__dirname, 'docs/**')],
-    },
-  },
-  plugins: [react(), tailwindcss()],
+  plugins: [svgr(), wyw(), react(), simplei18n()],
 }));

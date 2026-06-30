@@ -1,4 +1,4 @@
-import { ReactComponent as IconArrowRight } from '@/components/images/IconArrowRight.svg';
+import IconArrowRight from '@/assets/icons/IconArrowRight.svg?react';
 import { styled } from '@linaria/react';
 import type { ReactNode } from 'react';
 
@@ -44,16 +44,18 @@ const SidebarItemTitle = styled.span`
   font-weight: 500;
   font-size: 2.4rem;
   color: var(--grey-900);
-  padding: 0.3rem 1rem;
+  padding: 1rem 1rem 0;
   padding-right: 1.4rem;
-  transition: background 0.4s ease;
+  transition: background var(--transition-default);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 `;
 
 const SidebarItemIcon = styled(IconArrowRight)`
   display: inline-block;
   font-size: 1.6rem;
   margin-left: 0.8rem;
-  transition: transform 0.4s ease;
+  transition: transform var(--transition-default);
 `;
 
 const SidebarItemDescription = styled.span`
@@ -61,19 +63,22 @@ const SidebarItemDescription = styled.span`
   font-weight: 300;
   font-size: 1.8rem;
   color: var(--grey-900);
-  margin-top: 0.4rem;
-  padding: 0.3rem 1rem;
-  transition: background 0.4s ease;
+  padding: 1rem 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  transition: background var(--transition-default);
 `;
 
 const SidebarItemWrapper = styled.a`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-decoration: none;
   margin: 0 -1rem;
-  margin-top: 3rem;
-  transition: transform 0.4s ease;
+  margin-top: 2rem;
+  transition: transform var(--transition-default);
 
   &:hover {
     transform: translate(1rem);
@@ -94,15 +99,13 @@ type SidebarItemProps = {
   href: string;
 };
 
-export const SidebarItem = ({ title, children, href }: SidebarItemProps) => 
-  (
-    <SidebarItemWrapper href={href}>
-      <SidebarItemTitle>
-        {title}
+export const SidebarItem = ({ title, children, href }: SidebarItemProps) => (
+  <SidebarItemWrapper href={href}>
+    <SidebarItemTitle>
+      {title}
 
-        <SidebarItemIcon />
-      </SidebarItemTitle>
-      <SidebarItemDescription>{children}</SidebarItemDescription>
-    </SidebarItemWrapper>
-  )
-;
+      <SidebarItemIcon />
+    </SidebarItemTitle>
+    <SidebarItemDescription>{children}</SidebarItemDescription>
+  </SidebarItemWrapper>
+);
