@@ -2,6 +2,7 @@ import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t, useI18n } from '@simplei18n/core/react';
 import { useCallback, useState } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
 
@@ -120,3 +121,5 @@ export const Sidebar = () => {
     </>
   );
 };
+
+addToFonts(<Sidebar />);

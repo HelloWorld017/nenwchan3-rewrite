@@ -3,6 +3,7 @@ import { Container } from '@/fragments/_components/Container';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
+import { addToFonts } from 'virtual:fontsubsetter';
 import type { ReactNode } from 'react';
 
 defineI18n(
@@ -165,3 +166,5 @@ export const Introduction = () => (
     </IntroductionWrapper>
   </Container>
 );
+
+addToFonts(<Introduction />);

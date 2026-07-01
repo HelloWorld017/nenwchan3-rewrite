@@ -89,11 +89,7 @@ export const collectFontChars = (
     }
 
     const style = window.getComputedStyle(parent);
-    const fontFamily = expandFontVariables(
-      config,
-      style.fontFamily || 'var(--font-sans)',
-      development,
-    );
+    const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif', development);
 
     for (const family of splitFontFamily(fontFamily)) {
       const target = chars.get(fromGeneratedFontFamily(family));

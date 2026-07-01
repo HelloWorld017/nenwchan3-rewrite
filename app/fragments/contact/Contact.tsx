@@ -6,7 +6,8 @@ import { hoverStyle } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
-import { ReactNode } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
+import type { ReactNode } from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -92,3 +93,5 @@ export const Contact = () => (
     </Container>
   </section>
 );
+
+addToFonts(<Contact />);

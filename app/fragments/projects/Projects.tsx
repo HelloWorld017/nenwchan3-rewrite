@@ -11,6 +11,7 @@ import { hoverStyle } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
+import { addToFonts } from 'virtual:fontsubsetter';
 import { SectionTitle } from '../_components/SectionTitle';
 import type { ReactNode } from 'react';
 
@@ -242,3 +243,5 @@ export const Projects = () => (
     </Container>
   </section>
 );
+
+addToFonts(<Projects />);

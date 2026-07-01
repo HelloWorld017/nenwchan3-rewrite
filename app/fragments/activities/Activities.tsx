@@ -8,7 +8,8 @@ import { formatDateYearMonth } from '@/utils/format/formatDate';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
-import { ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
 
 defineI18n(
   yaml => yaml`
@@ -141,7 +142,7 @@ type ActivityItemProps = {
   title: ReactNode;
   description: ReactNode;
   date: { startAt: string; endAt: string | null };
-  children: { icon: ReactNode; team?: ReactNode; role: ReactNode }[];
+  children: { key: string; icon: ReactNode; team?: ReactNode; role: ReactNode }[];
 };
 
 const ActivityItem = ({ icon, title, description, date, children }: ActivityItemProps) => {
@@ -162,7 +163,7 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
       </ActivityItemDate>
       <ActivityItemRoles>
         {children.map(role => (
-          <ActivityRole title={role.role} team={role.team} icon={role.icon} />
+          <ActivityRole key={role.key} title={role.role} team={role.team} icon={role.icon} />
         ))}
       </ActivityItemRoles>
     </ActivityItemWrapper>
@@ -195,6 +196,7 @@ export const Activities = () => (
       >
         {[
           {
+            key: 'web',
             icon: <IconCodeXml />,
             team: <t._>{t.activities.team.ridi.web}</t._>,
             role: <t._>{t.activities.role.frontend_engineer}</t._>,
@@ -208,16 +210,19 @@ export const Activities = () => (
         date={{ startAt: '2019-09', endAt: null }}
       >
         {{
+          key: 'newara',
           icon: <IconCodeXml />,
           team: <t._>{t.activities.team.sparcs.newara}</t._>,
           role: <t._>{t.activities.role.frontend_lead}</t._>,
         }}
         {{
+          key: 'geoul',
           icon: <IconServer />,
           team: <t._>{t.activities.team.sparcs.geoul}</t._>,
           role: <t._>{t.activities.role.team_lead}</t._>,
         }}
         {{
+          key: 'wheel',
           icon: <IconServer />,
           team: <t._>{t.activities.team.sparcs.wheel}</t._>,
           role: <t._>{t.activities.role.team_lead}</t._>,
@@ -231,6 +236,7 @@ export const Activities = () => (
       >
         {[
           {
+            key: 'default',
             icon: <IconCodeXml />,
             role: <t._>{t.activities.role.fullstack_developer}</t._>,
           },
@@ -239,3 +245,5 @@ export const Activities = () => (
     </ActivityList>
   </section>
 );
+
+addToFonts(<Activities />);

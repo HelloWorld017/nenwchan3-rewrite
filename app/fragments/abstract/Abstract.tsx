@@ -6,6 +6,7 @@ import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
+import { addToFonts } from 'virtual:fontsubsetter';
 
 defineI18n(
   yaml => yaml`
@@ -175,3 +176,5 @@ export const Abstract = () => (
     </Container>
   </AbstractWrapper>
 );
+
+addToFonts(<Abstract />);

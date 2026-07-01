@@ -4,7 +4,8 @@ import { formatDateYearMonth } from '@/utils/format/formatDate';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
-import { ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
 
 defineI18n(
   yaml => yaml`
@@ -109,3 +110,5 @@ export const Education = () => (
     </EducationList>
   </section>
 );
+
+addToFonts(<Education />);
