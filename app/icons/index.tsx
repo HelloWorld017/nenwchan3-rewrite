@@ -3,6 +3,7 @@ import {
   BookTextIcon,
   CodeXmlIcon,
   GhostIcon,
+  MailIcon,
   MoonStarIcon,
   ServerIcon,
   SnowflakeIcon,
@@ -24,6 +25,7 @@ export const IconAudioWaveform = wrapLucideComponent(AudioWaveformIcon);
 export const IconBookText = wrapLucideComponent(BookTextIcon);
 export const IconCodeXml = wrapLucideComponent(CodeXmlIcon);
 export const IconGhost = wrapLucideComponent(GhostIcon);
+export const IconMail = wrapLucideComponent(MailIcon);
 export const IconMoonStar = wrapLucideComponent(MoonStarIcon);
 export const IconServer = wrapLucideComponent(ServerIcon);
 export const IconSnowflake = wrapLucideComponent(SnowflakeIcon);

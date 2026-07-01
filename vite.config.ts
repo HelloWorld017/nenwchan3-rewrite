@@ -14,5 +14,14 @@ export default defineConfig(({ mode }) => ({
       '@': resolve(__dirname, 'app'),
     },
   },
-  plugins: [svgr(), wyw(), react(), simplei18n()],
+  plugins: [
+    svgr(),
+    wyw({
+      eval: {
+        strategy: 'static',
+      },
+    }),
+    react(),
+    simplei18n()
+  ],
 }));

@@ -24,7 +24,7 @@ defineI18n(
     role:
       frontend_engineer: '프론트엔드 엔지니어'
       frontend_lead: '프론트엔드 리드'
-      fullstack_engineer: '풀스택 엔지니어'
+      fullstack_developer: '풀스택 개발자'
       team_lead: '팀장'
 
     team:
@@ -40,18 +40,21 @@ const ActivityRoleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-height: 12rem;
   flex: 1;
 
   background: var(--bluegrey-900);
   border-radius: 2rem;
   color: var(--bluegrey-600);
   padding: 1.6rem 2.8rem;
+  padding-right: 3.6rem;
 `;
 
 const ActivityRoleIcon = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 2.8rem;
+  flex: 1;
   margin-bottom: 1.2rem;
 `;
 
@@ -67,6 +70,7 @@ const ActivityRoleTeam = styled.span`
   font-size: 1.4rem;
   line-height: 1.8rem;
   white-space: nowrap;
+  margin-bottom: 0.2rem;
 `;
 
 type ActivityRoleProps = {
@@ -105,6 +109,10 @@ const ActivityItemTitle = styled.b`
   margin-top: 3.2rem;
 `;
 
+const ActivityItemTitleLight = styled.span`
+  font-weight: 300;
+`;
+
 const ActivityItemDescription = styled.span`
   color: var(--grey-300);
   font-size: 2.4rem;
@@ -117,11 +125,13 @@ const ActivityItemDate = styled.span`
   color: var(--grey-600);
   font-size: 1.8rem;
   line-height: 2.2rem;
+  margin-top: 0.2rem;
+  letter-spacing: -0.02em;
 `;
 
 const ActivityItemRoles = styled.div`
   display: flex;
-  gap: 1.8rem;
+  gap: 0.8rem;
   align-self: stretch;
   margin-top: 3.6rem;
 `;
@@ -147,7 +157,7 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
         <time dateTime={startDate.toUTCString()}>
           {formatDateYearMonth(startDate)}
         </time>
-        ~
+        {' ~ '}
         {endDate && (
           <time dateTime={new Date(endDate).toUTCString()}>
             {formatDateYearMonth(endDate)}
@@ -163,14 +173,14 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
   );
 };
 
-const ActivityListWrapper = styled.div`
+const ActivityListWrapper = styled.ul`
   display: flex;
   gap: 8rem;
   margin-top: 4.8rem;
 `;
 
 const ActivityList = ({ children }: { children: ReactNode[] }) => (
-  <Container wide>
+  <Container>
     <ActivityListWrapper>
       {children}
     </ActivityListWrapper>
@@ -179,7 +189,7 @@ const ActivityList = ({ children }: { children: ReactNode[] }) => (
 
 export const Activities = () => (
   <section>
-    <Container wide>
+    <Container>
       <SectionTitle>Activities</SectionTitle>
     </Container>
     <ActivityList>
@@ -218,6 +228,19 @@ export const Activities = () => (
           team: <t._>{t.activities.team.sparcs.wheel}</t._>,
           role: <t._>{t.activities.role.team_lead}</t._>
         }}
+      </ActivityItem>
+      <ActivityItem
+        icon={<EmojiAirplane />}
+        title={<t._ $tags={{ Light: ActivityItemTitleLight }}>{t.activities.org.ifteam}</t._>}
+        description={<t._>{t.activities.org.ifteam.description}</t._>}
+        date={{ startAt: '2015-08', endAt: null }}
+      >
+        {[
+          {
+            icon: <IconCodeXml />,
+            role: <t._>{t.activities.role.fullstack_developer}</t._>
+          }
+        ]}
       </ActivityItem>
     </ActivityList>
   </section>

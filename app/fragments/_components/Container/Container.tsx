@@ -1,7 +1,7 @@
 import { styled } from '@linaria/react';
 
-export const Container = styled.div<{ wide?: boolean }>`
-  max-width: ${({ wide }) => wide ? 1540 : 1170}px;
+export const Container = styled.div`
+  max-width: 1540px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 30px;

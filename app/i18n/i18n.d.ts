@@ -46,8 +46,8 @@ declare module '@simplei18n/core' {
         frontend_engineer: TranslationDescriptor<never, never>;
         /** 프론트엔드 리드 */
         frontend_lead: TranslationDescriptor<never, never>;
-        /** 풀스택 엔지니어 */
-        fullstack_engineer: TranslationDescriptor<never, never>;
+        /** 풀스택 개발자 */
+        fullstack_developer: TranslationDescriptor<never, never>;
         /** 팀장 */
         team_lead: TranslationDescriptor<never, never>;
       };
@@ -64,6 +64,22 @@ declare module '@simplei18n/core' {
           /** 서버 관리팀 */
           wheel: TranslationDescriptor<never, never>;
         };
+      };
+    };
+    contact: {
+      /** 저에게 개인적으로 연락하시고 싶으신 분께서는 다음과 같은 방법으로 연락하실 수 있습니다.<br /> 궁금하신 사항 등이 있으시다면 부담없이 연락주시면 감사하겠습니다!  */
+      description: TranslationDescriptor<never, "br">;
+    };
+    education: {
+      /** 대덕고등학교 */
+      daedeok: TranslationDescriptor<never, never> & {
+        /** 과학중점과정 */
+        major: TranslationDescriptor<never, never>;
+      };
+      /** 한국과학기술원 */
+      kaist: TranslationDescriptor<never, never> & {
+        /** 전산학부 */
+        major: TranslationDescriptor<never, never>;
       };
     };
     introduction: {

@@ -1,6 +1,6 @@
 import { css } from '@linaria/core';
 
-export const globalStyles = css`
+export const globalStyle = css`
   :global() {
     *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
       all: unset;
@@ -18,8 +18,8 @@ export const globalStyles = css`
     }
 
     :root {
-      --font-sans: 'Pretendard', sans-serif;
-      --font-letter: 'RIDIBatang', 'Pretendard', serif;
+      --font-sans: 'Pretendard JP', sans-serif;
+      --font-letter: 'RIDIBatang', 'Pretendard JP', serif;
       --font-display: 'Metropolis', 'Pretendard', sans-serif;
       --font-code: 'Iosevka', 'Pretendard', monospace;
 
@@ -57,3 +57,11 @@ export const globalStyles = css`
     }
   }
 `;
+
+export const hoverStyle = {
+  transition: 'opacity var(--transition-default)',
+
+  '&:hover': {
+    opacity: 0.7,
+  }
+};

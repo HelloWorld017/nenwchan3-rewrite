@@ -16,12 +16,19 @@ activities.org.ifteam: if-Team, <Light>Organic</Light>
 activities.org.ifteam.description: 청소년 개발팀
 activities.role.frontend_engineer: 프론트엔드 엔지니어
 activities.role.frontend_lead: 프론트엔드 리드
-activities.role.fullstack_engineer: 풀스택 엔지니어
+activities.role.fullstack_developer: 풀스택 개발자
 activities.role.team_lead: 팀장
 activities.team.ridi.web: 웹팀
 activities.team.sparcs.newara: 교내 커뮤니티 개발팀
 activities.team.sparcs.geoul: 카이스트 미러팀
 activities.team.sparcs.wheel: 서버 관리팀
+contact.description: |
+  저에게 개인적으로 연락하시고 싶으신 분께서는 다음과 같은 방법으로 연락하실 수 있습니다.<br />
+  궁금하신 사항 등이 있으시다면 부담없이 연락주시면 감사하겠습니다!
+education.daedeok: 대덕고등학교
+education.daedeok.major: 과학중점과정
+education.kaist: 한국과학기술원
+education.kaist.major: 전산학부
 introduction.developer.description: |
   저는 개발에 관심과 열정이 많은 개발자입니다.
   <b>프론트엔드 / 백엔드 개발</b>부터 <b>게임 개발, 머신러닝, 데브옵스, 프로그래밍 언어</b>

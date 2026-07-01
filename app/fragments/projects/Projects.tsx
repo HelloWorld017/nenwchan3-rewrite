@@ -12,6 +12,7 @@ import { SectionTitle } from '../_components/SectionTitle';
 import type { ReactNode } from 'react';
 import {defineI18n} from '@simplei18n/core';
 import {t} from '@simplei18n/core/react';
+import {hoverStyle} from '@/styles';
 
 const GRID_STEP = 4;
 
@@ -62,12 +63,12 @@ const ProjectItemContents = styled.a`
 
   cursor: pointer;
   transition: opacity var(--transition-default);
-  &:hover {
-    opacity: 0.8;
-  }
+
+  ${hoverStyle};
 `;
 
 const ProjectItemIcon = styled.div`
+  color: var(--bluegrey-100);
   display: flex;
   align-items: center;
   font-size: 4rem;
@@ -88,6 +89,7 @@ const ProjectItemTitle = styled.b`
 `;
 
 const ProjectItemDescription = styled.span`
+  color: var(--bluegrey-100);
   font-size: 1.8rem;
   line-height: 2.2rem;
   letter-spacing: -0.02em;
@@ -154,9 +156,11 @@ const ProjectDescription = styled.p`
 `;
 
 const ProjectDescriptionLinkInner = styled.a`
+  cursor: pointer;
   position: relative;
   color: var(--bluegrey-100);
   font-weight: 700;
+  transition: opacity var(--transition-default);
 
   &::before {
     content: '';
@@ -174,6 +178,8 @@ const ProjectDescriptionLinkInner = styled.a`
   &::after {
     content: '↗';
   }
+
+  ${hoverStyle};
 `;
 
 const ProjectDescriptionLink = ({ children }: { children?: ReactNode }) => (
@@ -184,7 +190,7 @@ const ProjectDescriptionLink = ({ children }: { children?: ReactNode }) => (
 
 export const Projects = () => (
   <section>
-    <Container wide>
+    <Container>
       <SectionTitle>Projects</SectionTitle>
       <ProjectDescription>
         <t._ $tags={{ br: 'br', Link: ProjectDescriptionLink }}>
@@ -193,7 +199,7 @@ export const Projects = () => (
       </ProjectDescription>
     </Container>
 
-    <Container wide>
+    <Container>
       <ProjectsColumns>
         <ProjectItem
           icon={<IconSnowflake />}

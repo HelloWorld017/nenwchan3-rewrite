@@ -4,12 +4,15 @@ import { Abstract } from './abstract';
 import { Introduction } from './introduction';
 import {Projects} from './projects';
 import {Activities} from './activities';
+import { Education } from './education';
+import {Contact} from './contact';
 
 const SectionList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15rem;
   padding-top: 15rem;
+  padding-bottom: 15rem;
 `;
 
 const PageContents = () => (
@@ -19,6 +22,8 @@ const PageContents = () => (
     <SectionList>
       <Projects />
       <Activities />
+      <Education />
+      <Contact />
     </SectionList>
     <Sidebar />
   </>
