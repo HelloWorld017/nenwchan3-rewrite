@@ -1,0 +1,107 @@
+import { Window } from 'happy-dom';
+import { createElement, Fragment } from 'react';
+import { renderToString } from 'react-dom/server';
+import {
+  buildFontVariableCss,
+  expandFontVariables,
+  fromGeneratedFontFamily,
+  splitFontFamily,
+} from './css';
+import type { CollectedFontChars, FontSubsetterItem, NormalizedFontSubsetterConfig } from './types';
+
+const addText = (target: Set<string>, text: string): void => {
+  for (const char of Array.from(text)) {
+    if (char.charCodeAt(0) >= 0x20 || char === '\n' || char === '\t') {
+      target.add(char);
+    }
+  }
+};
+
+type HappyDomNode = {
+  nodeType: number;
+  childNodes: Iterable<HappyDomNode>;
+  textContent?: string | null;
+  parentElement?: unknown;
+};
+
+const walkTextNodes = (node: HappyDomNode, callback: (textNode: HappyDomNode) => void): void => {
+  if (node.nodeType === 3) {
+    callback(node);
+    return;
+  }
+
+  for (const child of Array.from(node.childNodes)) {
+    walkTextNodes(child, callback);
+  }
+};
+
+export const collectFontChars = (
+  config: NormalizedFontSubsetterConfig,
+  items: readonly FontSubsetterItem[],
+  cssText: string,
+  development: boolean,
+): CollectedFontChars => {
+  const children = items.map((item, index) => {
+    if (!item.override) {
+      return createElement(Fragment, { key: index }, item.node);
+    }
+
+    return createElement(
+      'span',
+      {
+        key: index,
+        style: {
+          fontFamily: item.override.fontFamily,
+          fontWeight: item.override.fontWeight,
+          fontStyle: item.override.fontStyle,
+        },
+      },
+      item.node,
+    );
+  });
+
+  const node = config.frame
+    ? createElement(config.frame, undefined, ...children)
+    : createElement(Fragment, undefined, ...children);
+  const html = renderToString(node);
+  const window = new Window() as unknown as {
+    document: { write: (html: string) => void; body: HappyDomNode };
+    getComputedStyle: (element: unknown) => { fontFamily: string };
+  };
+  const document = window.document;
+  document.write(
+    `<!doctype html><html><head><style>${buildFontVariableCss(config, development)}</style><style>${cssText}</style></head><body>${html}</body></html>`,
+  );
+
+  const chars: CollectedFontChars = new Map(
+    Object.keys(config.fontFaces).map(faceName => [faceName, new Set<string>()]),
+  );
+
+  walkTextNodes(document.body, textNode => {
+    const text = textNode.textContent ?? '';
+    if (!text) {
+      return;
+    }
+
+    const parent = textNode.parentElement;
+    if (!parent) {
+      return;
+    }
+
+    const style = window.getComputedStyle(parent);
+    const fontFamily = expandFontVariables(
+      config,
+      style.fontFamily || 'var(--font-sans)',
+      development,
+    );
+
+    for (const family of splitFontFamily(fontFamily)) {
+      const target = chars.get(fromGeneratedFontFamily(family));
+      if (target) {
+        addText(target, text);
+      }
+    }
+  });
+
+  return chars;
+};

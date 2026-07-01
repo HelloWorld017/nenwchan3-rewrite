@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import fontsubsetter from './build/fontsubsetter';
 
 export default defineConfig(({ mode }) => ({
   define: {
@@ -23,5 +24,6 @@ export default defineConfig(({ mode }) => ({
     }),
     react(),
     simplei18n(),
+    fontsubsetter(),
   ],
 }));
