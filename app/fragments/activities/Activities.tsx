@@ -1,14 +1,14 @@
-import {formatDateYearMonth} from "@/utils/format/formatDate";
-import {styled} from "@linaria/react";
-import {defineI18n} from "@simplei18n/core";
-import {ReactNode, useMemo} from "react";
-import {Container} from "@/fragments/_components/Container";
-import {SectionTitle} from "@/fragments/_components/SectionTitle";
 import EmojiAirplane from '@/assets/icons/EmojiAirplane.svg?react';
 import EmojiBlueBook from '@/assets/icons/EmojiBlueBook.svg?react';
 import EmojiHighVoltage from '@/assets/icons/EmojiHighVoltage.svg?react';
-import {t} from "@simplei18n/core/react";
-import {IconCodeXml, IconServer} from "@/icons";
+import { Container } from '@/fragments/_components/Container';
+import { SectionTitle } from '@/fragments/_components/SectionTitle';
+import { IconCodeXml, IconServer } from '@/icons';
+import { formatDateYearMonth } from '@/utils/format/formatDate';
+import { styled } from '@linaria/react';
+import { defineI18n } from '@simplei18n/core';
+import { t } from '@simplei18n/core/react';
+import { ReactNode, useMemo } from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -140,8 +140,8 @@ type ActivityItemProps = {
   icon: ReactNode;
   title: ReactNode;
   description: ReactNode;
-  date: { startAt: string, endAt: string | null };
-  children: { icon: ReactNode, team?: ReactNode, role: ReactNode }[];
+  date: { startAt: string; endAt: string | null };
+  children: { icon: ReactNode; team?: ReactNode; role: ReactNode }[];
 };
 
 const ActivityItem = ({ icon, title, description, date, children }: ActivityItemProps) => {
@@ -154,14 +154,10 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
       <ActivityItemTitle>{title}</ActivityItemTitle>
       <ActivityItemDescription>{description}</ActivityItemDescription>
       <ActivityItemDate>
-        <time dateTime={startDate.toUTCString()}>
-          {formatDateYearMonth(startDate)}
-        </time>
+        <time dateTime={startDate.toUTCString()}>{formatDateYearMonth(startDate)}</time>
         {' ~ '}
         {endDate && (
-          <time dateTime={new Date(endDate).toUTCString()}>
-            {formatDateYearMonth(endDate)}
-          </time>
+          <time dateTime={new Date(endDate).toUTCString()}>{formatDateYearMonth(endDate)}</time>
         )}
       </ActivityItemDate>
       <ActivityItemRoles>
@@ -181,9 +177,7 @@ const ActivityListWrapper = styled.ul`
 
 const ActivityList = ({ children }: { children: ReactNode[] }) => (
   <Container>
-    <ActivityListWrapper>
-      {children}
-    </ActivityListWrapper>
+    <ActivityListWrapper>{children}</ActivityListWrapper>
   </Container>
 );
 
@@ -203,8 +197,8 @@ export const Activities = () => (
           {
             icon: <IconCodeXml />,
             team: <t._>{t.activities.team.ridi.web}</t._>,
-            role: <t._>{t.activities.role.frontend_engineer}</t._>
-          }
+            role: <t._>{t.activities.role.frontend_engineer}</t._>,
+          },
         ]}
       </ActivityItem>
       <ActivityItem
@@ -216,17 +210,17 @@ export const Activities = () => (
         {{
           icon: <IconCodeXml />,
           team: <t._>{t.activities.team.sparcs.newara}</t._>,
-          role: <t._>{t.activities.role.frontend_lead}</t._>
+          role: <t._>{t.activities.role.frontend_lead}</t._>,
         }}
         {{
           icon: <IconServer />,
           team: <t._>{t.activities.team.sparcs.geoul}</t._>,
-          role: <t._>{t.activities.role.team_lead}</t._>
+          role: <t._>{t.activities.role.team_lead}</t._>,
         }}
         {{
           icon: <IconServer />,
           team: <t._>{t.activities.team.sparcs.wheel}</t._>,
-          role: <t._>{t.activities.role.team_lead}</t._>
+          role: <t._>{t.activities.role.team_lead}</t._>,
         }}
       </ActivityItem>
       <ActivityItem
@@ -238,8 +232,8 @@ export const Activities = () => (
         {[
           {
             icon: <IconCodeXml />,
-            role: <t._>{t.activities.role.fullstack_developer}</t._>
-          }
+            role: <t._>{t.activities.role.fullstack_developer}</t._>,
+          },
         ]}
       </ActivityItem>
     </ActivityList>

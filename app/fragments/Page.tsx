@@ -1,11 +1,11 @@
-import {styled} from '@linaria/react';
+import { styled } from '@linaria/react';
 import { Sidebar } from './_components/Sidebar';
 import { Abstract } from './abstract';
-import { Introduction } from './introduction';
-import {Projects} from './projects';
-import {Activities} from './activities';
+import { Activities } from './activities';
+import { Contact } from './contact';
 import { Education } from './education';
-import {Contact} from './contact';
+import { Introduction } from './introduction';
+import { Projects } from './projects';
 
 const SectionList = styled.div`
   display: flex;

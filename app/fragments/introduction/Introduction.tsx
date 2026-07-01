@@ -6,7 +6,7 @@ import { t } from '@simplei18n/core/react';
 import type { ReactNode } from 'react';
 
 defineI18n(
-  (yaml) => yaml`
+  yaml => yaml`
     # scope: introduction
     developer:
       description: |
@@ -159,7 +159,7 @@ const IntroductionWrapper = styled.section`
 
 export const Introduction = () => (
   <Container>
-    <IntroductionWrapper id='Introduction'>
+    <IntroductionWrapper id="Introduction">
       <Developer />
       <Enthusiast />
     </IntroductionWrapper>

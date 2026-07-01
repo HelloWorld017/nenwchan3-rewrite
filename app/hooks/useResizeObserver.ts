@@ -6,7 +6,7 @@ export const useResizeObserver = (callback: (entry: ResizeObserverEntry) => void
   const callbackRef = useLatestRef(callback);
   const ref: RefCallback<HTMLElement> = useCallback(
     (node: HTMLElement | null) => {
-      const observer = new ResizeObserver((entries) => {
+      const observer = new ResizeObserver(entries => {
         if (!entries || entries.length === 0) {
           return;
         }

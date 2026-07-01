@@ -6,7 +6,7 @@ import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
 
 defineI18n(
-  (yaml) => yaml`
+  yaml => yaml`
     # scope: sidebar
     header: 'nenw.dev'
     description: '2026 Redesigned'
@@ -101,16 +101,16 @@ export const Sidebar = () => {
         <SidebarBackdrop onClick={onClose} />
         <SidebarContainer onTransitionEnd={onTransitionEnd}>
           <SidebarBranding header={ts(t.sidebar.header)} description={ts(t.sidebar.description)} />
-          <SidebarItem title={ts(t.sidebar.blog.title)} href='https://blog.nenw.dev'>
+          <SidebarItem title={ts(t.sidebar.blog.title)} href="https://blog.nenw.dev">
             <t._>{t.sidebar.blog.description}</t._>
           </SidebarItem>
-          <SidebarItem title={ts(t.sidebar.email.title)} href='mailto:khi@nenw.dev'>
+          <SidebarItem title={ts(t.sidebar.email.title)} href="mailto:khi@nenw.dev">
             <t._>{t.sidebar.email.description}</t._>
           </SidebarItem>
-          <SidebarItem title={ts(t.sidebar.misskey.title)} href='https://social.nenw.dev/@nenw'>
+          <SidebarItem title={ts(t.sidebar.misskey.title)} href="https://social.nenw.dev/@nenw">
             <t._>{t.sidebar.misskey.description}</t._>
           </SidebarItem>
-          <SidebarItem title={ts(t.sidebar.github.title)} href='https://github.com/HelloWorld017'>
+          <SidebarItem title={ts(t.sidebar.github.title)} href="https://github.com/HelloWorld017">
             <t._>{t.sidebar.github.description}</t._>
           </SidebarItem>
         </SidebarContainer>

@@ -1,10 +1,10 @@
-import {Container} from "@/fragments/_components/Container";
-import {SectionTitle} from "@/fragments/_components/SectionTitle";
-import {formatDateYearMonth} from "@/utils/format/formatDate";
-import {styled} from "@linaria/react";
-import {defineI18n} from "@simplei18n/core";
-import {t} from "@simplei18n/core/react";
-import {ReactNode, useMemo} from "react";
+import { Container } from '@/fragments/_components/Container';
+import { SectionTitle } from '@/fragments/_components/SectionTitle';
+import { formatDateYearMonth } from '@/utils/format/formatDate';
+import { styled } from '@linaria/react';
+import { defineI18n } from '@simplei18n/core';
+import { t } from '@simplei18n/core/react';
+import { ReactNode, useMemo } from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -13,7 +13,7 @@ defineI18n(
     daedeok.major: '과학중점과정'
     kaist: '한국과학기술원'
     kaist.major: '전산학부'
-  `
+  `,
 );
 
 const EducationItemWrapper = styled.li`
@@ -56,7 +56,7 @@ const EducationItemDate = styled.span`
 type EducationItemProps = {
   title: ReactNode;
   description: ReactNode;
-  date: { startAt: string, endAt: string | null };
+  date: { startAt: string; endAt: string | null };
 };
 
 const EducationItem = ({ title, description, date }: EducationItemProps) => {
@@ -68,14 +68,10 @@ const EducationItem = ({ title, description, date }: EducationItemProps) => {
       <EducationItemTitle>{title}</EducationItemTitle>
       <EducationItemDescription>{description}</EducationItemDescription>
       <EducationItemDate>
-        <time dateTime={startDate.toUTCString()}>
-          {formatDateYearMonth(startDate)}
-        </time>
+        <time dateTime={startDate.toUTCString()}>{formatDateYearMonth(startDate)}</time>
         {' ~ '}
         {endDate && (
-          <time dateTime={new Date(endDate).toUTCString()}>
-            {formatDateYearMonth(endDate)}
-          </time>
+          <time dateTime={new Date(endDate).toUTCString()}>{formatDateYearMonth(endDate)}</time>
         )}
       </EducationItemDate>
     </EducationItemWrapper>
@@ -90,9 +86,7 @@ const EducationListWrapper = styled.ul`
 
 const EducationList = ({ children }: { children: ReactNode[] }) => (
   <Container>
-    <EducationListWrapper>
-      {children}
-    </EducationListWrapper>
+    <EducationListWrapper>{children}</EducationListWrapper>
   </Container>
 );
 

@@ -1,12 +1,12 @@
-import {Container} from "@/fragments/_components/Container";
-import {SectionTitle} from "@/fragments/_components/SectionTitle";
-import {styled} from "@linaria/react";
-import {defineI18n} from "@simplei18n/core";
-import {t} from "@simplei18n/core/react";
-import {ReactNode} from "react";
 import IconGitHub from '@/assets/icons/IconGithub.svg?react';
-import {IconMail} from "@/icons";
-import {hoverStyle} from "@/styles";
+import { Container } from '@/fragments/_components/Container';
+import { SectionTitle } from '@/fragments/_components/SectionTitle';
+import { IconMail } from '@/icons';
+import { hoverStyle } from '@/styles';
+import { styled } from '@linaria/react';
+import { defineI18n } from '@simplei18n/core';
+import { t } from '@simplei18n/core/react';
+import { ReactNode } from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -14,7 +14,7 @@ defineI18n(
     description: |
       저에게 개인적으로 연락하시고 싶으신 분께서는 다음과 같은 방법으로 연락하실 수 있습니다.<br />
       궁금하신 사항 등이 있으시다면 부담없이 연락주시면 감사하겠습니다!
-  `
+  `,
 );
 
 const ContactChipWrapper = styled.a`

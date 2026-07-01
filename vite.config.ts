@@ -22,6 +22,6 @@ export default defineConfig(({ mode }) => ({
       },
     }),
     react(),
-    simplei18n()
+    simplei18n(),
   ],
 }));

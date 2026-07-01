@@ -8,7 +8,7 @@ import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 
 defineI18n(
-  (yaml) => yaml`
+  yaml => yaml`
     #scope: abstract
     profile:
       bio: 'Aviate in Progress'
@@ -78,7 +78,7 @@ const Profile = () => (
   <ProfileWrapper>
     <ProfileColumn>
       <ProfileLogo />
-      <ProfileLogoText aria-label='nenw*' />
+      <ProfileLogoText aria-label="nenw*" />
       <ProfileBio>
         `<t._>{t.abstract.profile.bio}</t._>`
       </ProfileBio>
@@ -163,7 +163,7 @@ const AbstractWrapper = styled.section`
 `;
 
 export const Abstract = () => (
-  <AbstractWrapper id='Abstract'>
+  <AbstractWrapper id="Abstract">
     <Container>
       <Profile />
       <Quote />

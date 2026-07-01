@@ -2,7 +2,7 @@ import { defineConfig } from 'oxfmt';
 
 export default defineConfig({
   singleQuote: true,
-  jsxSingleQuote: true,
+  jsxSingleQuote: false,
   quoteProps: 'consistent',
   useTabs: false,
   tabWidth: 2,
@@ -11,7 +11,7 @@ export default defineConfig({
   printWidth: 100,
   bracketSpacing: true,
   bracketSameLine: false,
-  arrowParens: 'always',
+  arrowParens: 'avoid',
   endOfLine: 'lf',
   insertFinalNewline: true,
 

@@ -9,7 +9,7 @@ export const useSize = () => {
       throttle((entry: ResizeObserverEntry) => {
         const [mainFragment] = entry.borderBoxSize;
         if (mainFragment) {
-          setSize((prevSize) =>
+          setSize(prevSize =>
             prevSize?.width !== mainFragment.inlineSize ||
             prevSize?.height !== mainFragment.blockSize
               ? {

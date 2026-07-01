@@ -1,18 +1,18 @@
-import { Container } from '@/fragments/_components/Container';
 import IconDatabaseSync from '@/assets/icons/IconDatabaseSync.svg?react';
 import IconGitBranchWrench from '@/assets/icons/IconGitBranchWrench.svg?react';
-import ImageKaede from '@/assets/images/kaede.png?url';
 import ImageIrodori from '@/assets/images/irodori.png?url';
+import ImageKaede from '@/assets/images/kaede.png?url';
 import ImageMidnightway from '@/assets/images/midnightway.png?url';
 import ImageToneMarble from '@/assets/images/tone-marble.png?url';
+import { Container } from '@/fragments/_components/Container';
 import { useSize } from '@/hooks/useSize';
 import { IconAudioWaveform, IconBookText, IconGhost, IconMoonStar, IconSnowflake } from '@/icons';
+import { hoverStyle } from '@/styles';
 import { styled } from '@linaria/react';
+import { defineI18n } from '@simplei18n/core';
+import { t } from '@simplei18n/core/react';
 import { SectionTitle } from '../_components/SectionTitle';
 import type { ReactNode } from 'react';
-import {defineI18n} from '@simplei18n/core';
-import {t} from '@simplei18n/core/react';
-import {hoverStyle} from '@/styles';
 
 const GRID_STEP = 4;
 
@@ -36,7 +36,7 @@ const ProjectItemMeasure = styled.div`
   padding-bottom: var(--grid-gap);
   gap: var(--grid-gap);
 
-  &[data-is-measuring="true"] {
+  &[data-is-measuring='true'] {
     top: 0;
     left: 0;
     right: 0;
@@ -116,7 +116,7 @@ export const ProjectItem = ({
   return (
     <ProjectItemWrapper style={{ gridRow: span }}>
       <ProjectItemMeasure ref={ref}>
-        {image && <ProjectItemImage style={{ backgroundImage: `url('${image}')` }} /> }
+        {image && <ProjectItemImage style={{ backgroundImage: `url('${image}')` }} />}
         <ProjectItemContents href={href}>
           <ProjectItemIcon>{icon}</ProjectItemIcon>
           <ProjectItemContentsInner>
@@ -193,9 +193,7 @@ export const Projects = () => (
     <Container>
       <SectionTitle>Projects</SectionTitle>
       <ProjectDescription>
-        <t._ $tags={{ br: 'br', Link: ProjectDescriptionLink }}>
-          {t.projects.description}
-        </t._>
+        <t._ $tags={{ br: 'br', Link: ProjectDescriptionLink }}>{t.projects.description}</t._>
       </ProjectDescription>
     </Container>
 
@@ -203,42 +201,42 @@ export const Projects = () => (
       <ProjectsColumns>
         <ProjectItem
           icon={<IconSnowflake />}
-          title='devices'
-          description='nix-based configurations'
+          title="devices"
+          description="nix-based configurations"
         />
         <ProjectItem
           icon={<IconAudioWaveform />}
-          title='tone-marble'
-          description='an unrealistic instrument'
+          title="tone-marble"
+          description="an unrealistic instrument"
           image={ImageToneMarble}
         />
         <ProjectItem
           icon={<IconDatabaseSync />}
-          title='clxdb'
-          description='serverless synchronization engine'
+          title="clxdb"
+          description="serverless synchronization engine"
         />
         <ProjectItem
           icon={<IconMoonStar />}
-          title='midnightway'
-          description='webkit-based wayland bar and panels'
+          title="midnightway"
+          description="webkit-based wayland bar and panels"
           image={ImageMidnightway}
         />
         <ProjectItem
           icon={<IconGhost />}
-          title='kaede'
-          description='neat ghost theme'
+          title="kaede"
+          description="neat ghost theme"
           image={ImageKaede}
         />
         <ProjectItem
           icon={<IconBookText />}
-          title='irodori'
-          description='local-first diary app'
+          title="irodori"
+          description="local-first diary app"
           image={ImageIrodori}
         />
         <ProjectItem
           icon={<IconGitBranchWrench />}
-          title='kanrinin'
-          description='CI/CD tool for small-scale nixos deployments'
+          title="kanrinin"
+          description="CI/CD tool for small-scale nixos deployments"
         />
       </ProjectsColumns>
     </Container>

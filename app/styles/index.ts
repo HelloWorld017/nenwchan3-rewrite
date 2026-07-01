@@ -20,14 +20,14 @@ export const globalStyle = css`
     :root {
       --font-sans: 'Pretendard JP', sans-serif;
       --font-letter: 'RIDIBatang', 'Pretendard JP', serif;
-      --font-display: 'Metropolis', 'Pretendard', sans-serif;
-      --font-code: 'Iosevka', 'Pretendard', monospace;
+      --font-display: 'Metropolis', 'Pretendard JP', sans-serif;
+      --font-code: 'Iosevka', 'Pretendard JP', monospace;
 
       --shadow-400: 0px 0.5rem 2rem rgba(0, 0, 0, 0.12);
 
-      --transition-default: .4s ease;
-      --transition-container: .6s ease;
-      --transition-bounce: .4s cubic-bezier(0.74,-0.51, 0.46, 1.01);
+      --transition-default: 0.4s ease;
+      --transition-container: 0.6s ease;
+      --transition-bounce: 0.4s cubic-bezier(0.74, -0.51, 0.46, 1.01);
 
       --syntax-scheme-0: #24cbd6;
       --syntax-scheme-1: #4fcf6c;
@@ -59,9 +59,9 @@ export const globalStyle = css`
 `;
 
 export const hoverStyle = {
-  transition: 'opacity var(--transition-default)',
+  'transition': 'opacity var(--transition-default)',
 
   '&:hover': {
     opacity: 0.7,
-  }
+  },
 };

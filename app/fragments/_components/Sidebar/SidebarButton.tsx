@@ -62,7 +62,7 @@ export const SidebarButton = ({ className, onToggle, isOpened }: SidebarButtonPr
     className={className}
     data-is-active={isOpened ? 'true' : 'false'}
     onClick={onToggle}
-    type='button'
+    type="button"
   >
     <SidebarButtonBar direction={-1} />
     <SidebarButtonBar direction={1} />
