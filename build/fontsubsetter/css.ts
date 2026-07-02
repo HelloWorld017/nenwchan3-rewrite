@@ -1,7 +1,6 @@
 import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types';
 
 const fontFamilyPrefix = '__fontsubsetter_';
-const tofuFontFamily = `${fontFamilyPrefix}tofu`;
 
 export const toGeneratedFontFamily = (faceName: string): string => `${fontFamilyPrefix}${faceName}`;
 
@@ -72,18 +71,11 @@ export const splitFontFamily = (fontFamily: string): string[] => {
 export const buildFontStack = (
   config: NormalizedFontSubsetterConfig,
   fontName: string,
-  development: boolean,
 ): string => {
   const stack = config.fonts[fontName] ?? [];
   const values: string[] = [];
-  let insertedTofu = false;
 
   for (const family of stack) {
-    if (development && !insertedTofu && isGenericFamily(family)) {
-      values.push(cssString(tofuFontFamily));
-      insertedTofu = true;
-    }
-
     values.push(
       config.fontFaces[family]
         ? cssString(toGeneratedFontFamily(family))
@@ -93,18 +85,12 @@ export const buildFontStack = (
     );
   }
 
-  if (development && !insertedTofu) {
-    values.push(cssString(tofuFontFamily));
-  }
   return values.join(', ');
 };
 
-export const buildFontVariableCss = (
-  config: NormalizedFontSubsetterConfig,
-  development: boolean,
-): string => {
+export const buildFontVariableCss = (config: NormalizedFontSubsetterConfig): string => {
   const variables = Object.keys(config.fonts)
-    .map(fontName => `  --font-${fontName}: ${buildFontStack(config, fontName, development)};`)
+    .map(fontName => `  --font-${fontName}: ${buildFontStack(config, fontName)};`)
     .join('\n');
 
   return `:root {\n${variables}\n}`;
@@ -113,17 +99,14 @@ export const buildFontVariableCss = (
 export const expandFontVariables = (
   config: NormalizedFontSubsetterConfig,
   fontFamily: string,
-  development: boolean,
 ): string =>
   fontFamily.replace(/var\(\s*--font-([\w-]+)\s*\)/g, (_, fontName: string) =>
-    buildFontStack(config, fontName, development),
+    buildFontStack(config, fontName),
   );
 
 export const buildGeneratedFontCss = ({
   config,
   fontAssets,
-  tofuUrl,
-  development,
 }: GeneratedFontCssInput): string => {
   const fontFacesByName = new Map(fontAssets.map(asset => [asset.faceName, asset]));
   const faces = Object.entries(config.fontFaces)
@@ -147,29 +130,5 @@ export const buildGeneratedFontCss = ({
     })
     .join('\n\n');
 
-  const tofuFace =
-    development && tofuUrl
-      ? [
-          [
-            '@font-face {',
-            `  font-family: ${cssString(tofuFontFamily)};`,
-            `  src: url(${cssString(tofuUrl)}) format("woff");`,
-            '  font-weight: 100 900;',
-            '  font-style: normal;',
-            '  font-display: block;',
-            '}',
-          ].join('\n'),
-          [
-            '@font-face {',
-            `  font-family: ${cssString(tofuFontFamily)};`,
-            `  src: url(${cssString(tofuUrl)}) format("woff");`,
-            '  font-weight: 100 900;',
-            '  font-style: italic;',
-            '  font-display: block;',
-            '}',
-          ].join('\n'),
-        ].join('\n\n')
-      : '';
-
-  return [faces, tofuFace, buildFontVariableCss(config, development)].filter(Boolean).join('\n\n');
+  return [faces, buildFontVariableCss(config)].filter(Boolean).join('\n\n');
 };

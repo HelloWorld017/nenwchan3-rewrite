@@ -58,7 +58,7 @@ export const generateFontSubsetterAssets = async ({
     configDir,
     config,
   });
-  const chars = collectFontChars(config, collected.items, cssText, false, coverage);
+  const chars = collectFontChars(config, collected.items, cssText, coverage);
   const fontAssets = await subsetFonts({
     root,
     configDir,
@@ -80,7 +80,6 @@ export const generateFontSubsetterAssets = async ({
     buildGeneratedFontCss({
       config,
       fontAssets,
-      development: false,
     }),
   );
 

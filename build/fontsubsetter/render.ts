@@ -78,7 +78,6 @@ export const collectFontChars = (
   config: NormalizedFontSubsetterConfig,
   items: readonly FontSubsetterItem[],
   cssText: string,
-  development: boolean,
   coverage: FontCoverage,
 ): CollectedFontChars => {
   const children = items.map((item, index) => {
@@ -115,7 +114,7 @@ export const collectFontChars = (
     `<!doctype html>
     <html>
       <head>
-        <style>${buildFontVariableCss(config, development)}</style>
+        <style>${buildFontVariableCss(config)}</style>
         <style>${cssText}</style>
       </head>
       <body>${html}</body>
@@ -138,7 +137,7 @@ export const collectFontChars = (
     }
 
     const style = window.getComputedStyle(parent);
-    const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif', development);
+    const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif');
     addTextByFallback(chars, coverage, fontFamily, text);
   });
 

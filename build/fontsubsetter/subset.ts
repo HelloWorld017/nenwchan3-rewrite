@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { dirname, isAbsolute, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { isAbsolute, resolve } from 'node:path';
 import type {
   CollectedFontChars,
   FontCoverage,
@@ -134,6 +133,3 @@ export const subsetFonts = async ({
 
   return assets;
 };
-
-export const getTofuFont = (): Promise<Uint8Array> =>
-  readFile(resolve(dirname(fileURLToPath(import.meta.url)), 'assets/AdobeBlank.ttf.woff'));

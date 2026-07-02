@@ -46,6 +46,4 @@ export type GeneratedFontAsset = {
 export type GeneratedFontCssInput = {
   config: NormalizedFontSubsetterConfig;
   fontAssets: GeneratedFontAsset[];
-  tofuUrl?: string;
-  development: boolean;
 };
