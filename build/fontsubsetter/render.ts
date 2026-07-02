@@ -14,6 +14,7 @@ import type {
   FontSubsetterItem,
   NormalizedFontSubsetterConfig,
 } from './types';
+import type { ComponentType, PropsWithChildren } from 'react';
 
 const shouldCollectChar = (char: string): boolean =>
   char.charCodeAt(0) >= 0x20 || char === '\n' || char === '\t';
@@ -74,12 +75,21 @@ const walkTextNodes = (node: HappyDomNode, callback: (textNode: HappyDomNode) =>
   }
 };
 
-export const collectFontChars = (
-  config: NormalizedFontSubsetterConfig,
-  items: readonly FontSubsetterItem[],
-  cssText: string,
-  coverage: FontCoverage,
-): CollectedFontChars => {
+export type CollectFontCharsInput = {
+  config: NormalizedFontSubsetterConfig;
+  frame?: ComponentType<PropsWithChildren>;
+  items: readonly FontSubsetterItem[];
+  cssText: string;
+  coverage: FontCoverage;
+};
+
+export const collectFontChars = ({
+  config,
+  frame,
+  items,
+  cssText,
+  coverage,
+}: CollectFontCharsInput): CollectedFontChars => {
   const children = items.map((item, index) => {
     if (!item.override) {
       return createElement(Fragment, { key: index }, item.node);
@@ -99,8 +109,8 @@ export const collectFontChars = (
     );
   });
 
-  const node = config.frame
-    ? createElement(config.frame, undefined, ...children)
+  const node = frame
+    ? createElement(frame, undefined, ...children)
     : createElement(Fragment, undefined, ...children);
 
   const html = renderToString(node);

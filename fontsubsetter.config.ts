@@ -1,12 +1,11 @@
-import { AppFrame } from './app/App';
-import { defineFontSubsetterConfig } from './build/fontsubsetter';
+import type { FontSubsetterConfig } from './build/fontsubsetter';
 
-export default defineFontSubsetterConfig({
+export default {
   include: [
     './app/fragments/**/*.tsx',
   ],
-  outDir: './app/assets/fonts',
-  frame: AppFrame,
+  outDir: './app/assets/fonts/generated',
+  frame: './app/App.tsx#AppFrame',
   fonts: {
     sans: ['Pretendard JP', 'sans-serif'],
     letter: ['RIDIBatang', 'cursive'],
@@ -30,4 +29,4 @@ export default defineFontSubsetterConfig({
       weight: 500,
     },
   },
-});
+} satisfies FontSubsetterConfig;

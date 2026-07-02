@@ -1,5 +1,6 @@
 import { access } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import type { FontSubsetterConfig, NormalizedFontSubsetterConfig } from './types';
 
 const configFileNames = [
@@ -28,10 +29,12 @@ export const defineFontSubsetterConfig = <T extends FontSubsetterConfig>(config:
 
 export const normalizeFontSubsetterConfig = (
   config: FontSubsetterConfig,
+  root: string,
 ): NormalizedFontSubsetterConfig => ({
   ...config,
   name: config.name ?? 'fontsubsetter',
   include: Array.isArray(config.include) ? [...config.include] : [config.include],
+  outDir: resolve(root, config.outDir),
 });
 
 export const isFontSubsetterConfig = (value: unknown): value is FontSubsetterConfig => {
@@ -41,4 +44,31 @@ export const isFontSubsetterConfig = (value: unknown): value is FontSubsetterCon
 
   const config = value as Partial<FontSubsetterConfig>;
   return Boolean(config.include && config.fonts && config.fontFaces);
+};
+
+export type LoadedFontSubsetterConfig = {
+  config: NormalizedFontSubsetterConfig;
+  configDir: string;
+  configFile: string;
+};
+
+export const loadConfig = async (root: string): Promise<LoadedFontSubsetterConfig> => {
+  const configFile = await findFontSubsetterConfig(root);
+  if (!configFile) {
+    throw new Error('Could not find fontsubsetter.config.');
+  }
+
+  const configModule = (await import(pathToFileURL(configFile).href)) as {
+    default?: unknown;
+  };
+
+  if (!isFontSubsetterConfig(configModule.default)) {
+    throw new Error('fontsubsetter.config must export a FontSubsetterConfig as default.');
+  }
+
+  return {
+    config: normalizeFontSubsetterConfig(configModule.default, root),
+    configDir: dirname(configFile),
+    configFile,
+  };
 };

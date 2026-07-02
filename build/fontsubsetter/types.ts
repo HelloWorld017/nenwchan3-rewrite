@@ -1,4 +1,4 @@
-import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type FontSubsetterOverride = {
   fontFamily?: string;
@@ -22,7 +22,7 @@ export type FontSubsetterConfig = {
   name?: string;
   include: string | readonly string[];
   outDir: string;
-  frame?: ComponentType<PropsWithChildren>;
+  frame?: string;
   fonts: Record<string, readonly string[]>;
   fontFaces: Record<string, FontFaceDefinition>;
 };

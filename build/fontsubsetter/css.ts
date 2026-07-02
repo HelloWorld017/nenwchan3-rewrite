@@ -69,15 +69,14 @@ export const splitFontFamily = (fontFamily: string): string[] => {
 };
 
 export const buildFontStack = (
-  config: NormalizedFontSubsetterConfig,
-  fontName: string,
+  fonts: readonly string[],
+  fontFaces: Record<string, unknown>,
 ): string => {
-  const stack = config.fonts[fontName] ?? [];
   const values: string[] = [];
 
-  for (const family of stack) {
+  for (const family of fonts) {
     values.push(
-      config.fontFaces[family]
+      fontFaces[family]
         ? cssString(toGeneratedFontFamily(family))
         : !isGenericFamily(family)
           ? cssString(family)
@@ -88,20 +87,12 @@ export const buildFontStack = (
   return values.join(', ');
 };
 
-export const buildFontVariableCss = (config: NormalizedFontSubsetterConfig): string => {
-  const variables = Object.keys(config.fonts)
-    .map(fontName => `  --font-${fontName}: ${buildFontStack(config, fontName)};`)
-    .join('\n');
-
-  return `:root {\n${variables}\n}`;
-};
-
 export const expandFontVariables = (
   config: NormalizedFontSubsetterConfig,
   fontFamily: string,
 ): string =>
   fontFamily.replace(/var\(\s*--font-([\w-]+)\s*\)/g, (_, fontName: string) =>
-    buildFontStack(config, fontName),
+    buildFontStack(config.fonts[fontName], config.fontFaces),
   );
 
 export const buildGeneratedFontCss = ({
@@ -130,5 +121,9 @@ export const buildGeneratedFontCss = ({
     })
     .join('\n\n');
 
-  return [faces, buildFontVariableCss(config)].filter(Boolean).join('\n\n');
+  const fontVariables = Object.keys(config.fonts)
+    .map(fontName => `  --font-${fontName}: ${buildFontStack(config.fonts[fontName], config.fontFaces)};`)
+    .join('\n');
+
+  return [faces, `:root {\n${fontVariables}\n}`].join('\n\n');
 };
