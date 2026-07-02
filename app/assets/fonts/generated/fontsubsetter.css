@@ -1,6 +1,6 @@
 @font-face {
   font-family: "__fontsubsetter_Pretendard JP";
-  src: url("fontsubsetter-Pretendard-JP-3b3cd13b8a.woff2") format("woff2");
+  src: url("Pretendard_JP_OS65v.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "__fontsubsetter_RIDIBatang";
-  src: url("fontsubsetter-RIDIBatang-35c9a2d524.woff2") format("woff2");
+  src: url("RIDIBatang_dDW9a.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,23 @@
 
 @font-face {
   font-family: "__fontsubsetter_Metropolis";
-  src: url("fontsubsetter-Metropolis-edf297fc72.woff2") format("woff2");
+  src: url("Metropolis_n7WvY.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "__fontsubsetter_Metropolis";
+  src: url("Metropolis_aXSWY.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "__fontsubsetter_Metropolis";
+  src: url("Metropolis_WzzJ8.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -24,7 +40,7 @@
 
 @font-face {
   font-family: "__fontsubsetter_Iosevka";
-  src: url("fontsubsetter-Iosevka-72a12c4445.woff2") format("woff2");
+  src: url("Iosevka_MQXBZ.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;

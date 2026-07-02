@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import { build, createServer } from 'vite';
@@ -181,11 +181,21 @@ const generateFontSubsetterAssets = async ({
   });
   const fontAssets = await subsetFonts({ root, configDir, config, chars });
   const cssFileName = `${config.name}.css`;
+  const currentAssetNames = new Set([cssFileName, ...fontAssets.map(asset => asset.name)]);
 
-  await rm(config.outDir, { recursive: true, force: true });
   await mkdir(config.outDir, { recursive: true });
 
+  for (const file of await readdir(config.outDir, { withFileTypes: true })) {
+    if (file.isFile() && !currentAssetNames.has(file.name)) {
+      await rm(resolve(config.outDir, file.name), { force: true });
+    }
+  }
+
   for (const asset of fontAssets) {
+    if (!asset.source) {
+      continue;
+    }
+
     await writeFile(resolve(config.outDir, asset.name), asset.source);
   }
 

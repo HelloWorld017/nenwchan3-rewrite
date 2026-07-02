@@ -21,6 +21,25 @@ import type { ComponentType, PropsWithChildren } from 'react';
 const shouldCollectChar = (char: string): boolean =>
   char.charCodeAt(0) >= 0x20 || char === '\n' || char === '\t';
 
+const applyTextTransform = (text: string, textTransform: string | undefined): string => {
+  const tokens = new Set((textTransform || 'none').trim().toLowerCase().split(/\s+/));
+
+  if (tokens.has('uppercase')) {
+    return text.toLocaleUpperCase();
+  }
+  if (tokens.has('lowercase')) {
+    return text.toLocaleLowerCase();
+  }
+  if (tokens.has('capitalize')) {
+    return text.replace(
+      /(^|[^\p{L}\p{N}_])(\p{L})/gu,
+      (_match: string, prefix: string, char: string) => `${prefix}${char.toLocaleUpperCase()}`,
+    );
+  }
+
+  return text;
+};
+
 const addTextByFallback = (
   chars: CollectedFontChars,
   coverage: FontCoverage,
@@ -115,6 +134,7 @@ export const collectFontChars = ({
           fontFamily: item.override.fontFamily,
           fontWeight: item.override.fontWeight,
           fontStyle: item.override.fontStyle,
+          textTransform: item.override.textTransform,
         },
       },
       item.node,
@@ -132,6 +152,7 @@ export const collectFontChars = ({
       fontFamily: string;
       fontWeight?: string;
       fontStyle?: string;
+      textTransform?: string;
     };
   };
 
@@ -168,8 +189,9 @@ export const collectFontChars = ({
     }
 
     const style = window.getComputedStyle(parent);
+    const transformedText = applyTextTransform(text, style.textTransform);
     if (!style.fontFamily) {
-      console.warn(`Cannot get font-family for text: ${text}`);
+      console.warn(`Cannot get font-family for text: ${transformedText}`);
     }
 
     const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif');
@@ -180,7 +202,7 @@ export const collectFontChars = ({
       fontFamily,
       style.fontWeight,
       style.fontStyle,
-      text,
+      transformedText,
     );
   });
 

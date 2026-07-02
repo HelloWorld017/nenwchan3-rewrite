@@ -4,6 +4,7 @@ export type FontSubsetterOverride = {
   fontFamily?: string;
   fontWeight?: number | string;
   fontStyle?: string;
+  textTransform?: string;
 };
 
 export type FontSubsetterItem = {
@@ -11,11 +12,14 @@ export type FontSubsetterItem = {
   override?: FontSubsetterOverride;
 };
 
+export type FontSubsetOptions = Record<string, unknown>;
+
 export type FontFaceSourceDefinition = {
   src: string;
   weight?: number | string;
   style?: string;
   display?: string;
+  subsetOptions?: FontSubsetOptions;
 };
 
 export type FontFaceDefinition = FontFaceSourceDefinition | readonly FontFaceSourceDefinition[];
@@ -45,7 +49,7 @@ export type GeneratedFontAsset = {
   weight?: number | string;
   style?: string;
   display?: string;
-  source: Uint8Array;
+  source?: Uint8Array;
 };
 
 export type GeneratedFontCssInput = {

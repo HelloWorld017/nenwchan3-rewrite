@@ -39,6 +39,9 @@ export default {
     'Iosevka': {
       src: 'Iosevka-Medium.woff2',
       weight: 500,
+      subsetOptions: {
+        'layout-features': 'kern',
+      },
     },
   },
 } satisfies FontSubsetterConfig;

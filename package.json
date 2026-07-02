@@ -10,11 +10,13 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "node ./build/fontsubsetter/cli.ts && vite build",
-    "fontsubsetter": "node ./build/fontsubsetter/cli.ts",
-    "generate": "simplei18n generate -D",
+    "build": "vite build",
+    "generate": "pnpm run '/generate:.*/'",
+    "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
+    "generate:font": "node ./build/fontsubsetter/cli.ts",
     "format": "oxfmt",
-    "lint": "oxlint"
+    "lint": "oxlint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@simplei18n/core": "^0.1.4",
