@@ -8,6 +8,7 @@
     "module": "preserve",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "paths": {

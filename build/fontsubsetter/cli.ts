@@ -3,12 +3,12 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import { build, createServer } from 'vite';
-import { loadConfig } from './config';
-import { buildGeneratedFontCss } from './css';
-import { collectFontChars } from './render';
-import { collectFontCoverage, subsetFonts } from './subset';
+import { loadConfig } from './config.ts';
+import { buildGeneratedFontCss } from './css.ts';
+import { collectFontChars } from './render.ts';
+import { collectFontCoverage, subsetFonts } from './subset.ts';
+import type { FontSubsetterItem, NormalizedFontSubsetterConfig } from './types.ts';
 import type { ComponentType, PropsWithChildren } from 'react';
-import type { FontSubsetterItem, NormalizedFontSubsetterConfig } from './types';
 import type { ViteDevServer } from 'vite';
 
 type Registry = {

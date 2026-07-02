@@ -11,12 +11,14 @@ export type FontSubsetterItem = {
   override?: FontSubsetterOverride;
 };
 
-export type FontFaceDefinition = {
+export type FontFaceSourceDefinition = {
   src: string;
   weight?: number | string;
   style?: string;
   display?: string;
 };
+
+export type FontFaceDefinition = FontFaceSourceDefinition | readonly FontFaceSourceDefinition[];
 
 export type FontSubsetterConfig = {
   name?: string;
@@ -40,6 +42,9 @@ export type GeneratedFontAsset = {
   faceName: string;
   name: string;
   url?: string;
+  weight?: number | string;
+  style?: string;
+  display?: string;
   source: Uint8Array;
 };
 

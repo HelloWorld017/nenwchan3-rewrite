@@ -1,12 +1,13 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
+import { getFontFaces } from './faces.ts';
 import type {
   CollectedFontChars,
   FontCoverage,
   GeneratedFontAsset,
   NormalizedFontSubsetterConfig,
-} from './types';
+} from './types.ts';
 
 type FonttoolsModule = {
   subset: (
@@ -82,18 +83,18 @@ export const collectFontCoverage = async ({
   const coverage = new Map<string, ReadonlySet<number>>();
   const coverageBySource = new Map<string, Promise<ReadonlySet<number>>>();
 
-  for (const [faceName, definition] of Object.entries(config.fontFaces)) {
+  for (const face of getFontFaces(config)) {
     const sourceCoverage =
-      coverageBySource.get(definition.src) ??
+      coverageBySource.get(face.src) ??
       (async () => {
-        const source = await readFontSource(root, configDir, definition.src);
+        const source = await readFontSource(root, configDir, face.src);
         const cmap = await ttx(source, [['-q'], ['-t', 'cmap']]);
 
         return parseCmapCodePoints(Buffer.from(cmap).toString('utf8'));
       })();
 
-    coverageBySource.set(definition.src, sourceCoverage);
-    coverage.set(faceName, await sourceCoverage);
+    coverageBySource.set(face.src, sourceCoverage);
+    coverage.set(face.id, await sourceCoverage);
   }
 
   return coverage;
@@ -113,13 +114,13 @@ export const subsetFonts = async ({
   const { subset } = (await import('@web-alchemy/fonttools')) as FonttoolsModule;
   const assets: GeneratedFontAsset[] = [];
 
-  for (const [faceName, definition] of Object.entries(config.fontFaces)) {
-    const text = Array.from(chars.get(faceName) ?? []).join('');
+  for (const face of getFontFaces(config)) {
+    const text = Array.from(chars.get(face.id) ?? []).join('');
     if (!text) {
       continue;
     }
 
-    const source = await readFontSource(root, configDir, definition.src);
+    const source = await readFontSource(root, configDir, face.src);
     const output = await subset(source, {
       text,
       'flavor': 'woff2',
@@ -127,8 +128,15 @@ export const subsetFonts = async ({
       'desubroutinize': true,
       'no-hinting': true,
     });
-    const name = `${config.name}-${sanitizeFileName(faceName)}-${hashText(`${definition.src}\0${text}`)}.woff2`;
-    assets.push({ faceName, name, source: output });
+    const name = `${config.name}-${sanitizeFileName(face.faceName)}-${hashText(`${face.src}\0${text}`)}.woff2`;
+    assets.push({
+      faceName: face.faceName,
+      name,
+      weight: face.weight,
+      style: face.style,
+      display: face.display,
+      source: output,
+    });
   }
 
   return assets;

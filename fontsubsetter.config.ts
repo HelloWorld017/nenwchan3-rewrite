@@ -1,9 +1,7 @@
 import type { FontSubsetterConfig } from './build/fontsubsetter';
 
 export default {
-  include: [
-    './app/fragments/**/*.tsx',
-  ],
+  include: ['./app/fragments/**/*.tsx'],
   outDir: './app/assets/fonts/generated',
   frame: './app/App.tsx#AppFrame',
   fonts: {
@@ -20,10 +18,24 @@ export default {
     'RIDIBatang': {
       src: 'RIDIBatang-Regular.woff2',
     },
-    'Metropolis': {
-      src: 'Metropolis-Bold.woff2',
-      weight: 700,
-    },
+    'Metropolis': [
+      {
+        src: 'Metropolis-Light.woff2',
+        weight: 300,
+      },
+      {
+        src: 'Metropolis-Regular.woff2',
+        weight: 400,
+      },
+      {
+        src: 'Metropolis-Medium.woff2',
+        weight: 500,
+      },
+      {
+        src: 'Metropolis-Bold.woff2',
+        weight: 700,
+      },
+    ],
     'Iosevka': {
       src: 'Iosevka-Medium.woff2',
       weight: 500,

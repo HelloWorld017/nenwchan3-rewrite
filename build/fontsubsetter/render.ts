@@ -7,13 +7,15 @@ import {
   fromGeneratedFontFamily,
   isGenericFamily,
   splitFontFamily,
-} from './css';
+} from './css.ts';
+import { getBestFontFace, getFontFaces } from './faces.ts';
+import type { NormalizedFontFace } from './faces.ts';
 import type {
   CollectedFontChars,
   FontCoverage,
   FontSubsetterItem,
   NormalizedFontSubsetterConfig,
-} from './types';
+} from './types.ts';
 import type { ComponentType, PropsWithChildren } from 'react';
 
 const shouldCollectChar = (char: string): boolean =>
@@ -22,7 +24,10 @@ const shouldCollectChar = (char: string): boolean =>
 const addTextByFallback = (
   chars: CollectedFontChars,
   coverage: FontCoverage,
+  facesByName: ReadonlyMap<string, readonly NormalizedFontFace[]>,
   fontFamily: string,
+  fontWeight: number | string | undefined,
+  fontStyle: string | undefined,
   text: string,
 ): void => {
   const families = splitFontFamily(fontFamily);
@@ -39,9 +44,9 @@ const addTextByFallback = (
 
     for (const family of families) {
       const faceName = fromGeneratedFontFamily(family);
-      const target = chars.get(faceName);
+      const faces = facesByName.get(faceName);
 
-      if (!target) {
+      if (!faces) {
         if (isGenericFamily(family)) {
           break;
         }
@@ -49,8 +54,15 @@ const addTextByFallback = (
         continue;
       }
 
-      if (coverage.get(faceName)?.has(codePoint)) {
-        target.add(char);
+      const face = getBestFontFace({
+        faces,
+        fontWeight,
+        fontStyle,
+        hasGlyph: candidate => coverage.get(candidate.id)?.has(codePoint) ?? false,
+      });
+
+      if (face) {
+        chars.get(face.id)?.add(char);
         break;
       }
     }
@@ -116,7 +128,11 @@ export const collectFontChars = ({
   const html = renderToString(node);
   const window = new Window() as unknown as {
     document: { write: (html: string) => void; body: HappyDomNode };
-    getComputedStyle: (element: unknown) => { fontFamily: string };
+    getComputedStyle: (element: unknown) => {
+      fontFamily: string;
+      fontWeight?: string;
+      fontStyle?: string;
+    };
   };
 
   const document = window.document;
@@ -131,9 +147,14 @@ export const collectFontChars = ({
     </html>`,
   );
 
-  const chars: CollectedFontChars = new Map(
-    Object.keys(config.fontFaces).map(faceName => [faceName, new Set<string>()]),
-  );
+  const faces = getFontFaces(config);
+  const facesByName = new Map<string, NormalizedFontFace[]>();
+
+  for (const face of faces) {
+    facesByName.set(face.faceName, [...(facesByName.get(face.faceName) ?? []), face]);
+  }
+
+  const chars: CollectedFontChars = new Map(faces.map(face => [face.id, new Set<string>()]));
 
   walkTextNodes(document.body, textNode => {
     const text = textNode.textContent ?? '';
@@ -147,8 +168,20 @@ export const collectFontChars = ({
     }
 
     const style = window.getComputedStyle(parent);
+    if (!style.fontFamily) {
+      console.warn(`Cannot get font-family for text: ${text}`);
+    }
+
     const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif');
-    addTextByFallback(chars, coverage, fontFamily, text);
+    addTextByFallback(
+      chars,
+      coverage,
+      facesByName,
+      fontFamily,
+      style.fontWeight,
+      style.fontStyle,
+      text,
+    );
   });
 
   return chars;

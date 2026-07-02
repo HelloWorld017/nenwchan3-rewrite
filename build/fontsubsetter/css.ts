@@ -1,4 +1,4 @@
-import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types';
+import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types.ts';
 
 const fontFamilyPrefix = '__fontsubsetter_';
 
@@ -95,35 +95,31 @@ export const expandFontVariables = (
     buildFontStack(config.fonts[fontName], config.fontFaces),
   );
 
-export const buildGeneratedFontCss = ({
-  config,
-  fontAssets,
-}: GeneratedFontCssInput): string => {
-  const fontFacesByName = new Map(fontAssets.map(asset => [asset.faceName, asset]));
-  const faces = Object.entries(config.fontFaces)
-    .flatMap(([faceName, definition]) => {
-      const asset = fontFacesByName.get(faceName);
-      if (!asset) {
-        return [];
-      }
-
-      return [
-        [
-          '@font-face {',
-          `  font-family: ${cssString(toGeneratedFontFamily(faceName))};`,
-          `  src: url(${cssString(asset.url ?? asset.name)}) format("woff2");`,
-          `  font-weight: ${definition.weight ?? 400};`,
-          `  font-style: ${definition.style ?? 'normal'};`,
-          `  font-display: ${definition.display ?? 'swap'};`,
-          '}',
-        ].join('\n'),
-      ];
-    })
-    .join('\n\n');
-
+export const buildFontVariableCss = (config: NormalizedFontSubsetterConfig): string => {
   const fontVariables = Object.keys(config.fonts)
-    .map(fontName => `  --font-${fontName}: ${buildFontStack(config.fonts[fontName], config.fontFaces)};`)
+    .map(
+      fontName =>
+        `  --font-${fontName}: ${buildFontStack(config.fonts[fontName], config.fontFaces)};`,
+    )
     .join('\n');
 
-  return [faces, `:root {\n${fontVariables}\n}`].join('\n\n');
+  return `:root {\n${fontVariables}\n}`;
+};
+
+export const buildGeneratedFontCss = ({ config, fontAssets }: GeneratedFontCssInput): string => {
+  const faces = fontAssets
+    .map(asset =>
+      [
+        '@font-face {',
+        `  font-family: ${cssString(toGeneratedFontFamily(asset.faceName))};`,
+        `  src: url(${cssString(asset.url ?? asset.name)}) format("woff2");`,
+        `  font-weight: ${asset.weight ?? 400};`,
+        `  font-style: ${asset.style ?? 'normal'};`,
+        `  font-display: ${asset.display ?? 'swap'};`,
+        '}',
+      ].join('\n'),
+    )
+    .join('\n\n');
+
+  return [faces, buildFontVariableCss(config)].filter(Boolean).join('\n\n');
 };
