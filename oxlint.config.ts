@@ -25,6 +25,7 @@ export default defineConfig({
     'typescript/no-empty-interface': 'off',
     'typescript/no-empty-object-type': ['error', { allowInterfaces: 'with-single-extends' }],
     'typescript/no-non-null-assertion': 'off',
+    'typescript/no-unsafe-type-assertion': 'off',
     'no-empty-function': 'off',
     'no-unused-vars': ['warn', { argsIgnorePattern: '^_', ignoreRestSiblings: true }],
     'import/first': 'error',

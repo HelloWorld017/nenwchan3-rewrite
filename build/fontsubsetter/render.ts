@@ -5,14 +5,53 @@ import {
   buildFontVariableCss,
   expandFontVariables,
   fromGeneratedFontFamily,
+  isGenericFamily,
   splitFontFamily,
 } from './css';
-import type { CollectedFontChars, FontSubsetterItem, NormalizedFontSubsetterConfig } from './types';
+import type {
+  CollectedFontChars,
+  FontCoverage,
+  FontSubsetterItem,
+  NormalizedFontSubsetterConfig,
+} from './types';
 
-const addText = (target: Set<string>, text: string): void => {
+const shouldCollectChar = (char: string): boolean =>
+  char.charCodeAt(0) >= 0x20 || char === '\n' || char === '\t';
+
+const addTextByFallback = (
+  chars: CollectedFontChars,
+  coverage: FontCoverage,
+  fontFamily: string,
+  text: string,
+): void => {
+  const families = splitFontFamily(fontFamily);
+
   for (const char of Array.from(text)) {
-    if (char.charCodeAt(0) >= 0x20 || char === '\n' || char === '\t') {
-      target.add(char);
+    if (!shouldCollectChar(char)) {
+      continue;
+    }
+
+    const codePoint = char.codePointAt(0);
+    if (codePoint === undefined) {
+      continue;
+    }
+
+    for (const family of families) {
+      const faceName = fromGeneratedFontFamily(family);
+      const target = chars.get(faceName);
+
+      if (!target) {
+        if (isGenericFamily(family)) {
+          break;
+        }
+
+        continue;
+      }
+
+      if (coverage.get(faceName)?.has(codePoint)) {
+        target.add(char);
+        break;
+      }
     }
   }
 };
@@ -40,6 +79,7 @@ export const collectFontChars = (
   items: readonly FontSubsetterItem[],
   cssText: string,
   development: boolean,
+  coverage: FontCoverage,
 ): CollectedFontChars => {
   const children = items.map((item, index) => {
     if (!item.override) {
@@ -63,14 +103,23 @@ export const collectFontChars = (
   const node = config.frame
     ? createElement(config.frame, undefined, ...children)
     : createElement(Fragment, undefined, ...children);
+
   const html = renderToString(node);
   const window = new Window() as unknown as {
     document: { write: (html: string) => void; body: HappyDomNode };
     getComputedStyle: (element: unknown) => { fontFamily: string };
   };
+
   const document = window.document;
   document.write(
-    `<!doctype html><html><head><style>${buildFontVariableCss(config, development)}</style><style>${cssText}</style></head><body>${html}</body></html>`,
+    `<!doctype html>
+    <html>
+      <head>
+        <style>${buildFontVariableCss(config, development)}</style>
+        <style>${cssText}</style>
+      </head>
+      <body>${html}</body>
+    </html>`,
   );
 
   const chars: CollectedFontChars = new Map(
@@ -90,13 +139,7 @@ export const collectFontChars = (
 
     const style = window.getComputedStyle(parent);
     const fontFamily = expandFontVariables(config, style.fontFamily || 'sans-serif', development);
-
-    for (const family of splitFontFamily(fontFamily)) {
-      const target = chars.get(fromGeneratedFontFamily(family));
-      if (target) {
-        addText(target, text);
-      }
-    }
+    addTextByFallback(chars, coverage, fontFamily, text);
   });
 
   return chars;

@@ -4,6 +4,7 @@ import { dirname, isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type {
   CollectedFontChars,
+  FontCoverage,
   GeneratedFontAsset,
   NormalizedFontSubsetterConfig,
 } from './types';
@@ -12,6 +13,10 @@ type FonttoolsModule = {
   subset: (
     input: Buffer | Uint8Array,
     options: Record<string, unknown>,
+  ) => Promise<Buffer | Uint8Array>;
+  ttx: (
+    input: Buffer | Uint8Array | string | URL,
+    options?: string[][],
   ) => Promise<Buffer | Uint8Array>;
 };
 
@@ -51,6 +56,48 @@ const readFontSource = async (root: string, configDir: string, src: string): Pro
   }
 
   return readFile(resolved);
+};
+
+const parseCmapCodePoints = (xml: string): Set<number> => {
+  const codePoints = new Set<number>();
+  const pattern = /<map\s+[^>]*code=["']0x([0-9a-fA-F]+)["'][^>]*>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(xml))) {
+    codePoints.add(Number.parseInt(match[1], 16));
+  }
+
+  return codePoints;
+};
+
+export const collectFontCoverage = async ({
+  root,
+  configDir,
+  config,
+}: {
+  root: string;
+  configDir: string;
+  config: NormalizedFontSubsetterConfig;
+}): Promise<FontCoverage> => {
+  const { ttx } = (await import('@web-alchemy/fonttools')) as FonttoolsModule;
+  const coverage = new Map<string, ReadonlySet<number>>();
+  const coverageBySource = new Map<string, Promise<ReadonlySet<number>>>();
+
+  for (const [faceName, definition] of Object.entries(config.fontFaces)) {
+    const sourceCoverage =
+      coverageBySource.get(definition.src) ??
+      (async () => {
+        const source = await readFontSource(root, configDir, definition.src);
+        const cmap = await ttx(source, [['-q'], ['-t', 'cmap']]);
+
+        return parseCmapCodePoints(Buffer.from(cmap).toString('utf8'));
+      })();
+
+    coverageBySource.set(definition.src, sourceCoverage);
+    coverage.set(faceName, await sourceCoverage);
+  }
+
+  return coverage;
 };
 
 export const subsetFonts = async ({

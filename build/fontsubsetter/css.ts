@@ -1,7 +1,7 @@
 import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types';
 
 const fontFamilyPrefix = '__fontsubsetter_';
-const tofuFontFamily = `${fontFamilyPrefix}adobe_blank`;
+const tofuFontFamily = `${fontFamilyPrefix}tofu`;
 
 export const toGeneratedFontFamily = (faceName: string): string => `${fontFamilyPrefix}${faceName}`;
 

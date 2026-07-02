@@ -21,6 +21,7 @@ export type FontFaceDefinition = {
 export type FontSubsetterConfig = {
   name?: string;
   include: string | readonly string[];
+  outDir: string;
   frame?: ComponentType<PropsWithChildren>;
   fonts: Record<string, readonly string[]>;
   fontFaces: Record<string, FontFaceDefinition>;
@@ -32,6 +33,8 @@ export type NormalizedFontSubsetterConfig = Omit<FontSubsetterConfig, 'include'>
 };
 
 export type CollectedFontChars = Map<string, Set<string>>;
+
+export type FontCoverage = Map<string, ReadonlySet<number>>;
 
 export type GeneratedFontAsset = {
   faceName: string;

@@ -44,6 +44,11 @@ export type CollectedFontSubsetterConfig = {
   files: string[];
 };
 
+export type LoadedFontSubsetterConfig = {
+  config: NormalizedFontSubsetterConfig;
+  configDir: string;
+};
+
 const versionedId = (filePath: string): string =>
   `${filePath}?fontsubsetter=${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
@@ -58,14 +63,7 @@ export const loadAndCollect = async ({
 }): Promise<CollectedFontSubsetterConfig> => {
   resetFontSubsetterItems();
 
-  const configModule = (await server.ssrLoadModule(versionedId(configFile))) as {
-    default?: FontSubsetterConfig;
-  };
-  if (!isFontSubsetterConfig(configModule.default)) {
-    throw new Error('fontsubsetter.config must export a FontSubsetterConfig as default.');
-  }
-
-  const config = normalizeFontSubsetterConfig(configModule.default);
+  const { config, configDir } = await loadFontSubsetterConfig({ server, configFile });
   const files = await resolveIncludeFiles(root, config.include);
 
   for (const file of files) {
@@ -74,8 +72,31 @@ export const loadAndCollect = async ({
 
   return {
     config,
-    configDir: dirname(configFile),
+    configDir,
     items: getFontSubsetterItems(),
     files,
+  };
+};
+
+export const loadFontSubsetterConfig = async ({
+  server,
+  configFile,
+}: {
+  server: ViteDevServer;
+  configFile: string;
+}): Promise<LoadedFontSubsetterConfig> => {
+  const configModule = (await server.ssrLoadModule(versionedId(configFile))) as {
+    default?: FontSubsetterConfig;
+  };
+
+  if (!isFontSubsetterConfig(configModule.default)) {
+    throw new Error('fontsubsetter.config must export a FontSubsetterConfig as default.');
+  }
+
+  const config = normalizeFontSubsetterConfig(configModule.default);
+
+  return {
+    config,
+    configDir: dirname(configFile),
   };
 };

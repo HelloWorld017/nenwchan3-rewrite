@@ -3,4 +3,9 @@ declare module '@web-alchemy/fonttools' {
     input: Buffer | Uint8Array,
     options: Record<string, unknown>,
   ): Promise<Buffer | Uint8Array>;
+
+  export function ttx(
+    input: Buffer | Uint8Array | string | URL,
+    options?: string[][],
+  ): Promise<Buffer | Uint8Array>;
 }

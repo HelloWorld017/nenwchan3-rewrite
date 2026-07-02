@@ -10,7 +10,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node ./build/fontsubsetter/cli.ts && vite build",
+    "fontsubsetter": "node ./build/fontsubsetter/cli.ts",
     "generate": "simplei18n generate -D",
     "format": "oxfmt",
     "lint": "oxlint"

@@ -5,6 +5,7 @@ export default defineFontSubsetterConfig({
   include: [
     './app/fragments/**/*.tsx',
   ],
+  outDir: './app/assets/fonts',
   frame: AppFrame,
   fonts: {
     sans: ['Pretendard JP', 'sans-serif'],
