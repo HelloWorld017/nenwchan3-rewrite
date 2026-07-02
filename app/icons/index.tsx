@@ -1,6 +1,8 @@
 import {
   AudioWaveformIcon,
   BookTextIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   CodeXmlIcon,
   GhostIcon,
   MailIcon,
@@ -23,6 +25,8 @@ const wrapLucideComponent = <TProps,>(LucideIcon: ComponentType<TProps>) => {
 
 export const IconAudioWaveform = wrapLucideComponent(AudioWaveformIcon);
 export const IconBookText = wrapLucideComponent(BookTextIcon);
+export const IconChevronLeft = wrapLucideComponent(ChevronLeftIcon);
+export const IconChevronRight = wrapLucideComponent(ChevronRightIcon);
 export const IconCodeXml = wrapLucideComponent(CodeXmlIcon);
 export const IconGhost = wrapLucideComponent(GhostIcon);
 export const IconMail = wrapLucideComponent(MailIcon);

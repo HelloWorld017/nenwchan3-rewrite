@@ -2,6 +2,7 @@ import IconQuote from '@/assets/icons/IconQuote.svg?react';
 import Logo from '@/assets/icons/Logo.svg?react';
 import LogoText from '@/assets/icons/LogoText.svg?react';
 import { Container } from '@/fragments/_components/Container';
+import {breakpoints} from '@/styles';
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
@@ -65,6 +66,12 @@ const DescriptionText = styled.p`
   line-height: 1.6em;
   text-align: center;
   color: var(--grey-400);
+
+  @media (max-width: ${breakpoints.sm}px) {
+    br {
+      display: none;
+    }
+  }
 `;
 
 const Tag = styled.code`

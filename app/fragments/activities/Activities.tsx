@@ -10,6 +10,10 @@ import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { type ReactNode, useMemo } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
+import {HorizontalScrollContainer} from '../_components/HorizontalScrollContainer';
+import {css} from '@linaria/core';
+import {breakpoints} from '@/styles';
+import {useIsBelowBreakPoint} from '@/hooks/useIsBelowBreakPoint';
 
 defineI18n(
   yaml => yaml`
@@ -40,6 +44,7 @@ defineI18n(
 const ActivityRoleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1.2rem;
   align-items: flex-start;
   min-height: 12rem;
   flex: 1;
@@ -49,6 +54,13 @@ const ActivityRoleWrapper = styled.div`
   color: var(--bluegrey-600);
   padding: 1.6rem 2.8rem;
   padding-right: 3.6rem;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    align-items: center;
+    flex-direction: row;
+    flex: 0;
+    min-height: unset;
+  }
 `;
 
 const ActivityRoleIcon = styled.div`
@@ -56,7 +68,16 @@ const ActivityRoleIcon = styled.div`
   align-items: flex-start;
   font-size: 2.8rem;
   flex: 1;
-  margin-bottom: 1.2rem;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    flex: 0;
+  }
+`;
+
+const ActivityRoleContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 `;
 
 const ActivityRoleTitle = styled.b`
@@ -71,7 +92,6 @@ const ActivityRoleTeam = styled.span`
   font-size: 1.4rem;
   line-height: 1.8rem;
   white-space: nowrap;
-  margin-bottom: 0.2rem;
 `;
 
 type ActivityRoleProps = {
@@ -83,22 +103,45 @@ type ActivityRoleProps = {
 const ActivityRole = ({ title, team, icon }: ActivityRoleProps) => (
   <ActivityRoleWrapper>
     <ActivityRoleIcon>{icon}</ActivityRoleIcon>
-    {team && <ActivityRoleTeam>{team}</ActivityRoleTeam>}
-    <ActivityRoleTitle>{title}</ActivityRoleTitle>
+    <ActivityRoleContents>
+      {team && <ActivityRoleTeam>{team}</ActivityRoleTeam>}
+      <ActivityRoleTitle>{title}</ActivityRoleTitle>
+    </ActivityRoleContents>
   </ActivityRoleWrapper>
 );
 
 const ActivityItemWrapper = styled.li`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: flex-start;
-  flex: 0 0 40rem;
+  min-width: 40rem;
+  flex: 0 0 auto;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    min-width: unset;
+    width: calc(100vw - 2 * var(--container-padding));
+    grid-template-columns: auto 1fr;
+  }
 `;
 
 const ActivityItemIcon = styled.div`
   display: flex;
   align-items: center;
   font-size: 8rem;
+  grid-column: 1;
+`;
+
+const ActivityItemContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.2rem;
+  grid-column: 1;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    grid-column: 2;
+    margin-top: 0;
+    margin-left: 3.2rem;
+  }
 `;
 
 const ActivityItemTitle = styled.b`
@@ -107,7 +150,6 @@ const ActivityItemTitle = styled.b`
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 5.2rem;
-  margin-top: 3.2rem;
 `;
 
 const ActivityItemTitleLight = styled.span`
@@ -135,6 +177,12 @@ const ActivityItemRoles = styled.div`
   gap: 0.8rem;
   align-self: stretch;
   margin-top: 3.6rem;
+  grid-column: 1;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    grid-column: 1 / span 2;
+    flex-direction: column;
+  }
 `;
 
 type ActivityItemProps = {
@@ -152,15 +200,17 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
   return (
     <ActivityItemWrapper>
       <ActivityItemIcon>{icon}</ActivityItemIcon>
-      <ActivityItemTitle>{title}</ActivityItemTitle>
-      <ActivityItemDescription>{description}</ActivityItemDescription>
-      <ActivityItemDate>
-        <time dateTime={startDate.toUTCString()}>{formatDateYearMonth(startDate)}</time>
-        {' ~ '}
-        {endDate && (
-          <time dateTime={new Date(endDate).toUTCString()}>{formatDateYearMonth(endDate)}</time>
-        )}
-      </ActivityItemDate>
+      <ActivityItemContents>
+        <ActivityItemTitle>{title}</ActivityItemTitle>
+        <ActivityItemDescription>{description}</ActivityItemDescription>
+        <ActivityItemDate>
+          <time dateTime={startDate.toUTCString()}>{formatDateYearMonth(startDate)}</time>
+          {' ~ '}
+          {endDate && (
+            <time dateTime={new Date(endDate).toUTCString()}>{formatDateYearMonth(endDate)}</time>
+          )}
+        </ActivityItemDate>
+      </ActivityItemContents>
       <ActivityItemRoles>
         {children.map(role => (
           <ActivityRole key={role.key} title={role.role} team={role.team} icon={role.icon} />
@@ -170,17 +220,39 @@ const ActivityItem = ({ icon, title, description, date, children }: ActivityItem
   );
 };
 
-const ActivityListWrapper = styled.ul`
-  display: flex;
-  gap: 8rem;
+const scrollContainerStyle = css`
   margin-top: 4.8rem;
 `;
 
-const ActivityList = ({ children }: { children: ReactNode[] }) => (
-  <Container>
-    <ActivityListWrapper>{children}</ActivityListWrapper>
-  </Container>
-);
+const scrollContainerInnerStyle = css`
+  gap: 2rem;
+`;
+
+const ActivityListMobileWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 4.8rem;
+  gap: 8rem;
+`;
+
+const ActivityList = ({ children }: { children: ReactNode[] }) => {
+  const isMobile = useIsBelowBreakPoint(breakpoints.sm);
+  if (isMobile) {
+    return (
+      <Container>
+        <ActivityListMobileWrapper>
+          {children}
+        </ActivityListMobileWrapper>
+      </Container>
+    );
+  }
+
+  return (
+    <HorizontalScrollContainer className={scrollContainerStyle} innerClassName={scrollContainerInnerStyle}>
+      {children}
+    </HorizontalScrollContainer>
+  );
+};
 
 export const Activities = () => (
   <section>

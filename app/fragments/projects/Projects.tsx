@@ -7,7 +7,7 @@ import ImageToneMarble from '@/assets/images/tone-marble.png?url';
 import { Container } from '@/fragments/_components/Container';
 import { useSize } from '@/hooks/useSize';
 import { IconAudioWaveform, IconBookText, IconGhost, IconMoonStar, IconSnowflake } from '@/icons';
-import { hoverStyle } from '@/styles';
+import { breakpoints, hoverStyle } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
@@ -73,6 +73,10 @@ const ProjectItemIcon = styled.div`
   display: flex;
   align-items: center;
   font-size: 4rem;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    font-size: 3rem;
+  }
 `;
 
 const ProjectItemContentsInner = styled.div`
@@ -86,7 +90,7 @@ const ProjectItemTitle = styled.b`
   font-size: 2.4rem;
   line-height: 2.8rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 `;
 
 const ProjectItemDescription = styled.span`
@@ -139,12 +143,16 @@ const ProjectsColumns = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   column-gap: var(--grid-gap);
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${breakpoints.xl}px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: ${breakpoints.lg}px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${breakpoints.sm}px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 

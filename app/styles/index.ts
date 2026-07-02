@@ -1,5 +1,12 @@
 import { css } from '@linaria/core';
 
+export const breakpoints = {
+  sm: 480,
+  md: 768,
+  lg: 1000,
+  xl: 1400,
+};
+
 export const globalStyle = css`
   :global() {
     *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
@@ -49,11 +56,26 @@ export const globalStyle = css`
       --grey-850: #f8f8f8;
       --grey-900: #ffffff;
 
+      --container-width: 1500px;
+      --container-padding: 30px;
+
       font-family: var(--font-sans);
       font-size: 10px;
       letter-spacing: -0.01em;
       list-style-type: none;
       scroll-behavior: smooth;
+    }
+
+    @media (max-width: ${breakpoints.md}px) {
+      :root {
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: ${breakpoints.sm}px) {
+      :root {
+        font-size: 8px;
+      }
     }
   }
 `;

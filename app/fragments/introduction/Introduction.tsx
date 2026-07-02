@@ -5,6 +5,7 @@ import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import type { ReactNode } from 'react';
+import {breakpoints} from '@/styles';
 
 defineI18n(
   yaml => yaml`
@@ -155,6 +156,10 @@ const IntroductionWrapper = styled.section`
     &:nth-of-type(2) {
       margin-top: 12rem;
     }
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    flex-direction: column;
   }
 `;
 

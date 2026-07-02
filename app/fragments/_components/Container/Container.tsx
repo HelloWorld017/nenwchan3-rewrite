@@ -1,9 +1,9 @@
 import { styled } from '@linaria/react';
 
 export const Container = styled.div`
-  max-width: 1540px;
+  max-width: var(--container-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 `;

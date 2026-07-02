@@ -6,6 +6,8 @@ import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { type ReactNode, useMemo } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
+import {HorizontalScrollContainer} from '@/fragments/_components/HorizontalScrollContainer';
+import {css} from '@linaria/core';
 
 defineI18n(
   yaml => yaml`
@@ -17,7 +19,7 @@ defineI18n(
   `,
 );
 
-const EducationItemWrapper = styled.li`
+const EducationItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -79,16 +81,18 @@ const EducationItem = ({ title, description, date }: EducationItemProps) => {
   );
 };
 
-const EducationListWrapper = styled.ul`
-  display: flex;
-  gap: 2rem;
+const scrollContainerStyle = css`
   margin-top: 4.8rem;
 `;
 
+const scrollContainerInnerStyle = css`
+  gap: 2rem;
+`;
+
 const EducationList = ({ children }: { children: ReactNode[] }) => (
-  <Container>
-    <EducationListWrapper>{children}</EducationListWrapper>
-  </Container>
+  <HorizontalScrollContainer className={scrollContainerStyle} innerClassName={scrollContainerInnerStyle}>
+    {children}
+  </HorizontalScrollContainer>
 );
 
 export const Education = () => (
