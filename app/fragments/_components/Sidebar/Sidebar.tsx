@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
+import {breakpoints} from '@/styles';
 
 defineI18n(
   yaml => yaml`
@@ -52,11 +53,16 @@ const SidebarContainer = styled.aside`
   background: color-mix(var(--grey-200) 70%, transparent 30%);
   background-image: linear-gradient(to left top, transparent, rgba(0, 0, 0, 0.2));
   backdrop-filter: blur(2rem);
-  transform: translateX(-49rem);
+  transform: translateX(calc(-100% - 4rem));
   transition: transform var(--transition-container);
 
   [data-is-opened='true'] > & {
     transform: translateX(0rem);
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    width: auto;
+    right: 4rem;
   }
 `;
 

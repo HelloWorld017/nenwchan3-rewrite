@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useLatestRef } from './useLatestRef';
 import type { RefCallback } from 'react';
 
@@ -35,4 +35,10 @@ export const useIntersectionObserver = (
   );
 
   return ref;
+};
+
+export const useIsIntersecting = (opts: UseIntersectionObserverOptions = {}) => {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const ref = useIntersectionObserver(entry => setIsIntersecting(entry.isIntersecting), opts);
+  return [isIntersecting, ref] as const;
 };

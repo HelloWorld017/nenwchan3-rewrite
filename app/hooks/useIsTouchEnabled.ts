@@ -12,10 +12,6 @@ export const useIsTouchEnabled = () => {
   const [isTouchEnabled, setIsTouchEnabled] = useState(getIsTouchEnabled);
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-
     const mediaQueryList = window.matchMedia('(any-pointer: coarse)');
     const update = () => setIsTouchEnabled(getIsTouchEnabled());
 

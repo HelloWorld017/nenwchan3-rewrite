@@ -6,6 +6,7 @@ import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import type { ReactNode } from 'react';
 import {breakpoints} from '@/styles';
+import {useIsIntersecting} from '@/hooks/useIntersectionObserver';
 
 defineI18n(
   yaml => yaml`
@@ -33,6 +34,19 @@ const IntroductionCard = styled.div`
   padding: 7.2rem 4.8rem;
   border-radius: 2rem;
   box-shadow: var(--shadow-400);
+  opacity: 0;
+  transform: translate(0, 10rem);
+  transition: transform var(--transition-default),
+    opacity var(--transition-default);
+
+  &[data-is-intersecting="true"] {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    padding: 5.4rem 3.6rem;
+  }
 `;
 
 const IntroductionTitlePrefix = styled.span`
@@ -93,8 +107,13 @@ const DeveloperCodeWrapper = styled.code`
   border-radius: 1rem;
   color: var(--grey-900);
   font-size: 2rem;
+  line-height: 2.8rem;
   white-space: nowrap;
   font-family: var(--font-code);
+
+  @media (max-width: ${breakpoints.xl}px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const SyntaxString = styled.span`
@@ -105,24 +124,39 @@ const SyntaxObject = styled.span`
   color: var(--syntax-scheme-1);
 `;
 
+const BreakAndIndent = styled.div`
+  display: inline;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    display: block;
+    padding-left: 2ch;
+  }
+`;
+
 const DeveloperCode = () => (
   <DeveloperCodeWrapper>
-    <SyntaxObject>console</SyntaxObject>.log(<SyntaxString>`Aviation in progress`</SyntaxString>
+    <SyntaxObject>console</SyntaxObject>.log(
+      <BreakAndIndent><SyntaxString>`Aviation in progress`</SyntaxString></BreakAndIndent>
     );
   </DeveloperCodeWrapper>
 );
 
-const Developer = () => (
-  <DeveloperCard>
-    <IntroductionTitle>{{ prefix: 'I am a ', content: 'developer' }}</IntroductionTitle>
-    <IntroductionDecorator>
-      <DeveloperCode />
-    </IntroductionDecorator>
-    <IntroductionDescription>
-      <t._ $tags={{ b: Bold }}>{t.introduction.developer.description}</t._>
-    </IntroductionDescription>
-  </DeveloperCard>
-);
+const Developer = () => {
+  const [isIntersecting, ref] = useIsIntersecting({ threshold: 0.5 });
+  return (
+    <div ref={ref}>
+      <DeveloperCard data-is-intersecting={isIntersecting}>
+        <IntroductionTitle>{{ prefix: 'I am a ', content: 'developer' }}</IntroductionTitle>
+        <IntroductionDecorator>
+          <DeveloperCode />
+        </IntroductionDecorator>
+        <IntroductionDescription>
+          <t._ $tags={{ b: Bold }}>{t.introduction.developer.description}</t._>
+        </IntroductionDescription>
+      </DeveloperCard>
+    </div>
+  );
+};
 
 const EnthusiastCard = styled(IntroductionCard)`
   background: linear-gradient(166deg, #56717d 0%, #45475e 100%);
@@ -132,34 +166,77 @@ const EnthusiastStars = styled(EmojiSparkles)`
   font-size: 6rem;
 `;
 
-const Enthusiast = () => (
-  <EnthusiastCard>
-    <IntroductionTitle>{{ prefix: 'Also I am a ', content: 'enthusiast' }}</IntroductionTitle>
-    <IntroductionDecorator>
-      <EnthusiastStars />
-    </IntroductionDecorator>
-    <IntroductionDescription>
-      <t._ $tags={{ b: Bold }}>{t.introduction.enthusiast.description}</t._>
-    </IntroductionDescription>
-  </EnthusiastCard>
-);
+const Enthusiast = () => {
+  const [isIntersecting, ref] = useIsIntersecting({ threshold: 0.5 });
+  return (
+    <div ref={ref}>
+      <EnthusiastCard data-is-intersecting={isIntersecting}>
+        <IntroductionTitle>{{ prefix: 'Also I am a ', content: 'enthusiast' }}</IntroductionTitle>
+        <IntroductionDecorator>
+          <EnthusiastStars />
+        </IntroductionDecorator>
+        <IntroductionDescription>
+          <t._ $tags={{ b: Bold }}>{t.introduction.enthusiast.description}</t._>
+        </IntroductionDescription>
+      </EnthusiastCard>
+    </div>
+  );
+};
 
 const IntroductionWrapper = styled.section`
-  display: flex;
-  align-items: flex-start;
-  gap: 4.8rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   padding-top: 15rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 3rem;
 
   & > * {
     min-height: 42rem;
 
+    &:nth-of-type(1) {
+      grid-column: 1 / span 3;
+      grid-row: 1 / span 3;
+    }
+
     &:nth-of-type(2) {
-      margin-top: 12rem;
+      grid-column: 4 / span 3;
+      grid-row: 3 / span 3;
+    }
+  }
+
+  @media (max-width: ${breakpoints.lg}px) {
+    grid-template-rows: repeat(6, 1fr);
+
+    & > * {
+      &:nth-of-type(1) {
+        grid-column: 1 / span 4;
+        grid-row: 1 / span 3;
+      }
+
+      &:nth-of-type(2) {
+        grid-column: 3 / span 4;
+        grid-row: 4 / span 3;
+      }
     }
   }
 
   @media (max-width: ${breakpoints.md}px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    & > * {
+      &:nth-of-type(1) {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+      }
+
+      &:nth-of-type(2) {
+        grid-column: 1;
+        grid-row: 4 / span 3;
+      }
+    }
   }
 `;
 

@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     svgr(),
     wyw({
       eval: {
-        strategy: 'static',
+        strategy: 'hybrid',
       },
     }),
     react(),

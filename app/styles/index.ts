@@ -7,6 +7,12 @@ export const breakpoints = {
   xl: 1400,
 };
 
+const fontSizeGradient = (minBreakPoint: number, minSize: number, maxBreakPoint: number, maxSize: number) => {
+  const gradient = (maxSize - minSize) / (maxBreakPoint - minBreakPoint) * 100;
+  const bias = minSize - minBreakPoint * gradient / 100;
+  return `clamp(${minSize}px, calc(${bias.toFixed(2)}px + ${gradient.toFixed(2)}vw), ${maxSize}px)`;
+};
+
 export const globalStyle = css`
   :global() {
     *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
@@ -60,21 +66,13 @@ export const globalStyle = css`
       --container-padding: 30px;
 
       font-family: var(--font-sans);
-      font-size: 10px;
+      font-size: ${fontSizeGradient(breakpoints.sm, 8, breakpoints.lg, 10)};
       letter-spacing: -0.01em;
       list-style-type: none;
       scroll-behavior: smooth;
-    }
 
-    @media (max-width: ${breakpoints.md}px) {
-      :root {
-        font-size: 9px;
-      }
-    }
-
-    @media (max-width: ${breakpoints.sm}px) {
-      :root {
-        font-size: 8px;
+      @media (max-width: ${breakpoints.md}px) {
+        --container-padding: 16px;
       }
     }
   }
