@@ -30,7 +30,7 @@ const stableJSONSerialize = (object: unknown): string =>
             result[key] = val[key];
             return result;
           }, {})
-      : (val as unknown)
+      : (val as unknown),
   );
 
 const defaultSubsetOptions: FontSubsetOptions = {
@@ -136,7 +136,9 @@ export const subsetFonts = async ({
   const assets: GeneratedFontAsset[] = [];
 
   for (const face of getFontFaces(config)) {
-    const text = Array.from(chars.get(face.id) ?? []).sort((a, b) => a.localeCompare(b)).join('');
+    const text = Array.from(chars.get(face.id) ?? [])
+      .sort((a, b) => a.localeCompare(b))
+      .join('');
     if (!text) {
       continue;
     }
@@ -155,7 +157,9 @@ export const subsetFonts = async ({
 
     try {
       await access(outputPath);
-      console.log(`Skipping ${face.faceName}@${face.weight ?? 'normal'},${face.style ?? 'normal'}`);
+      console.info(
+        `Skipping ${face.faceName}@${face.weight ?? 'normal'},${face.style ?? 'normal'}`,
+      );
       assets.push({
         faceName: face.faceName,
         name,

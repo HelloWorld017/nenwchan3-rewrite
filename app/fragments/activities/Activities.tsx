@@ -3,17 +3,17 @@ import EmojiBlueBook from '@/assets/icons/EmojiBlueBook.svg?react';
 import EmojiHighVoltage from '@/assets/icons/EmojiHighVoltage.svg?react';
 import { Container } from '@/fragments/_components/Container';
 import { SectionTitle } from '@/fragments/_components/SectionTitle';
+import { useIsBelowBreakPoint } from '@/hooks/useIsBelowBreakPoint';
 import { IconCodeXml, IconServer } from '@/icons';
+import { breakpoints } from '@/styles';
 import { formatDateYearMonth } from '@/utils/format/formatDate';
+import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { type ReactNode, useMemo } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
-import {HorizontalScrollContainer} from '../_components/HorizontalScrollContainer';
-import {css} from '@linaria/core';
-import {breakpoints} from '@/styles';
-import {useIsBelowBreakPoint} from '@/hooks/useIsBelowBreakPoint';
+import { HorizontalScrollContainer } from '../_components/HorizontalScrollContainer';
 
 defineI18n(
   yaml => yaml`
@@ -240,15 +240,16 @@ const ActivityList = ({ children }: { children: ReactNode[] }) => {
   if (isMobile) {
     return (
       <Container>
-        <ActivityListMobileWrapper>
-          {children}
-        </ActivityListMobileWrapper>
+        <ActivityListMobileWrapper>{children}</ActivityListMobileWrapper>
       </Container>
     );
   }
 
   return (
-    <HorizontalScrollContainer className={scrollContainerStyle} innerClassName={scrollContainerInnerStyle}>
+    <HorizontalScrollContainer
+      className={scrollContainerStyle}
+      innerClassName={scrollContainerInnerStyle}
+    >
       {children}
     </HorizontalScrollContainer>
   );

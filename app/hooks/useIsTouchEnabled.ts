@@ -17,7 +17,6 @@ export const useIsTouchEnabled = () => {
 
     update();
     mediaQueryList.addEventListener('change', update);
-
     return () => mediaQueryList.removeEventListener('change', update);
   }, []);
 

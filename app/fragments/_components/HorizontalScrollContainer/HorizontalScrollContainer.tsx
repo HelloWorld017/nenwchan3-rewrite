@@ -1,6 +1,7 @@
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useIsTouchEnabled } from '@/hooks/useIsTouchEnabled';
-import {IconChevronLeft, IconChevronRight} from '@/icons';
+import { IconChevronLeft, IconChevronRight } from '@/icons';
+import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { useCallback, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode, RefCallback } from 'react';
@@ -13,11 +14,14 @@ const getScrollPadding = (element: HTMLElement) => {
 
 const HorizontalScrollContainerRoot = styled.div`
   --horizontal-scroll-max-padding: 10px;
-  --horizontal-scroll-target-outer: calc(var(--container-width) + 2 * var(--horizontal-scroll-max-padding));
+  --horizontal-scroll-target-outer: calc(
+    var(--container-width) + 2 * var(--horizontal-scroll-max-padding)
+  );
   --horizontal-scroll-outer: min(100vw, var(--horizontal-scroll-target-outer));
   --horizontal-scroll-inner: min(100vw, var(--container-width));
   --horizontal-scroll-padding-size: calc(
-    var(--container-padding) + max(0px, var(--horizontal-scroll-outer) - var(--horizontal-scroll-inner)) / 2
+    var(--container-padding) +
+      max(0px, var(--horizontal-scroll-outer) - var(--horizontal-scroll-inner)) / 2
   );
 
   position: relative;
@@ -32,7 +36,7 @@ const HorizontalScrollContainerRoot = styled.div`
 const HorizontalScrollButton = styled.button`
   position: absolute;
   top: 50%;
-  z-index: 1;
+  z-index: ${zLayer.controls};
 
   display: flex;
   justify-content: center;
@@ -167,10 +171,10 @@ export const HorizontalScrollContainer = ({
     { disabled: !scrollAreaElement, root: scrollAreaElement },
   );
 
-  const endSentinelRef = useIntersectionObserver(
-    entry => setIsEndVisible(entry.isIntersecting),
-    { disabled: !scrollAreaElement, root: scrollAreaElement },
-  );
+  const endSentinelRef = useIntersectionObserver(entry => setIsEndVisible(entry.isIntersecting), {
+    disabled: !scrollAreaElement,
+    root: scrollAreaElement,
+  });
 
   const scrollToItem = useCallback((item: Element) => {
     const scrollArea = scrollAreaRef.current;

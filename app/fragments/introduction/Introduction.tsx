@@ -1,12 +1,13 @@
 import EmojiSparkles from '@/assets/icons/EmojiSparkles.svg?react';
 import { Container } from '@/fragments/_components/Container';
+import { useIsIntersecting } from '@/hooks/useIntersectionObserver';
+import { useScrollTimeline } from '@/hooks/useScrollTimeline';
+import { breakpoints } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import type { ReactNode } from 'react';
-import {breakpoints} from '@/styles';
-import {useIsIntersecting} from '@/hooks/useIntersectionObserver';
 
 defineI18n(
   yaml => yaml`
@@ -36,10 +37,11 @@ const IntroductionCard = styled.div`
   box-shadow: var(--shadow-400);
   opacity: 0;
   transform: translate(0, 10rem);
-  transition: transform var(--transition-default),
+  transition:
+    transform var(--transition-default),
     opacity var(--transition-default);
 
-  &[data-is-intersecting="true"] {
+  &[data-is-intersecting='true'] {
     transform: translate(0, 0);
     opacity: 1;
   }
@@ -136,13 +138,15 @@ const BreakAndIndent = styled.div`
 const DeveloperCode = () => (
   <DeveloperCodeWrapper>
     <SyntaxObject>console</SyntaxObject>.log(
-      <BreakAndIndent><SyntaxString>`Aviation in progress`</SyntaxString></BreakAndIndent>
+    <BreakAndIndent>
+      <SyntaxString>`Aviation in progress`</SyntaxString>
+    </BreakAndIndent>
     );
   </DeveloperCodeWrapper>
 );
 
 const Developer = () => {
-  const [isIntersecting, ref] = useIsIntersecting({ threshold: 0.5 });
+  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '100px 0px -100px', threshold: 0 });
   return (
     <div ref={ref}>
       <DeveloperCard data-is-intersecting={isIntersecting}>
@@ -167,7 +171,8 @@ const EnthusiastStars = styled(EmojiSparkles)`
 `;
 
 const Enthusiast = () => {
-  const [isIntersecting, ref] = useIsIntersecting({ threshold: 0.5 });
+  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '100px 0px -100px', threshold: 0 });
+
   return (
     <div ref={ref}>
       <EnthusiastCard data-is-intersecting={isIntersecting}>
@@ -186,7 +191,7 @@ const Enthusiast = () => {
 const IntroductionWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(5, auto);
   padding-top: 15rem;
   max-width: 1100px;
   margin: 0 auto;
@@ -207,7 +212,7 @@ const IntroductionWrapper = styled.section`
   }
 
   @media (max-width: ${breakpoints.lg}px) {
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(6, auto);
 
     & > * {
       &:nth-of-type(1) {

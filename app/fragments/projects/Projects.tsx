@@ -7,7 +7,7 @@ import ImageToneMarble from '@/assets/images/tone-marble.png?url';
 import { Container } from '@/fragments/_components/Container';
 import { useSize } from '@/hooks/useSize';
 import { IconAudioWaveform, IconBookText, IconGhost, IconMoonStar, IconSnowflake } from '@/icons';
-import { breakpoints, hoverStyle } from '@/styles';
+import { breakpoints, hoverStyle, zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
@@ -181,7 +181,7 @@ const ProjectDescriptionLinkInner = styled.a`
     height: 1rem;
     transform: translate(0.2rem, 0.1rem);
     background: var(--bluegrey-800);
-    z-index: -1;
+    z-index: ${zLayer.below};
   }
 
   &::after {

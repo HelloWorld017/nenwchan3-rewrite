@@ -7,9 +7,25 @@ export const breakpoints = {
   xl: 1400,
 };
 
-const fontSizeGradient = (minBreakPoint: number, minSize: number, maxBreakPoint: number, maxSize: number) => {
-  const gradient = (maxSize - minSize) / (maxBreakPoint - minBreakPoint) * 100;
-  const bias = minSize - minBreakPoint * gradient / 100;
+export const zLayer = {
+  below: -10,
+  base: 0,
+  controls: 10,
+  tooltip: 20,
+  dropdown: 30,
+  overlay: 40,
+  modal: 50,
+  toast: 60,
+};
+
+const fontSizeGradient = (
+  minBreakPoint: number,
+  minSize: number,
+  maxBreakPoint: number,
+  maxSize: number,
+) => {
+  const gradient = ((maxSize - minSize) / (maxBreakPoint - minBreakPoint)) * 100;
+  const bias = minSize - (minBreakPoint * gradient) / 100;
   return `clamp(${minSize}px, calc(${bias.toFixed(2)}px + ${gradient.toFixed(2)}vw), ${maxSize}px)`;
 };
 

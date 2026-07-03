@@ -1,3 +1,4 @@
+import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 
 const SidebarButtonBar = styled.div<{ direction: number }>`
@@ -36,6 +37,7 @@ const SidebarButtonWrapper = styled.button`
     background var(--transition-default),
     transform var(--transition-bounce);
   transform: rotate(45deg);
+  z-index: ${zLayer.overlay};
 
   &[data-is-active='true'] {
     transform: rotate(90deg);

@@ -1,3 +1,4 @@
+import { breakpoints, zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t, useI18n } from '@simplei18n/core/react';
@@ -5,7 +6,6 @@ import { useCallback, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
-import {breakpoints} from '@/styles';
 
 defineI18n(
   yaml => yaml`
@@ -55,6 +55,7 @@ const SidebarContainer = styled.aside`
   backdrop-filter: blur(2rem);
   transform: translateX(calc(-100% - 4rem));
   transition: transform var(--transition-container);
+  z-index: ${zLayer.overlay};
 
   [data-is-opened='true'] > & {
     transform: translateX(0rem);
@@ -76,6 +77,7 @@ const SidebarBackdrop = styled.div`
   background-image: linear-gradient(110deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%);
   opacity: 0;
   transition: opacity var(--transition-container);
+  z-index: ${zLayer.overlay};
 
   [data-is-opened='true'] > & {
     opacity: 1;

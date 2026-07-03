@@ -1,13 +1,13 @@
 import { Container } from '@/fragments/_components/Container';
+import { HorizontalScrollContainer } from '@/fragments/_components/HorizontalScrollContainer';
 import { SectionTitle } from '@/fragments/_components/SectionTitle';
 import { formatDateYearMonth } from '@/utils/format/formatDate';
+import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { type ReactNode, useMemo } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
-import {HorizontalScrollContainer} from '@/fragments/_components/HorizontalScrollContainer';
-import {css} from '@linaria/core';
 
 defineI18n(
   yaml => yaml`
@@ -90,7 +90,10 @@ const scrollContainerInnerStyle = css`
 `;
 
 const EducationList = ({ children }: { children: ReactNode[] }) => (
-  <HorizontalScrollContainer className={scrollContainerStyle} innerClassName={scrollContainerInnerStyle}>
+  <HorizontalScrollContainer
+    className={scrollContainerStyle}
+    innerClassName={scrollContainerInnerStyle}
+  >
     {children}
   </HorizontalScrollContainer>
 );
