@@ -147,6 +147,11 @@ export const useScrollTimeline = (keyframes: ScrollTimelineKeyframe[]) => {
   }, []);
 
   useEffect(() => {
+    measure();
+    scheduleUpdate();
+  }, [keyframes, measure, scheduleUpdate]);
+
+  useEffect(() => {
     const onScroll = () => {
       measureThrottled();
       scheduleUpdate();

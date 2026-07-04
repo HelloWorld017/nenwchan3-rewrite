@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
+import { TransitionEvent } from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -100,8 +101,10 @@ export const Sidebar = () => {
     setIsAnimating(true);
   }, [isOpened]);
 
-  const onTransitionEnd = useCallback(() => {
-    setIsAnimating(false);
+  const onTransitionEnd = useCallback((event: TransitionEvent) => {
+    if (event.target === event.currentTarget) {
+      setIsAnimating(false);
+    }
   }, []);
 
   return (
