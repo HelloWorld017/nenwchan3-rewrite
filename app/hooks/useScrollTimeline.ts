@@ -4,9 +4,11 @@ import { useLatestRef } from './useLatestRef';
 import type { RefCallback } from 'react';
 
 type ScrollTimelineAnchor = 'top' | 'bottom';
+type ScrollTimelineEdge = 'top' | 'bottom';
 
 export type ScrollTimelineKeyframe = {
   anchor: ScrollTimelineAnchor;
+  edge?: ScrollTimelineEdge;
   offset: number;
   value: number;
 };
@@ -30,8 +32,9 @@ const getScrollTimelinePoints = (
   const top = rect.top + scrollY;
   const bottom = rect.bottom + scrollY;
   return keyframes
-    .map(({ anchor, offset, value }) => ({
-      position: (anchor === 'top' ? top - window.innerHeight : bottom) + offset,
+    .map(({ anchor, edge = anchor === 'top' ? 'bottom' : 'top', offset, value }) => ({
+      position:
+        (anchor === 'top' ? top : bottom) + (edge === 'bottom' ? -window.innerHeight : 0) + offset,
       value,
     }))
     .sort((a, b) => a.position - b.position);

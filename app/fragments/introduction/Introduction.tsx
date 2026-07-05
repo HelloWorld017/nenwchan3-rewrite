@@ -1,7 +1,6 @@
 import EmojiSparkles from '@/assets/icons/EmojiSparkles.svg?react';
 import { Container } from '@/fragments/_components/Container';
 import { useIsIntersecting } from '@/hooks/useIntersectionObserver';
-import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { breakpoints } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
@@ -247,7 +246,7 @@ const IntroductionWrapper = styled.section`
 
 export const Introduction = () => (
   <Container>
-    <IntroductionWrapper id="Introduction">
+    <IntroductionWrapper>
       <Developer />
       <Enthusiast />
     </IntroductionWrapper>

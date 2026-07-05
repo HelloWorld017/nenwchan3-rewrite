@@ -75,12 +75,15 @@ export const ScrollVideo = () => {
   );
 
   const videoHeight = viewportHeight * VIDEO_HEIGHT;
-  const updateHeight = useCallback((value: number) => {
-    wrapperRef.current?.style.setProperty(
-      '--scroll-video-height',
-      `${videoHeight * clampProgress(value)}px`,
-    );
-  }, [videoHeight]);
+  const updateHeight = useCallback(
+    (value: number) => {
+      wrapperRef.current?.style.setProperty(
+        '--scroll-video-height',
+        `${videoHeight * clampProgress(value)}px`,
+      );
+    },
+    [videoHeight],
+  );
 
   const updateVideoTime = useCallback((value: number) => {
     const video = videoRef.current;

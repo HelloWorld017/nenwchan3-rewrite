@@ -5,6 +5,7 @@ import { Activities } from './activities';
 import { Contact } from './contact';
 import { Education } from './education';
 import { Introduction } from './introduction';
+import { Landing } from './landing';
 import { Projects } from './projects';
 
 const SectionList = styled.div`
@@ -17,6 +18,7 @@ const SectionList = styled.div`
 
 const PageContents = () => (
   <>
+    <Landing />
     <Abstract />
     <Introduction />
     <SectionList>

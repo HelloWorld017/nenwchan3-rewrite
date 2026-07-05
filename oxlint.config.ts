@@ -42,7 +42,7 @@ export default defineConfig({
     'eqeqeq': ['error', 'always'],
     'class-methods-use-this': 'off',
     'curly': ['error', 'all'],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
     'prefer-const': 'off',
     'prefer-promise-reject-errors': 'off',
   },

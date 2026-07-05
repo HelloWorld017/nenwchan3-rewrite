@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
-import { TransitionEvent } from 'react';
+import type { TransitionEvent } from 'react';
 
 defineI18n(
   yaml => yaml`

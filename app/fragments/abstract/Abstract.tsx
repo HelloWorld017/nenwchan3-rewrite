@@ -8,7 +8,7 @@ import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
-import { ScrollVideo } from './_components/ScrollVideo/ScrollVideo';
+import { ScrollVideo } from './_components/ScrollVideo';
 
 defineI18n(
   yaml => yaml`
@@ -172,7 +172,7 @@ const AbstractWrapper = styled.section`
 `;
 
 export const Abstract = () => (
-  <AbstractWrapper id="Abstract">
+  <AbstractWrapper>
     <Container>
       <Profile />
       <Quote />
