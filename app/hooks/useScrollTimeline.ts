@@ -2,7 +2,8 @@ import { throttle } from 'es-toolkit';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLatestRef } from './useLatestRef';
 import type { RefCallback } from 'react';
-import {getWindowSize, WindowSize} from './useWindowSize';
+import { getWindowSize } from './useWindowSize';
+import type { WindowSize } from './useWindowSize';
 
 type ScrollTimelineAnchor = 'top' | 'bottom';
 type ScrollTimelineEdge = 'top' | 'bottom';

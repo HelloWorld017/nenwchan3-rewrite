@@ -8,7 +8,7 @@ import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
-import { ScrollVideo } from './_components/ScrollVideo';
+import { QuoteScrollVideo } from './_components/QuoteScrollVideo';
 
 defineI18n(
   yaml => yaml`
@@ -177,7 +177,7 @@ export const Abstract = () => (
       <Profile />
       <Quote />
     </Container>
-    <ScrollVideo />
+    <QuoteScrollVideo />
     <Container>
       <AbstractDescriptionWrapper>
         <DescriptionText>
