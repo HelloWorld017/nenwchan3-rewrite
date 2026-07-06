@@ -30,7 +30,7 @@ export const ScrollVideo = ({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const targetPlaybackRef = useRef(0);
   const currentPlaybackRef = useRef(0);
-  const { updateNextFrameCallback } = useVideoFrameCallback(videoRef);
+  const { updateNextVideoCallback } = useVideoFrameCallback(videoRef);
 
   const windowSize = useWindowSize();
   const viewportHeight = windowSize?.largeViewportHeight ?? 0;
@@ -55,12 +55,12 @@ export const ScrollVideo = ({
       const playbackCleanup = playbackTimelineRef(node);
 
       return () => {
-        updateNextFrameCallback(null);
+        updateNextVideoCallback(null);
         videoRef.current = null;
         playbackCleanup?.();
       };
     },
-    [playbackTimelineRef, updateNextFrameCallback],
+    [playbackTimelineRef, updateNextVideoCallback],
   );
 
   const seekVideoTime = useCallback((value: number) => {
@@ -96,12 +96,12 @@ export const ScrollVideo = ({
       seekVideoTime(next);
 
       if (next !== target) {
-        updateNextFrameCallback(animate);
+        updateNextVideoCallback(animate);
       }
     };
 
-    updateNextFrameCallback(animate);
-  }, [seekVideoTime, updateNextFrameCallback]);
+    updateNextVideoCallback(animate);
+  }, [seekVideoTime, updateNextVideoCallback]);
 
   const updateVideoTime = useCallback(
     (value: number) => {

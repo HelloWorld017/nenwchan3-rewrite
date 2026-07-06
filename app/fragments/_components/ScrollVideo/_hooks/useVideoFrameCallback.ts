@@ -36,7 +36,7 @@ export const useVideoFrameCallback = (videoRef: RefObject<HTMLVideoElement | nul
     return true;
   }, []);
 
-  const updateNextFrameCallback = useCallback(
+  const updateNextVideoCallback = useCallback(
     (callback: VideoFrameCallback | null) => {
       nextFrameCallbackRef.current = callback;
 
@@ -88,10 +88,10 @@ export const useVideoFrameCallback = (videoRef: RefObject<HTMLVideoElement | nul
   );
 
   useEffect(() => () => {
-    updateNextFrameCallback(null);
-  }, [updateNextFrameCallback]);
+    updateNextVideoCallback(null);
+  }, [updateNextVideoCallback]);
 
   return {
-    updateNextFrameCallback,
+    updateNextVideoCallback,
   };
 };
