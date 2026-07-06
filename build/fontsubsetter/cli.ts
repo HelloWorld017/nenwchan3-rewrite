@@ -53,7 +53,7 @@ const createInternalServer = (root: string): Promise<ViteDevServer> =>
     root,
     appType: 'custom',
     logLevel: 'error',
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, watch: null },
   });
 
 const extractCssText = (result: unknown): string => {

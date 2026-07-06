@@ -1,3 +1,7 @@
 minimumReleaseAge: 1440
+
 minimumReleaseAgeExclude:
   - '@simplei18n/core'
+
+patchedDependencies:
+  '@wyw-in-js/vite': patches/@wyw-in-js__vite.patch
