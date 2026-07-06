@@ -7,22 +7,6 @@ declare module '@simplei18n/core' {
   }
 
   interface TranslationMap {
-    abstract: {
-      /** 저는 누군가의 기억에 남는 무언가를 만들고 싶습니다.<br/> 그렇기에 저는 사람의 마음에 닿는 디자인을 고민하고,<br/> 그것을 현실에서 구현하기 위한 엔지니어링을 하고 싶습니다.  */
-      abstract: TranslationDescriptor<{ interpolations: never; tags: 'br' }>;
-      profile: {
-        /** Aviate in Progress */
-        bio: TranslationDescriptor<{ interpolations: never; tags: never }>;
-        /** 안녕하세요! 저는 소프트웨어 개발에 관심이 많은 김요한이라고 합니다.<br/> 저는 주로 <tag>nenw*</tag> 또는 <tag>Khinenw</tag> 라는 이름으로 활동하고 있습니다.  */
-        description: TranslationDescriptor<{ interpolations: never; tags: 'br' | 'tag' }>;
-      };
-      quote: {
-        /** 「울려라! 유포니엄」 작중 대사 */
-        source: TranslationDescriptor<{ interpolations: never; tags: never }>;
-        /** 난 있지, 특별해지고 싶어. */
-        text: TranslationDescriptor<{ interpolations: never; tags: never }>;
-      };
-    };
     activities: {
       org: {
         /** if-Team, <Light>Organic</Light> */
@@ -92,9 +76,23 @@ declare module '@simplei18n/core' {
         description: TranslationDescriptor<{ interpolations: never; tags: 'b' }>;
       };
     };
+    profile: {
+      /** Aviate in Progress */
+      bio: TranslationDescriptor<{ interpolations: never; tags: never }>;
+      /** 안녕하세요! 저는 소프트웨어 개발에 관심이 많은 김요한이라고 합니다.<br/> 저는 주로 <tag>nenw*</tag> 또는 <tag>Khinenw</tag> 라는 이름으로 활동하고 있습니다.  */
+      description: TranslationDescriptor<{ interpolations: never; tags: 'br' | 'tag' }>;
+    };
     projects: {
       /** 개인적으로 진행했던 사이드 프로젝트들 중 보여드리고 싶은 프로젝트들입니다.<br /> 더 많은 프로젝트들을 보시고 싶으시다면 <Link>개인 깃허브</Link>에 방문해주시면 감사하겠습니다!  */
       description: TranslationDescriptor<{ interpolations: never; tags: 'Link' | 'br' }>;
+    };
+    quote: {
+      /** 「울려라! 유포니엄」 작중 대사 */
+      source: TranslationDescriptor<{ interpolations: never; tags: never }>;
+      /** 저는 누군가의 기억에 남는 무언가를 만들고 싶습니다.<br/> 그렇기에 저는 사람의 마음에 닿는 디자인을 고민하고,<br/> 그것을 현실에서 구현하기 위한 엔지니어링을 하고 싶습니다.  */
+      summary: TranslationDescriptor<{ interpolations: never; tags: 'br' }>;
+      /** 난 있지, 특별해지고 싶어. */
+      text: TranslationDescriptor<{ interpolations: never; tags: never }>;
     };
     sidebar: {
       blog: {

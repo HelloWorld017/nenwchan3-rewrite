@@ -145,7 +145,7 @@ const DeveloperCode = () => (
 );
 
 const Developer = () => {
-  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '100px 0px -100px', threshold: 0 });
+  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '30% 0px -30%', threshold: 0 });
   return (
     <div ref={ref}>
       <DeveloperCard data-is-intersecting={isIntersecting}>
@@ -170,7 +170,7 @@ const EnthusiastStars = styled(EmojiSparkles)`
 `;
 
 const Enthusiast = () => {
-  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '100px 0px -100px', threshold: 0 });
+  const [isIntersecting, ref] = useIsIntersecting({ rootMargin: '30% 0px -30%', threshold: 0 });
 
   return (
     <div ref={ref}>
@@ -187,7 +187,7 @@ const Enthusiast = () => {
   );
 };
 
-const IntroductionWrapper = styled.section`
+const IntroductionWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, auto);
@@ -245,12 +245,14 @@ const IntroductionWrapper = styled.section`
 `;
 
 export const Introduction = () => (
-  <Container>
-    <IntroductionWrapper>
-      <Developer />
-      <Enthusiast />
-    </IntroductionWrapper>
-  </Container>
+  <section>
+    <Container>
+      <IntroductionWrapper>
+        <Developer />
+        <Enthusiast />
+      </IntroductionWrapper>
+    </Container>
+  </section>
 );
 
 addToFonts(<Introduction />);

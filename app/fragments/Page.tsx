@@ -1,12 +1,13 @@
 import { styled } from '@linaria/react';
 import { Sidebar } from './_components/Sidebar';
-import { Abstract } from './abstract';
 import { Activities } from './activities';
 import { Contact } from './contact';
 import { Education } from './education';
 import { Introduction } from './introduction';
 import { Landing } from './landing';
+import { Profile } from './profile';
 import { Projects } from './projects';
+import { Quote } from './quote';
 
 const SectionList = styled.div`
   display: flex;
@@ -19,7 +20,8 @@ const SectionList = styled.div`
 const PageContents = () => (
   <>
     <Landing />
-    <Abstract />
+    <Profile />
+    <Quote />
     <Introduction />
     <SectionList>
       <Projects />

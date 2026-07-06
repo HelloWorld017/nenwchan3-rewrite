@@ -1,13 +1,3 @@
-abstract.profile.bio: !todo 'Aviate in Progress'
-abstract.profile.description: !todo |
-  안녕하세요! 저는 소프트웨어 개발에 관심이 많은 김요한이라고 합니다.<br/>
-  저는 주로 <tag>nenw*</tag> 또는 <tag>Khinenw</tag> 라는 이름으로 활동하고 있습니다.
-abstract.quote.text: !todo '난 있지, 특별해지고 싶어.'
-abstract.quote.source: !todo '「울려라! 유포니엄」 작중 대사'
-abstract.abstract: !todo |
-  저는 누군가의 기억에 남는 무언가를 만들고 싶습니다.<br/>
-  그렇기에 저는 사람의 마음에 닿는 디자인을 고민하고,<br/>
-  그것을 현실에서 구현하기 위한 엔지니어링을 하고 싶습니다.
 activities.org.ifteam: !todo 'if-Team, <Light>Organic</Light>'
 activities.org.ifteam.description: !todo '청소년 개발팀'
 activities.org.ridi: !todo 'RIDI'
@@ -37,10 +27,20 @@ introduction.enthusiast.description: !todo |
   또한 저는 누군가에 기억에 남을 무언가를 만들기 위해서
   <b>웹 디자인, 3D 모델링 및 아트, 인쇄물 디자인, 사운드 디자인</b>
   등의 다양한 분야에 관심을 가지고 도전하고 있습니다.
+profile.bio: !todo 'Aviate in Progress'
+profile.description: !todo |
+  안녕하세요! 저는 소프트웨어 개발에 관심이 많은 김요한이라고 합니다.<br/>
+  저는 주로 <tag>nenw*</tag> 또는 <tag>Khinenw</tag> 라는 이름으로 활동하고 있습니다.
 projects.description: !todo |
   개인적으로 진행했던 사이드 프로젝트들 중 보여드리고 싶은 프로젝트들입니다.<br />
   더 많은 프로젝트들을 보시고 싶으시다면 <Link>개인 깃허브</Link>에 방문해주시면
   감사하겠습니다!
+quote.source: !todo '「울려라! 유포니엄」 작중 대사'
+quote.summary: !todo |
+  저는 누군가의 기억에 남는 무언가를 만들고 싶습니다.<br/>
+  그렇기에 저는 사람의 마음에 닿는 디자인을 고민하고,<br/>
+  그것을 현실에서 구현하기 위한 엔지니어링을 하고 싶습니다.
+quote.text: !todo '난 있지, 특별해지고 싶어.'
 sidebar.blog.description: !todo '제가 알게된 것들을 정리해서 올리는 곳'
 sidebar.blog.title: !todo 'Blog'
 sidebar.description: !todo '2026 Redesigned'
