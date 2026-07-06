@@ -39,7 +39,10 @@ export const QuoteScrollVideo = () => {
     ref: heightTimelineRef,
     valueRef: heightValueRef,
     onChange: onHeightChange,
-  } = useScrollTimeline(heightKeyframes);
+  } = useScrollTimeline({
+    keyframes: heightKeyframes,
+    interpolate: false,
+  });
 
   const setWrapperRef: RefCallback<HTMLDivElement> = useCallback(
     node => {

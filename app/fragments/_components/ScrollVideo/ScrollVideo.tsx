@@ -2,7 +2,11 @@ import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useVideoFrameCallback } from './_hooks/useVideoFrameCallback';
 import type { ComponentPropsWithoutRef, ReactEventHandler, RefCallback } from 'react';
+
+const PLAYBACK_LERP_FACTOR = 0.18;
+const PLAYBACK_SETTLE_THRESHOLD = 0.001;
 
 const clampProgress = (value: number) => Math.min(1, Math.max(0, value));
 
@@ -24,6 +28,10 @@ export const ScrollVideo = ({
   ...props
 }: ScrollVideoProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const targetPlaybackRef = useRef(0);
+  const currentPlaybackRef = useRef(0);
+  const { updateNextFrameCallback } = useVideoFrameCallback(videoRef);
+
   const windowSize = useWindowSize();
   const viewportHeight = windowSize?.largeViewportHeight ?? 0;
 
@@ -39,7 +47,7 @@ export const ScrollVideo = ({
     ref: playbackTimelineRef,
     valueRef: playbackValueRef,
     onChange: onPlaybackChange,
-  } = useScrollTimeline(playbackKeyframes);
+  } = useScrollTimeline({ keyframes: playbackKeyframes, interpolate: false });
 
   const setVideoRef: RefCallback<HTMLVideoElement> = useCallback(
     node => {
@@ -47,14 +55,15 @@ export const ScrollVideo = ({
       const playbackCleanup = playbackTimelineRef(node);
 
       return () => {
+        updateNextFrameCallback(null);
         videoRef.current = null;
         playbackCleanup?.();
       };
     },
-    [playbackTimelineRef],
+    [playbackTimelineRef, updateNextFrameCallback],
   );
 
-  const updateVideoTime = useCallback((value: number) => {
+  const seekVideoTime = useCallback((value: number) => {
     const video = videoRef.current;
     if (!video) {
       return;
@@ -72,6 +81,35 @@ export const ScrollVideo = ({
       // Metadata could be unavailable during the first render.
     }
   }, []);
+
+  const startVideoTimeAnimation = useCallback(() => {
+    const animate = () => {
+      const target = targetPlaybackRef.current;
+      const current = currentPlaybackRef.current;
+      const delta = target - current;
+      const next =
+        Math.abs(delta) < PLAYBACK_SETTLE_THRESHOLD
+          ? target
+          : current + delta * PLAYBACK_LERP_FACTOR;
+
+      currentPlaybackRef.current = next;
+      seekVideoTime(next);
+
+      if (next !== target) {
+        updateNextFrameCallback(animate);
+      }
+    };
+
+    updateNextFrameCallback(animate);
+  }, [seekVideoTime, updateNextFrameCallback]);
+
+  const updateVideoTime = useCallback(
+    (value: number) => {
+      targetPlaybackRef.current = clampProgress(value);
+      startVideoTimeAnimation();
+    },
+    [startVideoTimeAnimation],
+  );
 
   useEffect(() => {
     updateVideoTime(playbackValueRef.current);

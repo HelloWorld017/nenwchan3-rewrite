@@ -1,9 +1,13 @@
 import { throttle } from 'es-toolkit';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useAnimationFrame } from './useAnimationFrame';
 import { useLatestRef } from './useLatestRef';
-import type { RefCallback } from 'react';
 import { getWindowSize } from './useWindowSize';
 import type { WindowSize } from './useWindowSize';
+import type { RefCallback } from 'react';
+
+const INTERPOLATION_LERP_FACTOR = 0.18;
+const INTERPOLATION_SETTLE_THRESHOLD = 0.001;
 
 type ScrollTimelineAnchor = 'top' | 'bottom';
 type ScrollTimelineEdge = 'top' | 'bottom';
@@ -13,6 +17,11 @@ export type ScrollTimelineKeyframe = {
   edge?: ScrollTimelineEdge;
   offset: number;
   value: number;
+};
+
+type UseScrollTimelineOptions = {
+  keyframes: ScrollTimelineKeyframe[];
+  interpolate?: boolean;
 };
 
 type ScrollTimelineListener = (value: number) => void;
@@ -37,7 +46,9 @@ const getScrollTimelinePoints = (
   return keyframes
     .map(({ anchor, edge = anchor === 'top' ? 'bottom' : 'top', offset, value }) => ({
       position:
-        (anchor === 'top' ? top : bottom) + (edge === 'bottom' ? -windowSize.largeViewportHeight : 0) + offset,
+        (anchor === 'top' ? top : bottom) +
+        (edge === 'bottom' ? -windowSize.largeViewportHeight : 0) +
+        offset,
       value,
     }))
     .sort((a, b) => a.position - b.position);
@@ -76,16 +87,22 @@ const getScrollTimelineValue = (points: ScrollTimelinePoint[], scrollY: number) 
   return lastPoint.value;
 };
 
-export const useScrollTimeline = (keyframes: ScrollTimelineKeyframe[]) => {
+export const useScrollTimeline = ({ keyframes, interpolate = true }: UseScrollTimelineOptions) => {
+  const isInitializedRef = useRef(false);
   const elementRef = useRef<HTMLElement | null>(null);
   const keyframesRef = useLatestRef(keyframes);
+  const interpolateRef = useLatestRef(interpolate);
   const pointsRef = useRef<ScrollTimelinePoint[]>([]);
-  const valueRef = useRef(0);
-  const frameRef = useRef<number | null>(null);
   const listenersRef = useRef(new Set<ScrollTimelineListener>());
-  const [element, setElement] = useState<HTMLElement | null>(null);
+
   const [value, setValue] = useState(0);
+  const valueRef = useRef(0);
+  const targetValueRef = useRef(0);
   const setThrottledValue = useMemo(() => throttle(setValue, 50), []);
+  useEffect(() => () => setThrottledValue.cancel(), [setThrottledValue]);
+
+  const { updateNextAnimationCallback: updateNextTargetCallback } = useAnimationFrame();
+  const { updateNextAnimationCallback: updateNextInterpolationCallback } = useAnimationFrame();
 
   const measure = useCallback(() => {
     const currentKeyframes = keyframesRef.current;
@@ -99,48 +116,85 @@ export const useScrollTimeline = (keyframes: ScrollTimelineKeyframe[]) => {
     pointsRef.current = getScrollTimelinePoints(currentElement, currentKeyframes, windowSize);
   }, [keyframesRef]);
 
+  const commitValue = useCallback(
+    (nextValue: number) => {
+      const isInitialized = isInitializedRef.current;
+      if (isInitialized && valueRef.current === nextValue) {
+        return;
+      }
+
+      isInitializedRef.current = true;
+      valueRef.current = nextValue;
+      listenersRef.current.forEach(listener => listener(nextValue));
+      setThrottledValue(nextValue);
+    },
+    [setThrottledValue],
+  );
+
+  const animateInterpolation = useCallback(
+    function animate() {
+      const targetValue = targetValueRef.current;
+      const currentValue = valueRef.current;
+      const delta = targetValue - currentValue;
+      const nextValue =
+        Math.abs(delta) < INTERPOLATION_SETTLE_THRESHOLD
+          ? targetValue
+          : currentValue + delta * INTERPOLATION_LERP_FACTOR;
+
+      commitValue(nextValue);
+
+      if (nextValue !== targetValue) {
+        updateNextInterpolationCallback(animate);
+      }
+    },
+    [commitValue, updateNextInterpolationCallback],
+  );
+
   const update = useCallback(() => {
-    const nextValue = getScrollTimelineValue(pointsRef.current, window.scrollY);
-    if (valueRef.current === nextValue) {
+    const nextTargetValue = getScrollTimelineValue(pointsRef.current, window.scrollY);
+    targetValueRef.current = nextTargetValue;
+
+    if (!isInitializedRef.current || !interpolateRef.current) {
+      updateNextInterpolationCallback(null);
+      commitValue(nextTargetValue);
       return;
     }
 
-    valueRef.current = nextValue;
-    listenersRef.current.forEach(listener => listener(nextValue));
-    setThrottledValue(nextValue);
-  }, [setThrottledValue]);
+    if (valueRef.current !== nextTargetValue) {
+      updateNextInterpolationCallback(animateInterpolation);
+    }
+  }, [animateInterpolation, commitValue, interpolateRef, updateNextInterpolationCallback]);
 
   const scheduleUpdate = useCallback(() => {
-    if (frameRef.current !== null) {
-      return;
-    }
-
-    frameRef.current = window.requestAnimationFrame(() => {
-      frameRef.current = null;
-      update();
-    });
-  }, [update]);
-
-  const measureThrottled = useMemo(
-    () =>
-      throttle(() => {
-        measure();
-        scheduleUpdate();
-      }, 150),
-    [measure, scheduleUpdate],
-  );
+    updateNextTargetCallback(update);
+  }, [update, updateNextTargetCallback]);
 
   const ref: RefCallback<HTMLElement> = useCallback(
     (node: HTMLElement | null) => {
+      if (!node) {
+        elementRef.current = null;
+        pointsRef.current = [];
+        return undefined;
+      }
+
       elementRef.current = node;
-      setElement(node);
       measure();
       scheduleUpdate();
 
+      const observer = new ResizeObserver(() => {
+        measure();
+        scheduleUpdate();
+      });
+
+      observer.observe(node);
+
       return () => {
-        elementRef.current = null;
-        setElement(null);
-        pointsRef.current = [];
+        observer.disconnect();
+
+        if (elementRef.current === node) {
+          elementRef.current = null;
+          pointsRef.current = [];
+        }
       };
     },
     [measure, scheduleUpdate],
@@ -156,53 +210,28 @@ export const useScrollTimeline = (keyframes: ScrollTimelineKeyframe[]) => {
   useEffect(() => {
     measure();
     scheduleUpdate();
-  }, [keyframes, measure, scheduleUpdate]);
+  }, [interpolate, keyframes, measure, scheduleUpdate]);
 
   useEffect(() => {
-    const onScroll = () => {
+    const measureThrottled = throttle(() => {
+      measure();
+      scheduleUpdate();
+    }, 150);
+
+    const onUpdate = () => {
       measureThrottled();
       scheduleUpdate();
     };
 
-    const onResize = () => {
-      measure();
-      scheduleUpdate();
-    };
-
-    measure();
-    scheduleUpdate();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener('scroll', onUpdate, { passive: true });
+    window.addEventListener('resize', onUpdate);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', onUpdate);
+      window.removeEventListener('resize', onUpdate);
       measureThrottled.cancel();
     };
-  }, [measure, measureThrottled, scheduleUpdate]);
-
-  useEffect(() => {
-    if (!element) {
-      return undefined;
-    }
-
-    const observer = new ResizeObserver(() => {
-      measure();
-      scheduleUpdate();
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [element, measure, scheduleUpdate]);
-
-  useEffect(
-    () => () => {
-      if (frameRef.current !== null) {
-        window.cancelAnimationFrame(frameRef.current);
-      }
-      setThrottledValue.cancel();
-    },
-    [setThrottledValue],
-  );
+  }, [measure, scheduleUpdate]);
 
   return { ref, value, valueRef, onChange };
 };
