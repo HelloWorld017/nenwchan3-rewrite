@@ -2,6 +2,7 @@ import { throttle } from 'es-toolkit';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLatestRef } from './useLatestRef';
 import type { RefCallback } from 'react';
+import {getWindowSize, WindowSize} from './useWindowSize';
 
 type ScrollTimelineAnchor = 'top' | 'bottom';
 type ScrollTimelineEdge = 'top' | 'bottom';
@@ -22,6 +23,7 @@ type ScrollTimelinePoint = {
 const getScrollTimelinePoints = (
   element: HTMLElement,
   keyframes: ScrollTimelineKeyframe[],
+  windowSize: WindowSize,
 ): ScrollTimelinePoint[] => {
   if (keyframes.length === 0) {
     return [];
@@ -34,7 +36,7 @@ const getScrollTimelinePoints = (
   return keyframes
     .map(({ anchor, edge = anchor === 'top' ? 'bottom' : 'top', offset, value }) => ({
       position:
-        (anchor === 'top' ? top : bottom) + (edge === 'bottom' ? -window.innerHeight : 0) + offset,
+        (anchor === 'top' ? top : bottom) + (edge === 'bottom' ? -windowSize.largeViewportHeight : 0) + offset,
       value,
     }))
     .sort((a, b) => a.position - b.position);
@@ -92,7 +94,8 @@ export const useScrollTimeline = (keyframes: ScrollTimelineKeyframe[]) => {
       return;
     }
 
-    pointsRef.current = getScrollTimelinePoints(currentElement, currentKeyframes);
+    const windowSize = getWindowSize();
+    pointsRef.current = getScrollTimelinePoints(currentElement, currentKeyframes, windowSize);
   }, [keyframesRef]);
 
   const update = useCallback(() => {

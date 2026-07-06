@@ -1,12 +1,12 @@
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
-import {useWindowSize} from '@/hooks/useWindowSize';
+import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import roofrain from '@/assets/videos/roofrain.mp4';
 
 const LandingWrapper = styled.section`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100lvh;
   overflow: hidden;
 `;
 
@@ -32,7 +32,12 @@ export const Landing = () => {
     value: progress,
   } = useScrollTimeline([
     { anchor: 'top', edge: 'top', offset: 0, value: 0 },
-    { anchor: 'top', edge: 'top', offset: 0.5 * (windowSize?.innerHeight ?? 0), value: 1 },
+    {
+      anchor: 'top',
+      edge: 'top',
+      offset: 0.5 * (windowSize?.largeViewportHeight ?? 0),
+      value: 1,
+    },
   ]);
 
   return (

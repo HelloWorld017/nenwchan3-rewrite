@@ -20,7 +20,7 @@ const ScrollVideoWrapper = styled.div`
 const ScrollVideoPlayer = styled.video`
   display: block;
   width: 100%;
-  height: ${VIDEO_HEIGHT * 100}vh;
+  height: ${VIDEO_HEIGHT * 100}lvh;
   object-fit: cover;
   object-position: center;
 `;
@@ -29,7 +29,7 @@ export const ScrollVideo = () => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const windowSize = useWindowSize();
-  const viewportHeight = windowSize?.innerHeight ?? 0;
+  const viewportHeight = windowSize?.largeViewportHeight ?? 0;
 
   const playbackKeyframes = useMemo(
     () => [
