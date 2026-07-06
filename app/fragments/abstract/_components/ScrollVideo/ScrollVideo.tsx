@@ -6,8 +6,6 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { RefCallback } from 'react';
 
 const VIDEO_HEIGHT = 0.5;
-const PLAYBACK_LERP_FACTOR = 0.02;
-const PLAYBACK_SETTLE_THRESHOLD = 0.001;
 
 const clampProgress = (value: number) => Math.min(1, Math.max(0, value));
 
@@ -30,9 +28,6 @@ const ScrollVideoPlayer = styled.video`
 export const ScrollVideo = () => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const targetPlaybackRef = useRef(0);
-  const currentPlaybackRef = useRef(0);
-  const playbackFrameRef = useRef<number | null>(null);
   const windowSize = useWindowSize();
   const viewportHeight = windowSize?.innerHeight ?? 0;
 
@@ -90,7 +85,7 @@ export const ScrollVideo = () => {
     [videoHeight],
   );
 
-  const seekVideoTime = useCallback((value: number) => {
+  const updateVideoTime = useCallback((value: number) => {
     const video = videoRef.current;
     if (!video) {
       return;
@@ -108,39 +103,6 @@ export const ScrollVideo = () => {
     }
   }, []);
 
-  const startVideoTimeAnimation = useCallback(() => {
-    if (playbackFrameRef.current !== null) {
-      return;
-    }
-
-    const animate = () => {
-      playbackFrameRef.current = null;
-
-      const target = targetPlaybackRef.current;
-      const current = currentPlaybackRef.current;
-      const delta = target - current;
-      const next =
-        Math.abs(delta) < PLAYBACK_SETTLE_THRESHOLD ? target : current + delta * PLAYBACK_LERP_FACTOR;
-
-      currentPlaybackRef.current = next;
-      seekVideoTime(next);
-
-      if (next !== target) {
-        playbackFrameRef.current = window.requestAnimationFrame(animate);
-      }
-    };
-
-    playbackFrameRef.current = window.requestAnimationFrame(animate);
-  }, [seekVideoTime]);
-
-  const updateVideoTime = useCallback(
-    (value: number) => {
-      targetPlaybackRef.current = clampProgress(value);
-      startVideoTimeAnimation();
-    },
-    [startVideoTimeAnimation],
-  );
-
   useEffect(() => {
     updateHeight(heightValueRef.current);
     return onHeightChange(updateHeight);
@@ -154,15 +116,6 @@ export const ScrollVideo = () => {
   const onLoadedMetadata = useCallback(() => {
     updateVideoTime(playbackValueRef.current);
   }, [playbackValueRef, updateVideoTime]);
-
-  useEffect(
-    () => () => {
-      if (playbackFrameRef.current !== null) {
-        window.cancelAnimationFrame(playbackFrameRef.current);
-      }
-    },
-    [],
-  );
 
   return (
     <ScrollVideoWrapper ref={setWrapperRef}>
