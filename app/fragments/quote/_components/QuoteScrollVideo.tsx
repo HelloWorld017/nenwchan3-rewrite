@@ -75,7 +75,7 @@ export const QuoteScrollVideo = () => {
 
   return (
     <QuoteScrollVideoWrapper ref={setWrapperRef}>
-      <QuoteScrollVideoPlayer src={reinaVideoUrl} />
+      <QuoteScrollVideoPlayer src={reinaVideoUrl} playOffset={viewportHeight * 0.1} />
     </QuoteScrollVideoWrapper>
   );
 };

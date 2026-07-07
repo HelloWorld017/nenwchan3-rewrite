@@ -42,7 +42,7 @@ export const Landing = () => {
   return (
     <LandingWrapper ref={ref}>
       <LandingInner style={{ '--scroll-progress': progress }}>
-        <LandingVideo src={roofrain} autoPlay muted loop />
+        <LandingVideo src={roofrain} autoPlay muted loop playsInline />
       </LandingInner>
     </LandingWrapper>
   );

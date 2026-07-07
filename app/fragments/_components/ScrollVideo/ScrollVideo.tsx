@@ -17,14 +17,18 @@ const ScrollVideoPlayer = styled.video`
   object-position: center;
 `;
 
-type ScrollVideoProps = Omit<ComponentPropsWithoutRef<'video'>, 'children'>;
+type ScrollVideoProps = Omit<ComponentPropsWithoutRef<'video'>, 'children'> & {
+  playOffset?: number;
+  stopOffset?: number;
+};
 
 export const ScrollVideo = ({
   muted = true,
   playsInline = true,
   preload = 'auto',
   onLoadedMetadata,
-  'aria-hidden': ariaHidden = true,
+  playOffset = 0,
+  stopOffset = 0,
   ...props
 }: ScrollVideoProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -32,15 +36,12 @@ export const ScrollVideo = ({
   const currentPlaybackRef = useRef(0);
   const { updateNextVideoCallback } = useVideoFrameCallback(videoRef);
 
-  const windowSize = useWindowSize();
-  const viewportHeight = windowSize?.largeViewportHeight ?? 0;
-
   const playbackKeyframes = useMemo(
     () => [
-      { anchor: 'top' as const, offset: viewportHeight * 0.1, value: 0 },
-      { anchor: 'bottom' as const, offset: 0, value: 1 },
+      { anchor: 'top' as const, offset: playOffset, value: 0 },
+      { anchor: 'bottom' as const, offset: stopOffset, value: 1 },
     ],
-    [viewportHeight],
+    [playOffset, stopOffset],
   );
 
   const {
@@ -131,7 +132,7 @@ export const ScrollVideo = ({
       muted={muted}
       playsInline={playsInline}
       preload={preload}
-      aria-hidden={ariaHidden}
+      aria-hidden={true}
       onLoadedMetadata={handleLoadedMetadata}
     />
   );

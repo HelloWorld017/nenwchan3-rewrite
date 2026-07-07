@@ -8,6 +8,7 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
+import {Footer} from './footer';
 
 const SectionList = styled.div`
   display: flex;
@@ -18,19 +19,22 @@ const SectionList = styled.div`
 `;
 
 const PageContents = () => (
-  <>
-    <Landing />
-    <Profile />
-    <Introduction />
-    <Quote />
-    <SectionList>
-      <Projects />
-      <Activities />
-      <Education />
-      <Contact />
-    </SectionList>
+  <div>
+    <main>
+      <Landing />
+      <Profile />
+      <Introduction />
+      <Quote />
+      <SectionList>
+        <Projects />
+        <Activities />
+        <Education />
+        <Contact />
+      </SectionList>
+    </main>
+    <Footer />
     <Sidebar />
-  </>
+  </div>
 );
 
 export const Page = () => <PageContents />;
