@@ -21,8 +21,8 @@ const PageContents = () => (
   <>
     <Landing />
     <Profile />
-    <Quote />
     <Introduction />
+    <Quote />
     <SectionList>
       <Projects />
       <Activities />

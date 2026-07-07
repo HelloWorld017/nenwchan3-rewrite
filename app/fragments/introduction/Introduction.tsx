@@ -30,6 +30,10 @@ const Bold = styled.b`
 `;
 
 const IntroductionCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
   flex: 1 1 0;
   padding: 7.2rem 4.8rem;
   border-radius: 2rem;
@@ -57,7 +61,6 @@ const IntroductionTitlePrefix = styled.span`
 `;
 
 const IntroductionTitleWrapper = styled.h2`
-  margin-bottom: 2rem;
   color: var(--grey-900);
   font-size: 3.6rem;
   font-family: var(--font-display);
@@ -81,6 +84,7 @@ const IntroductionDecorator = styled.figure`
   margin: 0;
   margin-top: 2.4rem;
   margin-bottom: 4.8rem;
+  align-self: stretch;
 `;
 
 const IntroductionDescription = styled.p`
@@ -98,8 +102,14 @@ const DeveloperCard = styled(IntroductionCard)`
   background: linear-gradient(166deg, #6eac80 0%, #537b7b 100%);
 `;
 
-const DeveloperCodeWrapper = styled.code`
+const DeveloperCodeWrapper = styled.div`
+  width: 100%;
+  container-type: inline-size;
+`;
+
+const DeveloperCodeBlock = styled.code`
   display: inline-block;
+
   margin-top: 2rem;
   margin-bottom: 4rem;
   padding: 2.4rem;
@@ -107,10 +117,10 @@ const DeveloperCodeWrapper = styled.code`
   background: color-mix(var(--grey-200) 70%, transparent 30%);
   border-radius: 1rem;
   color: var(--grey-900);
+  font-family: var(--font-code);
   font-size: 2rem;
   line-height: 2.8rem;
   white-space: nowrap;
-  font-family: var(--font-code);
 
   @media (max-width: ${breakpoints.xl}px) {
     font-size: 1.8rem;
@@ -126,21 +136,24 @@ const SyntaxObject = styled.span`
 `;
 
 const BreakAndIndent = styled.div`
-  display: inline;
+  display: block;
+  padding-left: 2ch;
 
-  @media (max-width: ${breakpoints.sm}px) {
-    display: block;
-    padding-left: 2ch;
+  @container (width > 40rem) {
+    display: inline;
+    padding-left: unset;
   }
 `;
 
 const DeveloperCode = () => (
   <DeveloperCodeWrapper>
-    <SyntaxObject>console</SyntaxObject>.log(
-    <BreakAndIndent>
-      <SyntaxString>`Aviation in progress`</SyntaxString>
-    </BreakAndIndent>
-    );
+    <DeveloperCodeBlock>
+      <SyntaxObject>console</SyntaxObject>.log(
+      <BreakAndIndent>
+        <SyntaxString>`Aviation in progress`</SyntaxString>
+      </BreakAndIndent>
+      );
+    </DeveloperCodeBlock>
   </DeveloperCodeWrapper>
 );
 

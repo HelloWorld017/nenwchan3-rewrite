@@ -5,6 +5,7 @@ export const breakpoints = {
   md: 768,
   lg: 1000,
   xl: 1400,
+  xxl: 1600,
 };
 
 export const zLayer = {
@@ -86,6 +87,10 @@ export const globalStyle = css`
       letter-spacing: -0.01em;
       list-style-type: none;
       scroll-behavior: smooth;
+
+      @media (max-width: ${breakpoints.xxl}px) {
+        --container-width: 1170px;
+      }
 
       @media (max-width: ${breakpoints.md}px) {
         --container-padding: 16px;

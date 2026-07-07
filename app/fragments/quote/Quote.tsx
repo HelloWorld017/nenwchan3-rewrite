@@ -1,12 +1,12 @@
 import IconQuote from '@/assets/icons/IconQuote.svg?react';
 import { Container } from '@/fragments/_components/Container';
+import { breakpoints } from '@/styles';
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { QuoteScrollVideo } from './_components/QuoteScrollVideo';
-import {breakpoints} from '@/styles';
 
 defineI18n(
   yaml => yaml`
@@ -92,6 +92,7 @@ const SummaryWrapper = styled.div`
 
 export const Quote = () => (
   <QuoteSection>
+    <QuoteScrollVideo />
     <Container>
       <QuoteWrapper>
         <Card>
@@ -107,7 +108,6 @@ export const Quote = () => (
         </Card>
       </QuoteWrapper>
     </Container>
-    <QuoteScrollVideo />
     <Container>
       <SummaryWrapper>
         <DescriptionText>
