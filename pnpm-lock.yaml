@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@wyw-in-js/vite':
-    hash: 439b5539ce8f9f3da0f571e54e871bc0d4b794b08c21fc0b2254df80fc3b3a6b
+    hash: 043bb61eb268c9dedb2ad68cff4e94a2e9f524a7b591eae433608849abd048ee
     path: patches/@wyw-in-js__vite.patch
 
 importers:
@@ -55,7 +55,7 @@ importers:
         version: 1.4.0
       '@wyw-in-js/vite':
         specifier: ^2.1.0
-        version: 2.1.0(patch_hash=439b5539ce8f9f3da0f571e54e871bc0d4b794b08c21fc0b2254df80fc3b3a6b)(typescript@6.0.3)(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(yaml@2.9.0))
+        version: 2.1.0(patch_hash=043bb61eb268c9dedb2ad68cff4e94a2e9f524a7b591eae433608849abd048ee)(typescript@6.0.3)(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(yaml@2.9.0))
       happy-dom:
         specifier: ^20.0.10
         version: 20.10.6
@@ -2722,7 +2722,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@wyw-in-js/vite@2.1.0(patch_hash=439b5539ce8f9f3da0f571e54e871bc0d4b794b08c21fc0b2254df80fc3b3a6b)(typescript@6.0.3)(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(yaml@2.9.0))':
+  '@wyw-in-js/vite@2.1.0(patch_hash=043bb61eb268c9dedb2ad68cff4e94a2e9f524a7b591eae433608849abd048ee)(typescript@6.0.3)(vite@8.1.0(@types/node@26.0.1)(jiti@2.7.0)(yaml@2.9.0))':
     dependencies:
       '@wyw-in-js/shared': 2.1.0
       '@wyw-in-js/transform': 2.1.0(typescript@6.0.3)

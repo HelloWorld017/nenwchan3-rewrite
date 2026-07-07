@@ -13,7 +13,7 @@
     "build": "vite build",
     "generate": "pnpm run '/generate:.*/'",
     "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
-    "generate:font": "node ./build/fontsubsetter/cli.ts",
+    "generate:font": "node ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
     "format": "oxfmt",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"

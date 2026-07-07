@@ -1,5 +1,5 @@
 diff --git a/esm/index.mjs b/esm/index.mjs
-index f210d29b80c6cdb00506fe041caa31d24bf8e399..49546688e2a3fe98690f31c6c5923f9f64db4463 100644
+index f210d29b80c6cdb00506fe041caa31d24bf8e399..c067e6c856aad19a9f7111681cd0c95589e24bd5 100644
 --- a/esm/index.mjs
 +++ b/esm/index.mjs
 @@ -447,6 +447,11 @@ export default function wywInJS({ debug, include, exclude, sourceMap, preserveCs
@@ -7,7 +7,7 @@ index f210d29b80c6cdb00506fe041caa31d24bf8e399..49546688e2a3fe98690f31c6c5923f9f
  			};
  		},
 +		closeBundle() {
-+			if (devServer.config.server.middlewareMode) {
++			if (devServer?.config.server.middlewareMode) {
 +				disposeEvalBrokers();
 +			}
 +		},

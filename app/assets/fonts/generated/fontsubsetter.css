@@ -1,54 +1,54 @@
 @font-face {
-  font-family: "__fontsubsetter_Pretendard JP";
-  src: url("Pretendard_JP_OS65v.woff2") format("woff2");
+  font-family: '__fontsubsetter_Pretendard JP';
+  src: url('Pretendard_JP_OS65v.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "__fontsubsetter_RIDIBatang";
-  src: url("RIDIBatang_dDW9a.woff2") format("woff2");
+  font-family: '__fontsubsetter_RIDIBatang';
+  src: url('RIDIBatang_dDW9a.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "__fontsubsetter_Metropolis";
-  src: url("Metropolis_n7WvY.woff2") format("woff2");
+  font-family: '__fontsubsetter_Metropolis';
+  src: url('Metropolis_n7WvY.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "__fontsubsetter_Metropolis";
-  src: url("Metropolis_aXSWY.woff2") format("woff2");
+  font-family: '__fontsubsetter_Metropolis';
+  src: url('Metropolis_aXSWY.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "__fontsubsetter_Metropolis";
-  src: url("Metropolis_WzzJ8.woff2") format("woff2");
+  font-family: '__fontsubsetter_Metropolis';
+  src: url('Metropolis_WzzJ8.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "__fontsubsetter_Iosevka";
-  src: url("Iosevka_MQXBZ.woff2") format("woff2");
+  font-family: '__fontsubsetter_Iosevka';
+  src: url('Iosevka_MQXBZ.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --font-sans: "__fontsubsetter_Pretendard JP", sans-serif;
-  --font-letter: "__fontsubsetter_RIDIBatang", cursive;
-  --font-display: "__fontsubsetter_Metropolis", "__fontsubsetter_Pretendard JP", sans-serif;
-  --font-code: "__fontsubsetter_Iosevka", "__fontsubsetter_Pretendard JP", monospace;
+  --font-sans: '__fontsubsetter_Pretendard JP', sans-serif;
+  --font-letter: '__fontsubsetter_RIDIBatang', cursive;
+  --font-display: '__fontsubsetter_Metropolis', '__fontsubsetter_Pretendard JP', sans-serif;
+  --font-code: '__fontsubsetter_Iosevka', '__fontsubsetter_Pretendard JP', monospace;
 }
