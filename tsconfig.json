@@ -43,9 +43,10 @@
     "build/**/*.ts",
     "build/**/*.tsx",
     "fontsubsetter.config.ts",
-    "fontsubsetter.config.tsx",
     "oxfmt.config.ts",
     "oxlint.config.ts",
+    "schemagen.config.ts",
+    "simplei18n.config.ts",
     "vite.config.ts"
   ]
 }

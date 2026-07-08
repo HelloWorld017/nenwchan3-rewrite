@@ -1,11 +1,14 @@
 import type { BackendHandler, RequestDataInput } from '../backend';
 
 type RequestArguments<T extends BackendHandler> =
-  {} extends RequestDataInput<NonNullable<T['request']>>
+  Record<string, never> extends RequestDataInput<NonNullable<T['request']>>
     ? []
     : [RequestDataInput<NonNullable<T['request']>>];
 
-const request = 
+type ResponseData<T extends BackendHandler> =
+  Awaited<ReturnType<T['handle']>> extends Response<infer TResponse> ? TResponse : never;
+
+const request =
   <T extends BackendHandler>(method: T['method'], path: T['path']) =>
   (...[req]: RequestArguments<T>) =>
   async () => {
@@ -25,8 +28,8 @@ const request =
       init.body = JSON.stringify(data.body);
     }
 
-    const response = await fetch(url, init) as Awaited<ReturnType<T['handle']>>;
-    return response.json();
+    const response = await fetch(url, init);
+    return response.json() as Promise<ResponseData<T>>;
   };
 
 export const query =
@@ -36,8 +39,7 @@ export const query =
     queryFn: request<T>(method, path)(...req),
   });
 
-export const mutate =
-  <T extends BackendHandler>(method: T['method'], path: T['path']) => ({
-    mutationKey: [method, path],
-    mutationFn: (...req: RequestArguments<T>) => request<T>(method, path)(...req)(),
-  });
+export const mutate = <T extends BackendHandler>(method: T['method'], path: T['path']) => ({
+  mutationKey: [method, path],
+  mutationFn: (...req: RequestArguments<T>) => request<T>(method, path)(...req)(),
+});

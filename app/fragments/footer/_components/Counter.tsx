@@ -1,5 +1,8 @@
+import { queryGetCounter } from '@/schema';
 import { useQuery } from '@tanstack/react-query';
 
-const Counter = () => {
-  useQuery({});
+export const Counter = () => {
+  const { data } = useQuery(queryGetCounter());
+
+  return data?.count ?? null;
 };

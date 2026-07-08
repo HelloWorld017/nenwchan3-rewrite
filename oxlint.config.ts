@@ -32,6 +32,7 @@ export default defineConfig({
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
     'import/no-named-as-default-member': 'off',
+    'import/no-unassigned-import': 'off',
     'import/prefer-default-export': 'off',
     'jsx-a11y/label-has-associated-control': ['error', { controlComponents: ['Toggle'] }],
 

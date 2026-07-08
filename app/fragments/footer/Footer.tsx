@@ -35,9 +35,7 @@ const FooterCounterWrapper = styled.div`
   margin: 15rem 0;
 `;
 
-const FooterCounter = () => {
-  return <FooterCounterWrapper></FooterCounterWrapper>;
-};
+const FooterCounter = () => <FooterCounterWrapper></FooterCounterWrapper>;
 
 export const Footer = () => (
   <footer>

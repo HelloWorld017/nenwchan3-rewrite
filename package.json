@@ -24,6 +24,7 @@
     "generate": "pnpm run '/generate:.*/'",
     "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
     "generate:font": "node ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
+    "generate:schema": "node ./build/schemagen/cli.ts && oxfmt ./app/schema",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"
   },
