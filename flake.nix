@@ -83,7 +83,7 @@
         exec ${pkgs.caddy}/bin/caddy run --config ${proxyConfig} --adapter caddyfile
       '';
 
-      backendConfig = ./backend.config.capnp;
+      backendConfig = ./backend.capnp;
       backendEntrypoint = pkgs.writeShellScriptBin "${name}-backend-entrypoint" ''
         set -euo pipefail
 
