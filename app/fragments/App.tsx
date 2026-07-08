@@ -1,8 +1,8 @@
+import i18n from '@/i18n';
+import { globalStyle } from '@/styles';
 import { createI18nResource, I18nProvider } from '@simplei18n/core/react';
 import { StrictMode, type PropsWithChildren } from 'react';
 import { Page } from './Page';
-import i18n from '@/i18n';
-import { globalStyle } from '@/styles';
 import type { LocaleKey } from '@simplei18n/core';
 
 const i18nResources = createI18nResource(i18n);

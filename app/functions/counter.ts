@@ -9,9 +9,9 @@ export const getCounter = route({
 
     return response({
       ok: true,
-      count
+      count,
     });
-  }
+  },
 });
 
 export const increaseCounter = route({
@@ -26,7 +26,7 @@ export const increaseCounter = route({
 
     return response({
       ok: true,
-      count
+      count,
     });
-  }
+  },
 });

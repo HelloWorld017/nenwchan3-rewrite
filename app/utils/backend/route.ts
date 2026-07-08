@@ -10,15 +10,11 @@ type RequestSchemas = {
 };
 
 export type RequestDataInput<TRequest extends RequestSchemas> = {
-  [K in keyof TRequest]: TRequest[K] extends z.ZodType
-    ? z.input<TRequest[K]>
-    : never;
+  [K in keyof TRequest]: TRequest[K] extends z.ZodType ? z.input<TRequest[K]> : never;
 };
 
 export type RequestDataOutput<TRequest extends RequestSchemas> = {
-  [K in keyof TRequest]: TRequest[K] extends z.ZodType
-    ? z.output<TRequest[K]>
-    : never;
+  [K in keyof TRequest]: TRequest[K] extends z.ZodType ? z.output<TRequest[K]> : never;
 };
 
 export type BackendHandler<TRequest extends RequestSchemas = any> = {
@@ -33,8 +29,10 @@ export type BackendHandler<TRequest extends RequestSchemas = any> = {
 
 export const route = <
   const TRequest extends RequestSchemas,
-  const T extends BackendHandler<TRequest>
->(definition: T & { request?: TRequest }) => definition;
+  const T extends BackendHandler<TRequest>,
+>(
+  definition: T & { request?: TRequest },
+) => definition;
 
 export const response = <T>(value: T, maybeInit?: ResponseInit): Response<T> =>
   Response.json(value, maybeInit) as Response<T>;

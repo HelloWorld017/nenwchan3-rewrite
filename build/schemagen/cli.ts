@@ -4,7 +4,7 @@ import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import ts from 'typescript';
 import { loadConfig } from './config.ts';
-import type { NormalizedSchemagenConfig } from './config.ts';
+import type { NormalizedSchemaGenConfig } from './config.ts';
 
 type RouteDefinition = {
   exportName: string;
@@ -13,7 +13,7 @@ type RouteDefinition = {
   path: string;
 };
 
-type GeneratedSchemagenOutput = {
+type GeneratedSchemaGenOutput = {
   outFile: string;
   routes: RouteDefinition[];
 };
@@ -184,7 +184,7 @@ const collectRoutesFromFile = async (filePath: string): Promise<RouteDefinition[
 
 const collectRoutes = async (
   root: string,
-  config: NormalizedSchemagenConfig,
+  config: NormalizedSchemaGenConfig,
 ): Promise<RouteDefinition[]> => {
   const files = (await resolveIncludeFiles(root, config.include)).sort();
   const routes = await Promise.all(files.map(file => collectRoutesFromFile(file)));
@@ -192,8 +192,8 @@ const collectRoutes = async (
   return routes.flat();
 };
 
-const renderGeneratedSchemagen = (
-  config: NormalizedSchemagenConfig,
+const renderGeneratedSchema = (
+  config: NormalizedSchemaGenConfig,
   routes: RouteDefinition[],
 ): string => {
   const usedHelpers = new Set(routes.map(route => (route.method === 'get' ? 'query' : 'mutate')));
@@ -254,15 +254,15 @@ const renderGeneratedSchemagen = (
   return `${lines.join('\n')}\n`;
 };
 
-const generateSchemagen = async ({
+const generateSchema = async ({
   root,
   config,
 }: {
   root: string;
-  config: NormalizedSchemagenConfig;
-}): Promise<GeneratedSchemagenOutput> => {
+  config: NormalizedSchemaGenConfig;
+}): Promise<GeneratedSchemaGenOutput> => {
   const routes = await collectRoutes(root, config);
-  const contents = renderGeneratedSchemagen(config, routes);
+  const contents = renderGeneratedSchema(config, routes);
 
   await mkdir(dirname(config.outFile), { recursive: true });
   await writeFile(config.outFile, contents);
@@ -276,7 +276,7 @@ const generateSchemagen = async ({
 const main = async (): Promise<void> => {
   const { root } = parseArgs();
   const { config } = await loadConfig(root);
-  const generated = await generateSchemagen({ root, config });
+  const generated = await generateSchema({ root, config });
 
   process.stdout.write(
     `Generated ${generated.routes.length} schemagen routes in ${generated.outFile}\n`,
