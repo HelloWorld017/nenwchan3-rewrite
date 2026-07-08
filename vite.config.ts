@@ -6,24 +6,50 @@ import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import fontsubsetter from './build/fontsubsetter';
 
-export default defineConfig(({ mode }) => ({
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(mode),
-  },
-  resolve: {
+export default defineConfig(({ mode }) => {
+  const resolveConfig = {
     alias: {
       '@': resolve(__dirname, 'app'),
     },
-  },
-  plugins: [
-    svgr(),
-    wyw({
-      eval: {
-        strategy: 'hybrid',
+  };
+
+  if (mode === 'backend') {
+    return {
+      build: {
+        codeSplitting: false,
+        emptyOutDir: false,
+        lib: {
+          entry: resolve(__dirname, 'app/backend.ts'),
+          fileName: () => 'backend.bundle.js',
+          formats: ['es'],
+        },
+        minify: false,
+        outDir: 'dist',
+        target: 'es2022',
       },
-    }),
-    react(),
-    simplei18n(),
-    fontsubsetter(),
-  ],
-}));
+      resolve: resolveConfig,
+    };
+  }
+
+  return {
+    build: {
+      emptyOutDir: false,
+      outDir: 'dist/static',
+    },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    },
+    resolve: resolveConfig,
+    plugins: [
+      svgr(),
+      wyw({
+        eval: {
+          strategy: 'hybrid',
+        },
+      }),
+      react(),
+      simplei18n(),
+      fontsubsetter(),
+    ],
+  };
+});

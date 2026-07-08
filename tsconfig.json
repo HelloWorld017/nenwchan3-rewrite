@@ -18,7 +18,14 @@
     // Types
     "target": "es2022",
     "lib": ["es2022", "dom"],
-    "types": ["node", "react", "react-dom", "vite/client", "vite-plugin-svgr/client"],
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "vite/client",
+      "vite-plugin-svgr/client",
+      "@cloudflare/workers-types"
+    ],
     "typeRoots": ["./node_modules", "./node_modules/@types"],
 
     // Others
