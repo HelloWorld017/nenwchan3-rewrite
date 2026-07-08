@@ -1,7 +1,7 @@
-import {ScrollVideo} from "@/fragments/_components/ScrollVideo";
-import {styled} from "@linaria/react";
 import ruriVideoUrl from '@/assets/videos/ruri.linear.mp4';
-import {useWindowSize} from "@/hooks/useWindowSize";
+import { ScrollVideo } from '@/fragments/_components/ScrollVideo';
+import { useWindowSize } from '@/hooks/useWindowSize';
+import { styled } from '@linaria/react';
 
 const FooterScrollVideoWrapper = styled.div`
   width: 100%;
@@ -19,7 +19,11 @@ const FooterScrollVideo = () => {
   const viewportHeight = windowSize?.largeViewportHeight ?? 0;
   return (
     <FooterScrollVideoWrapper>
-      <FooterScrollVideoPlayer src={ruriVideoUrl} playOffset={viewportHeight * 0.25} stopOffset={viewportHeight * 0.25} />
+      <FooterScrollVideoPlayer
+        src={ruriVideoUrl}
+        playOffset={viewportHeight * 0.25}
+        stopOffset={viewportHeight * 0.25}
+      />
     </FooterScrollVideoWrapper>
   );
 };
@@ -32,12 +36,7 @@ const FooterCounterWrapper = styled.div`
 `;
 
 const FooterCounter = () => {
-
-
-  return (
-    <FooterCounterWrapper>
-    </FooterCounterWrapper>
-  );
+  return <FooterCounterWrapper></FooterCounterWrapper>;
 };
 
 export const Footer = () => (
