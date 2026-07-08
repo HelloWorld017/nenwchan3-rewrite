@@ -1,12 +1,19 @@
+import { AppStorage } from '@/utils/backend';
 import { Hono } from 'hono';
-import { Counter, counter } from './functions/counter';
+import type { BackendBindings, BackendHandler } from '@/utils/backend';
 
-export type BackendBindings = {
-  COUNTER: DurableObjectNamespace;
-};
 
 const app = new Hono<{ Bindings: BackendBindings }>();
-app.post('/api/counter', counter());
+const mods = import.meta.glob<Record<string, unknown>>('./functions/**/*.ts', { eager: true });
+const functions = Object.values(mods)
+  .flatMap(mod => Object.values(mod))
+  .filter(
+    (value): value is BackendHandler => typeof value === 'object' && !!value && 'handle' in value,
+  );
 
-export { Counter };
+for (const mod of functions) {
+  app[mod.method](mod.path, mod.handle);
+}
+
 export default app;
+export { AppStorage };

@@ -40,6 +40,12 @@ export default defineConfig(({ mode }) => {
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
     resolve: resolveConfig,
+    server: {
+      port: 5174,
+      proxy: {
+        '/api': 'http://localhost:8787',
+      },
+    },
     plugins: [
       svgr(),
       wyw({

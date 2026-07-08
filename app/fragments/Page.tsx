@@ -3,12 +3,12 @@ import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
 import { Contact } from './contact';
 import { Education } from './education';
+import { Footer } from './footer';
 import { Introduction } from './introduction';
 import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
-import {Footer} from './footer';
 
 const SectionList = styled.div`
   display: flex;

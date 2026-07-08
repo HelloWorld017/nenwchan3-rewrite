@@ -10,10 +10,10 @@ const config :Workerd.Config = (
           (name = "backend.bundle.js", esModule = embed "/backend.bundle.js")
         ],
         bindings = [
-          (name = "COUNTER", durableObjectNamespace = (className = "Counter"))
+          (name = "STORAGE", durableObjectNamespace = (className = "AppStorage"))
         ],
         durableObjectNamespaces = [
-          (className = "Counter", uniqueKey = "nenwdev-counter")
+          (className = "AppStorage", uniqueKey = "nenwdev-storage")
         ],
         durableObjectStorage = (localDisk = "do-storage")
       )

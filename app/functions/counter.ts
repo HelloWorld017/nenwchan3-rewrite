@@ -1,21 +1,32 @@
-import type { Handler } from 'hono';
-import type { BackendBindings } from '@/backend';
+import { response, route, storage } from '@/utils/backend';
 
-export class Counter {
-  constructor(private readonly state: DurableObjectState) {}
+export const getCounter = route({
+  method: 'get',
+  path: '/api/counter',
+  async handle(c) {
+    const kv = storage(c.env, 'counter').kv;
+    const count = (await kv.get<number>('count')) ?? 0;
 
-  async fetch(): Promise<Response> {
-    const current = (await this.state.storage.get<number>('count')) ?? 0;
+    return response({
+      ok: true,
+      count
+    });
+  }
+});
+
+export const increaseCounter = route({
+  method: 'post',
+  path: '/api/counter',
+  async handle(c) {
+    const kv = storage(c.env, 'counter').kv;
+    const current = (await kv.get<number>('count')) ?? 0;
     const count = current + 1;
 
-    await this.state.storage.put('count', count);
+    await kv.put('count', count);
 
-    return Response.json({ count });
+    return response({
+      ok: true,
+      count
+    });
   }
-}
-
-export const counter = (): Handler<{ Bindings: BackendBindings }> => async (c) => {
-  const id = c.env.COUNTER.idFromName('global');
-  const stub = c.env.COUNTER.get(id);
-  return stub.fetch(c.req.raw);
-};
+});
