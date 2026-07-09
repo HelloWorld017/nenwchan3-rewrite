@@ -5,6 +5,7 @@ import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import fontsubsetter from './build/fontsubsetter';
+import watchHook from './build/watchhook';
 
 export default defineConfig(({ mode }) => {
   const resolveConfig = {
@@ -28,6 +29,11 @@ export default defineConfig(({ mode }) => {
         target: 'es2022',
       },
       resolve: resolveConfig,
+      plugins: [
+        watchHook({
+          daemon: ['nenwdev-backend-entrypoint-dev'],
+        }),
+      ],
     };
   }
 
