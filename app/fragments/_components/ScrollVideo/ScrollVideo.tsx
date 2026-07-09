@@ -1,3 +1,4 @@
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -63,24 +64,32 @@ export const ScrollVideo = ({
     [playbackTimelineRef, updateNextVideoCallback],
   );
 
-  const seekVideoTime = useCallback((value: number) => {
-    const video = videoRef.current;
-    if (!video) {
-      return;
-    }
-
-    try {
-      const duration = video.duration;
-      if (!Number.isFinite(duration) || duration <= 0) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const seekVideoTime = useCallback(
+    (value: number) => {
+      const video = videoRef.current;
+      if (!video) {
         return;
       }
 
-      const time = duration * clampProgress(value);
-      video.currentTime = time;
-    } catch {
-      // Metadata could be unavailable during the first render.
-    }
-  }, []);
+      if (prefersReducedMotion) {
+        return;
+      }
+
+      try {
+        const duration = video.duration;
+        if (!Number.isFinite(duration) || duration <= 0) {
+          return;
+        }
+
+        const time = duration * clampProgress(value);
+        video.currentTime = time;
+      } catch {
+        // Metadata could be unavailable during the first render.
+      }
+    },
+    [prefersReducedMotion],
+  );
 
   const startVideoTimeAnimation = useCallback(() => {
     const animate = () => {

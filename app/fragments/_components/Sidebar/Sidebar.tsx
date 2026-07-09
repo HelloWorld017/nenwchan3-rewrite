@@ -54,11 +54,15 @@ const SidebarContainer = styled.aside`
   background: color-mix(var(--grey-200) 70%, transparent 30%);
   background-image: linear-gradient(to left top, transparent, rgba(0, 0, 0, 0.2));
   backdrop-filter: blur(2rem);
+  opacity: 0;
   transform: translateX(calc(-100% - 4rem));
-  transition: transform var(--transition-container);
+  transition:
+    opacity var(--transition-container),
+    transform var(--transition-container);
   z-index: ${zLayer.overlay};
 
   [data-is-opened='true'] > & {
+    opacity: 1;
     transform: translateX(0rem);
   }
 
@@ -68,7 +72,8 @@ const SidebarContainer = styled.aside`
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    transition: opacity var(--transition-container);
+    transform: translateX(0rem);
   }
 `;
 
@@ -86,10 +91,6 @@ const SidebarBackdrop = styled.div`
 
   [data-is-opened='true'] > & {
     opacity: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
   }
 `;
 

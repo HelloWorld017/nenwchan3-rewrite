@@ -49,10 +49,6 @@ const SidebarItemTitle = styled.span`
   transition: background var(--transition-default);
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `;
 
 const SidebarItemIcon = styled(IconArrowRight)`
@@ -60,10 +56,6 @@ const SidebarItemIcon = styled(IconArrowRight)`
   font-size: 1.6rem;
   margin-left: 0.8rem;
   transition: transform var(--transition-default);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `;
 
 const SidebarItemDescription = styled.span`
@@ -76,10 +68,6 @@ const SidebarItemDescription = styled.span`
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   transition: background var(--transition-default);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `;
 
 const SidebarItemWrapper = styled.a`
@@ -90,10 +78,6 @@ const SidebarItemWrapper = styled.a`
   margin: 0 -1rem;
   margin-top: 2rem;
   transition: transform var(--transition-default);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 
   &:hover {
     transform: translate(1rem);

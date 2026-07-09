@@ -22,7 +22,7 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    transition: background var(--transition-default);
   }
 `;
 
@@ -56,7 +56,7 @@ const SidebarButtonWrapper = styled.button`
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    transition: background var(--transition-default);
   }
 `;
 
