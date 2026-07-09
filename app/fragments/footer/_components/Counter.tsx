@@ -53,6 +53,20 @@ const CounterDigit = styled.span`
     &::after {
       animation-name: counter-in;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      &::before, &::after {
+        animation-name: none;
+      }
+
+      &::before {
+        visibility: hidden;
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
   }
 
   @keyframes counter-in {

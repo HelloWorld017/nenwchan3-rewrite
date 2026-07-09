@@ -16,6 +16,10 @@ const QuoteScrollVideoWrapper = styled.div`
   margin: 12rem 0 4rem;
   overflow: hidden;
   line-height: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    height: ${VIDEO_HEIGHT * 100}lvh;
+  }
 `;
 
 const QuoteScrollVideoPlayer = styled(ScrollVideo)`

@@ -18,6 +18,10 @@ const LandingInner = styled.div`
   border-radius: calc(var(--scroll-progress) * var(--container-padding));
   overflow: hidden;
   background: #202020;
+
+  @media (prefers-reduced-motion: reduce) {
+    --scroll-progress: 1 !important;
+  }
 `;
 
 const LandingVideo = styled.video`

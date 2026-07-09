@@ -1,5 +1,6 @@
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useIsTouchEnabled } from '@/hooks/useIsTouchEnabled';
+import {usePrefersReducedMotion} from '@/hooks/usePrefersReducedMotion';
 import { IconChevronLeft, IconChevronRight } from '@/icons';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
@@ -77,6 +78,10 @@ const HorizontalScrollButton = styled.button`
 
   &:active {
     transform: translate(0, -50%) scale(0.92);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 
@@ -175,6 +180,7 @@ export const HorizontalScrollContainer = ({
     root: scrollAreaElement,
   });
 
+  const prefersReducedMotion = usePrefersReducedMotion();
   const scrollToItem = useCallback((item: Element) => {
     const scrollArea = scrollAreaRef.current;
     if (!scrollArea) {
@@ -187,9 +193,9 @@ export const HorizontalScrollContainer = ({
 
     scrollArea.scrollTo({
       left: scrollArea.scrollLeft + itemRect.left - scrollRect.left - padding,
-      behavior: 'smooth',
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
     });
-  }, []);
+  }, [prefersReducedMotion]);
 
   const onPrev = useCallback(() => {
     const scrollArea = scrollAreaRef.current;

@@ -66,6 +66,10 @@ const SidebarContainer = styled.aside`
     width: auto;
     right: 4rem;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;
 
 const SidebarBackdrop = styled.div`
@@ -82,6 +86,10 @@ const SidebarBackdrop = styled.div`
 
   [data-is-opened='true'] > & {
     opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 

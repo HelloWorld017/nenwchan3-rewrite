@@ -20,6 +20,10 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
   [data-is-active='true'] & {
     transform: ${({ direction }) => `rotate(${(direction - 1) * 45 + 45}deg)`};
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;
 
 const SidebarButtonWrapper = styled.button`
@@ -49,6 +53,10 @@ const SidebarButtonWrapper = styled.button`
     ${SidebarButtonBar} {
       background: var(--grey-100);
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 

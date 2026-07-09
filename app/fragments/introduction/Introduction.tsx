@@ -52,6 +52,12 @@ const IntroductionCard = styled.div`
   @media (max-width: ${breakpoints.md}px) {
     padding: 5.4rem 3.6rem;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    transform: translate(0, 0);
+    opacity: 1;
+  }
 `;
 
 const IntroductionTitlePrefix = styled.span`

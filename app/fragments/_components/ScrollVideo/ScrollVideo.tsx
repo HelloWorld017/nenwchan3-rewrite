@@ -1,5 +1,4 @@
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
-import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useVideoFrameCallback } from './_hooks/useVideoFrameCallback';
