@@ -1,4 +1,4 @@
-import { defineFontSubsetterConfig } from './build/fontsubsetter';
+import { defineFontSubsetterConfig } from './build/fontsubsetter/index.ts';
 
 export default defineFontSubsetterConfig({
   include: ['./app/fragments/**/*.tsx'],

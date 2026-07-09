@@ -42,7 +42,6 @@ const ContactChipText = styled.span`
   font-size: 1.8rem;
   font-weight: 500;
   line-height: 2.2rem;
-  letter-spacing: -0.01em;
 `;
 
 type ContactChipProps = {

@@ -48,11 +48,6 @@ export const globalStyle = css`
     }
 
     :root {
-      --font-sans: 'Pretendard JP', sans-serif;
-      --font-letter: 'RIDIBatang', 'Pretendard JP', serif;
-      --font-display: 'Metropolis', 'Pretendard JP', sans-serif;
-      --font-code: 'Iosevka', 'Pretendard JP', monospace;
-
       --shadow-400: 0px 0.5rem 2rem rgba(0, 0, 0, 0.12);
 
       --transition-default: 0.4s ease;
@@ -71,6 +66,7 @@ export const globalStyle = css`
 
       --grey-100: #101010;
       --grey-200: #202020;
+      --grey-250: #353535;
       --grey-300: #505050;
       --grey-400: #808080;
       --grey-600: #a0a0a0;
@@ -87,6 +83,8 @@ export const globalStyle = css`
       letter-spacing: -0.01em;
       list-style-type: none;
       scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-gutter: stable;
 
       @media (max-width: ${breakpoints.xxl}px) {
         --container-width: 1170px;

@@ -66,6 +66,12 @@ declare module '@simplei18n/core' {
         major: TranslationDescriptor<{ interpolations: never; tags: never }>;
       };
     };
+    footer: {
+      counter: {
+        /** 번째로 읽어주셔서 감사합니다! */
+        description: TranslationDescriptor<{ interpolations: never; tags: never }>;
+      };
+    };
     introduction: {
       developer: {
         /** 저는 개발에 관심과 열정이 많은 개발자입니다. <b>프론트엔드 / 백엔드 개발</b>부터 <b>게임 개발, 머신러닝, 데브옵스, 프로그래밍 언어</b> 등 정말 다양한 분야에 관심을 가지고 있습니다.  */
