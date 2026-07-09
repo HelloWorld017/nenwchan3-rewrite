@@ -2,7 +2,7 @@ import roofrain from '@/assets/videos/roofrain.mp4';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
 
 const LandingWrapper = styled.section`
@@ -41,11 +41,20 @@ export const Landing = () => {
     ],
     [scrollHeight],
   );
-  const { ref, value: progress } = useScrollTimeline({ keyframes });
+
+  const { ref, onChange: onScrollChange } = useScrollTimeline({ keyframes });
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() =>
+    onScrollChange(progress => {
+      if (innerRef.current) {
+        innerRef.current.style.setProperty('--scroll-progress', progress.toFixed(2));
+      }
+    }),
+  );
 
   return (
     <LandingWrapper ref={ref}>
-      <LandingInner style={{ '--scroll-progress': progress }}>
+      <LandingInner ref={innerRef}>
         <LandingVideo src={roofrain} autoPlay muted loop playsInline />
       </LandingInner>
     </LandingWrapper>

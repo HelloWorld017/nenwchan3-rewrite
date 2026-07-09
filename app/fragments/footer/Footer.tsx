@@ -1,14 +1,14 @@
-import ruriVideoUrl from '@/assets/videos/ruri.linear.mp4';
-import { ScrollVideo } from '@/fragments/_components/ScrollVideo';
-import { useWindowSize } from '@/hooks/useWindowSize';
+import ruriVideoUrl from '@/assets/videos/ruri.mp4';
+import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
+import { defineI18n } from '@simplei18n/core';
+import { t } from '@simplei18n/core/react';
+import { useRef, useState } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
+import { Container } from '../_components/Container';
 import { Counter } from './_components/Counter';
-import {zLayer} from '@/styles';
-import {defineI18n} from '@simplei18n/core';
-import {t} from '@simplei18n/core/react';
-import {addToFonts} from 'virtual:fontsubsetter';
-import {Container} from '../_components/Container';
-import {useState} from 'react';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useMergedRef } from '@/hooks/useMergedRef';
 
 defineI18n(
   yaml => yaml`
@@ -22,21 +22,46 @@ const FooterScrollVideoWrapper = styled.div`
   height: 50lvh;
   overflow: hidden;
   line-height: 0;
+  opacity: 0;
+  transition: opacity var(--transition-default);
+
+  &[data-is-visible='true'] {
+    opacity: 1;
+  }
 `;
 
-const FooterScrollVideoPlayer = styled(ScrollVideo)`
+const FooterScrollVideoPlayer = styled.video`
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
 `;
 
 const FooterScrollVideo = () => {
-  const windowSize = useWindowSize();
-  const viewportHeight = windowSize?.largeViewportHeight ?? 0;
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const intersectionRef = useIntersectionObserver(entry => {
+    if (!isVisible && entry.isIntersecting) {
+      setIsVisible(true);
+    }
+
+    const video = videoRef.current;
+    if (video && video.paused && entry.isIntersecting) {
+      video.play();
+    }
+  }, { threshold: 0.75 });
+
+  const ref = useMergedRef(videoRef, intersectionRef);
+
   return (
-    <FooterScrollVideoWrapper>
+    <FooterScrollVideoWrapper data-is-visible={isVisible}>
       <FooterScrollVideoPlayer
+        ref={ref}
         src={ruriVideoUrl}
-        playOffset={viewportHeight * 0.25}
-        stopOffset={viewportHeight * 0.25}
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden={true}
       />
     </FooterScrollVideoWrapper>
   );
@@ -84,12 +109,10 @@ const FooterContents = () => {
   return (
     <Container>
       <FooterContentsWrapper>
-          <div>
-            © 2016 - {date} nenw*
-          </div>
-          <div>
-            <a href="https://github.com/HelloWorld017/helloworld017.github.io">View source</a>
-          </div>
+        <div>© 2016 - {date} nenw*</div>
+        <div>
+          <a href="https://github.com/HelloWorld017/helloworld017.github.io">View Source</a>
+        </div>
       </FooterContentsWrapper>
     </Container>
   );
@@ -109,8 +132,6 @@ addToFonts(
       <t._>{t.footer.counter.description}</t._>
     </FooterCounterText>
     <FooterContents />
-    <FooterContentsWrapper>
-      0123456789
-    </FooterContentsWrapper>
-  </>
+    <FooterContentsWrapper>0123456789</FooterContentsWrapper>
+  </>,
 );

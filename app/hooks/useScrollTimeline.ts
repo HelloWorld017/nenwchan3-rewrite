@@ -201,6 +201,7 @@ export const useScrollTimeline = ({ keyframes, interpolate = true }: UseScrollTi
   );
 
   const onChange = useCallback((listener: ScrollTimelineListener) => {
+    listener(valueRef.current);
     listenersRef.current.add(listener);
     return () => {
       listenersRef.current.delete(listener);

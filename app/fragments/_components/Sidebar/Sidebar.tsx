@@ -35,6 +35,7 @@ defineI18n(
 const SidebarWrapper = styled.div`
   visibility: hidden;
   pointer-events: none;
+  user-select: none;
 
   &[data-is-visible='true'] {
     visibility: visible;

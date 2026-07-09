@@ -49,6 +49,10 @@ const IntroductionCard = styled.div`
     opacity: 1;
   }
 
+  ::selection {
+    background: var(--grey-100);
+  }
+
   @media (max-width: ${breakpoints.md}px) {
     padding: 5.4rem 3.6rem;
   }

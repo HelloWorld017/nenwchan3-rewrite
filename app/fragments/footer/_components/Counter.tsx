@@ -1,9 +1,9 @@
-import {useIntersectionObserver} from '@/hooks/useIntersectionObserver';
-import {useMergedRef} from '@/hooks/useMergedRef';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useMergedRef } from '@/hooks/useMergedRef';
 import { mutateIncreaseCounter, queryGetCounter } from '@/schemas';
 import { styled } from '@linaria/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 
 const CounterDigits = styled.div`
@@ -28,7 +28,8 @@ const CounterDigit = styled.span`
   grid-template-columns: 1fr;
   overflow: hidden;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     display: inline-block;
     grid-area: 1 / 1;
     animation-duration: 1s;
@@ -45,7 +46,7 @@ const CounterDigit = styled.span`
     opacity: 0;
   }
 
-  [data-animated="true"] > &[data-next] {
+  [data-animated='true'] > &[data-next] {
     &::before {
       animation-name: counter-out;
     }
@@ -55,7 +56,8 @@ const CounterDigit = styled.span`
     }
 
     @media (prefers-reduced-motion: reduce) {
-      &::before, &::after {
+      &::before,
+      &::after {
         animation-name: none;
       }
 
@@ -107,11 +109,14 @@ export const Counter = () => {
   });
 
   const [isAnimated, setIsAnimated] = useState(false);
-  const animateRef = useIntersectionObserver(entry => {
-    if (entry.isIntersecting) {
-      setIsAnimated(true);
-    }
-  }, { threshold: 1 });
+  const animateRef = useIntersectionObserver(
+    entry => {
+      if (entry.isIntersecting) {
+        setIsAnimated(true);
+      }
+    },
+    { threshold: 1 },
+  );
 
   const ref = useMergedRef(increaseRef, animateRef);
 
@@ -131,7 +136,11 @@ export const Counter = () => {
           const next = nextDigits?.[index];
           const hasNext = next !== undefined && next !== current;
           return (
-            <CounterDigit key={index} data-current={current} {...(hasNext && { 'data-next': next })} />
+            <CounterDigit
+              key={index}
+              data-current={current}
+              {...(hasNext && { 'data-next': next })}
+            />
           );
         },
       )}

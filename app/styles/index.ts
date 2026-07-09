@@ -17,6 +17,7 @@ export const zLayer = {
   overlay: 40,
   modal: 50,
   toast: 60,
+  cursor: 70,
 };
 
 const fontSizeGradient = (
@@ -98,6 +99,10 @@ export const globalStyle = css`
         --container-padding: 16px;
       }
     }
+  }
+
+  ::selection {
+    background: color-mix(var(--bluegrey-900) 80%, var(--bluegrey-800) 20%);
   }
 `;
 

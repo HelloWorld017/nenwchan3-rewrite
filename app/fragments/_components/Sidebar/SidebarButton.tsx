@@ -1,5 +1,6 @@
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
+import Squircle from '@/assets/icons/Squircle.svg?react';
 
 const SidebarButtonBar = styled.div<{ direction: number }>`
   position: absolute;
@@ -17,8 +18,13 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
     transform var(--transition-bounce);
   transform: rotate(-45deg) ${({ direction }) => `translate(0, ${direction * -0.5}rem)`};
 
-  [data-is-active='true'] & {
+  [data-is-active='true'] > & {
+    background: var(--grey-100);
     transform: ${({ direction }) => `rotate(${(direction - 1) * 45 + 45}deg)`};
+  }
+
+  *:hover > & {
+    background: var(--grey-100);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -35,10 +41,7 @@ const SidebarButtonWrapper = styled.button`
 
   border: none;
   border-radius: 1rem;
-  background: transparent;
-  transition:
-    background var(--transition-default),
-    transform var(--transition-bounce);
+  transition: transform var(--transition-bounce);
   transform: rotate(45deg);
   z-index: ${zLayer.overlay};
 
@@ -46,17 +49,20 @@ const SidebarButtonWrapper = styled.button`
     transform: rotate(90deg);
   }
 
-  &:hover,
-  &[data-is-active='true'] {
-    background: var(--grey-900);
-
-    ${SidebarButtonBar} {
-      background: var(--grey-100);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    transition: background var(--transition-default);
+    transition: none;
+  }
+`;
+
+const SidebarButtonBackground = styled(Squircle)`
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+  transition: fill var(--transition-default);
+
+  *:hover > &,
+  [data-is-active='true'] > & {
+    fill: var(--grey-900);
   }
 `;
 
@@ -75,5 +81,6 @@ export const SidebarButton = ({ className, onToggle, isOpened }: SidebarButtonPr
   >
     <SidebarButtonBar direction={-1} />
     <SidebarButtonBar direction={1} />
+    <SidebarButtonBackground />
   </SidebarButtonWrapper>
 );

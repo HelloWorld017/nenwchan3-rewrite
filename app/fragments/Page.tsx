@@ -9,6 +9,7 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
+import {Cursor} from './_components/Cursor';
 
 const SectionList = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const PageContents = () => (
       </SectionList>
     </main>
     <Footer />
+    <Cursor />
     <Sidebar />
   </div>
 );
