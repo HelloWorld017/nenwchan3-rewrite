@@ -46,7 +46,6 @@ const HorizontalScrollButton = styled.button`
   font-size: 2.4rem;
 
   pointer-events: auto;
-  cursor: pointer;
   border-radius: 999rem;
   background: color-mix(var(--grey-900) 70%, transparent 30%);
   box-shadow: var(--shadow-400);
@@ -55,7 +54,7 @@ const HorizontalScrollButton = styled.button`
     opacity var(--transition-default),
     transform var(--transition-bounce);
 
-  [data-is-touch-enabled='false'] > & {
+  [data-is-touch-enabled='true'] > & {
     display: none;
   }
 

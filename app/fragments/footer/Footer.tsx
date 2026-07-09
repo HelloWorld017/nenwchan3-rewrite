@@ -7,9 +7,8 @@ import {zLayer} from '@/styles';
 import {defineI18n} from '@simplei18n/core';
 import {t} from '@simplei18n/core/react';
 import {addToFonts} from 'virtual:fontsubsetter';
-import LogoMonochrome from '@/assets/icons/LogoMonochrome.svg?react';
-import LogoText from '@/assets/icons/LogoText.svg?react';
 import {Container} from '../_components/Container';
+import {useState} from 'react';
 
 defineI18n(
   yaml => yaml`
@@ -70,37 +69,31 @@ const FooterCounter = () => (
 );
 
 const FooterContentsWrapper = styled.footer`
-  border-top: 1rem solid var(--grey-800);
-  padding: 10rem 0 15rem;
-`;
-
-const LogoWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  font-size: 4.2rem;
-  color: var(--grey-250);
+  justify-content: space-between;
+  padding: 3rem 0 6rem;
+  border-top: 0.14rem solid var(--grey-800);
+
+  color: var(--grey-300);
+  font-size: 1.5rem;
+  font-weight: 300;
 `;
 
-const LogoIcon = styled(LogoMonochrome)`
-  font-size: 3.6rem;
-  margin-top: 1.2rem;
-`;
-
-const Logo = () => (
-  <LogoWrapper>
-    <LogoIcon />
-    <LogoText />
-  </LogoWrapper>
-);
-
-const FooterContents = () => (
-  <FooterContentsWrapper>
+const FooterContents = () => {
+  const [date] = useState(() => new Date().getFullYear());
+  return (
     <Container>
-      <Logo />
+      <FooterContentsWrapper>
+          <div>
+            © 2016 - {date} nenw*
+          </div>
+          <div>
+            <a href="https://github.com/HelloWorld017/helloworld017.github.io">View source</a>
+          </div>
+      </FooterContentsWrapper>
     </Container>
-  </FooterContentsWrapper>
-);
+  );
+};
 
 export const Footer = () => (
   <section>
@@ -111,7 +104,13 @@ export const Footer = () => (
 );
 
 addToFonts(
-  <FooterCounterText>
-    <t._>{t.footer.counter.description}</t._>
-  </FooterCounterText>
+  <>
+    <FooterCounterText>
+      <t._>{t.footer.counter.description}</t._>
+    </FooterCounterText>
+    <FooterContents />
+    <FooterContentsWrapper>
+      0123456789
+    </FooterContentsWrapper>
+  </>
 );

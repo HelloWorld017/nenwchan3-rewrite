@@ -41,6 +41,10 @@ export const globalStyle = css`
       cursor: inherit;
     }
 
+    *:where(a[href], button:not([disabled])) {
+      cursor: pointer;
+    }
+
     *,
     *::before,
     *::after {

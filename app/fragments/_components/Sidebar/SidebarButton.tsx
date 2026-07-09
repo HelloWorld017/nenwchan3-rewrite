@@ -29,7 +29,6 @@ const SidebarButtonWrapper = styled.button`
   width: 7rem;
   height: 7rem;
 
-  cursor: pointer;
   border: none;
   border-radius: 1rem;
   background: transparent;

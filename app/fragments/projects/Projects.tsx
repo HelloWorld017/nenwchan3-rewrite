@@ -61,8 +61,6 @@ const ProjectItemContents = styled.a`
   border-radius: 1.2rem;
   padding: 2rem 2.4rem;
   gap: 1.8rem;
-
-  cursor: pointer;
   transition: opacity var(--transition-default);
 
   ${hoverStyle};
@@ -165,7 +163,6 @@ const ProjectDescription = styled.p`
 `;
 
 const ProjectDescriptionLinkInner = styled.a`
-  cursor: pointer;
   position: relative;
   color: var(--bluegrey-100);
   font-weight: 700;

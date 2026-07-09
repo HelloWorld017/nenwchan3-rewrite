@@ -19,7 +19,6 @@ defineI18n(
 );
 
 const ContactChipWrapper = styled.a`
-  cursor: pointer;
   display: flex;
   align-items: center;
   background: var(--bluegrey-900);

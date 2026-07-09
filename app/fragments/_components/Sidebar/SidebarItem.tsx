@@ -71,7 +71,6 @@ const SidebarItemDescription = styled.span`
 `;
 
 const SidebarItemWrapper = styled.a`
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
