@@ -2,6 +2,6 @@ import { defineSchemaGenConfig } from './build/schemagen';
 
 export default defineSchemaGenConfig({
   include: './app/functions/**/*.ts',
-  outFile: './app/schema/index.ts',
+  outFile: './app/schemas/index.ts',
   queryModule: './app/utils/query',
 });

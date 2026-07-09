@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "pnpm run '/dev:.*/'",
     "dev:frontend": "vite",
-    "dev:backend": "nenwdev-backend-entrypoint-dev",
+    "dev:backend": "vite build --watch --mode backend",
     "build": "pnpm run clean && pnpm run '/build:.*/'",
     "build:frontend": "vite build",
     "build:backend": "vite build --mode backend",
@@ -24,7 +24,7 @@
     "generate": "pnpm run '/generate:.*/'",
     "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
     "generate:font": "node ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
-    "generate:schema": "node ./build/schemagen/cli.ts && oxfmt ./app/schema",
+    "generate:schema": "node ./build/schemagen/cli.ts && oxfmt ./app/schemas",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"
   },

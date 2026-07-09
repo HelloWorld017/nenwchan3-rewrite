@@ -2,6 +2,7 @@ import ruriVideoUrl from '@/assets/videos/ruri.linear.mp4';
 import { ScrollVideo } from '@/fragments/_components/ScrollVideo';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
+import { Counter } from './_components/Counter';
 
 const FooterScrollVideoWrapper = styled.div`
   width: 100%;
@@ -35,10 +36,15 @@ const FooterCounterWrapper = styled.div`
   margin: 15rem 0;
 `;
 
-const FooterCounter = () => <FooterCounterWrapper></FooterCounterWrapper>;
+const FooterCounter = () => (
+  <FooterCounterWrapper>
+    <Counter />
+  </FooterCounterWrapper>
+);
 
 export const Footer = () => (
   <footer>
     <FooterScrollVideo />
+    <FooterCounter />
   </footer>
 );
