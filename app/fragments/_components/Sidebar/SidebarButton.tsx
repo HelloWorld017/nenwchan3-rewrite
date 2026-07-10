@@ -41,6 +41,7 @@ const SidebarButtonWrapper = styled.button`
 
   border: none;
   border-radius: 1rem;
+  mix-blend-mode: difference;
   transition: transform var(--transition-bounce);
   transform: rotate(45deg);
   z-index: ${zLayer.overlay};

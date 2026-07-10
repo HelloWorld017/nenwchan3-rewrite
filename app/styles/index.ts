@@ -83,6 +83,7 @@ export const globalStyle = css`
       --container-width: 1500px;
       --container-padding: 30px;
 
+      background: var(--grey-900);
       font-family: var(--font-sans);
       font-size: ${fontSizeGradient(breakpoints.sm, 8, breakpoints.lg, 10)};
       letter-spacing: -0.01em;
