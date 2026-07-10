@@ -1,6 +1,6 @@
 import IconArrowRight from '@/assets/icons/IconArrowRight.svg?react';
 import { useIsTouchEnabled } from '@/hooks/useIsTouchEnabled';
-import {usePrefersReducedMotion} from '@/hooks/usePrefersReducedMotion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { useEffect, useRef } from 'react';
@@ -218,8 +218,10 @@ export const Cursor = () => {
         const stretchOffset = trailing * stretch - leading * stretch * 0.78;
         const dragOffset = trailing * stretch * (isInteractive ? 0.62 : 0.98);
         const pointRadius = Math.max(4, radius + stretchOffset);
-        const targetPointX = center.x + Math.cos(point.angle) * pointRadius - Math.cos(direction) * dragOffset;
-        const targetPointY = center.y + Math.sin(point.angle) * pointRadius - Math.sin(direction) * dragOffset;
+        const targetPointX =
+          center.x + Math.cos(point.angle) * pointRadius - Math.cos(direction) * dragOffset;
+        const targetPointY =
+          center.y + Math.sin(point.angle) * pointRadius - Math.sin(direction) * dragOffset;
 
         point.vx += (targetPointX - point.x) * stiffness;
         point.vy += (targetPointY - point.y) * stiffness;

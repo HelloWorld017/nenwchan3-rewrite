@@ -1,4 +1,6 @@
 import ruriVideoUrl from '@/assets/videos/ruri.mp4';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useMergedRef } from '@/hooks/useMergedRef';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
@@ -7,8 +9,6 @@ import { useRef, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { Container } from '../_components/Container';
 import { Counter } from './_components/Counter';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useMergedRef } from '@/hooks/useMergedRef';
 
 defineI18n(
   yaml => yaml`
@@ -40,16 +40,19 @@ const FooterScrollVideoPlayer = styled.video`
 const FooterScrollVideo = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const intersectionRef = useIntersectionObserver(entry => {
-    if (!isVisible && entry.isIntersecting) {
-      setIsVisible(true);
-    }
+  const intersectionRef = useIntersectionObserver(
+    entry => {
+      if (!isVisible && entry.isIntersecting) {
+        setIsVisible(true);
+      }
 
-    const video = videoRef.current;
-    if (video && video.paused && entry.isIntersecting) {
-      video.play();
-    }
-  }, { threshold: 0.75 });
+      const video = videoRef.current;
+      if (video && video.paused && entry.isIntersecting) {
+        void video.play();
+      }
+    },
+    { threshold: 0.75 },
+  );
 
   const ref = useMergedRef(videoRef, intersectionRef);
 

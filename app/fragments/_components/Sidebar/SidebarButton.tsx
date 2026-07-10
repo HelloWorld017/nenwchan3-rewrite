@@ -1,6 +1,6 @@
+import Squircle from '@/assets/icons/Squircle.svg?react';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
-import Squircle from '@/assets/icons/Squircle.svg?react';
 
 const SidebarButtonBar = styled.div<{ direction: number }>`
   position: absolute;
