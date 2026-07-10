@@ -1,4 +1,6 @@
 import { styled } from '@linaria/react';
+import { Cursor } from './_components/Cursor';
+import { RefractedGlass } from './_components/RefractedGlass';
 import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
 import { Contact } from './contact';
@@ -9,7 +11,6 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
-import {Cursor} from './_components/Cursor';
 
 const SectionList = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const PageContents = () => (
     <Footer />
     <Cursor />
     <Sidebar />
+    <RefractedGlass />
   </div>
 );
 
