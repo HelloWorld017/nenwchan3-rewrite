@@ -25,8 +25,6 @@ export const findFontSubsetterConfig = async (root: string): Promise<string | un
   return undefined;
 };
 
-export const defineFontSubsetterConfig = <T extends FontSubsetterConfig>(config: T): T => config;
-
 export const normalizeFontSubsetterConfig = (
   config: FontSubsetterConfig,
   root: string,

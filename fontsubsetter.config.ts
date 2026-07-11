@@ -1,6 +1,6 @@
-import { defineFontSubsetterConfig } from './build/fontsubsetter/index';
+import type { FontSubsetterConfig } from './build/fontsubsetter';
 
-export default defineFontSubsetterConfig({
+export default {
   include: ['./app/fragments/**/*.tsx'],
   outDir: './app/assets/fonts/generated',
   frame: './app/fragments/App.tsx#AppFrame',
@@ -44,4 +44,4 @@ export default defineFontSubsetterConfig({
       },
     },
   },
-});
+} satisfies FontSubsetterConfig;

@@ -49,8 +49,6 @@ export const findAssetGenConfig = async (root: string): Promise<string | undefin
   return undefined;
 };
 
-export const defineAssetGenConfig = <T extends AssetGenConfig>(config: T): T => config;
-
 export const normalizeAssetGenConfig = (
   config: AssetGenConfig,
   root: string,

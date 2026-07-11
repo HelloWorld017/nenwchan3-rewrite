@@ -1,14 +1,11 @@
 import { findAssetGenConfig, loadConfig } from './config';
+import type { NormalizedAssetGenConfig } from './config';
 import type { Plugin } from 'vite';
-
-export type AssetGenPluginOptions = {
-  loaderModule?: string;
-};
 
 const resolvedAssetPrefix = '\x00assetgen:';
 
-export const assetgen = ({ loaderModule = '@/assets' }: AssetGenPluginOptions = {}): Plugin => {
-  let react = false;
+export const assetgen = (): Plugin => {
+  let assetGenConfig: NormalizedAssetGenConfig | null = null;
 
   return {
     name: 'assetgen',
@@ -16,7 +13,7 @@ export const assetgen = ({ loaderModule = '@/assets' }: AssetGenPluginOptions = 
 
     async configResolved(config) {
       if (await findAssetGenConfig(config.root)) {
-        react = (await loadConfig(config.root)).config.react;
+        assetGenConfig = (await loadConfig(config.root)).config;
       }
     },
 
@@ -39,12 +36,13 @@ export const assetgen = ({ loaderModule = '@/assets' }: AssetGenPluginOptions = 
         return undefined;
       }
 
+      const react = assetGenConfig!.react;
       const source = id.slice(resolvedAssetPrefix.length);
       const lines = [
         `import asset from ${JSON.stringify(`${source}?url`)};`,
         react
-          ? `import loader, { AssetsContext } from ${JSON.stringify(loaderModule)};`
-          : `import loader from ${JSON.stringify(loaderModule)};`,
+          ? `import loader, { AssetsContext } from ${JSON.stringify(assetGenConfig!.outFile)};`
+          : `import loader from ${JSON.stringify(assetGenConfig!.outFile)};`,
       ];
 
       if (react) {

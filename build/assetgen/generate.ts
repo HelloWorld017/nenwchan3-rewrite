@@ -15,16 +15,7 @@ export type GeneratedAssetGenOutput = {
   outFile: string;
 };
 
-const resolveIncludeFiles = async (root: string, include: readonly string[]): Promise<string[]> =>
-  glob([...include], {
-    absolute: true,
-    cwd: root,
-    expandDirectories: false,
-    onlyFiles: true,
-  });
-
 const toPosixPath = (value: string): string => value.replaceAll('\\', '/');
-
 const toImportSpecifier = (fromFile: string, target: string): string => {
   if (!isAbsolute(target) && !target.startsWith('.')) {
     return target;
@@ -34,6 +25,15 @@ const toImportSpecifier = (fromFile: string, target: string): string => {
   const importPath = relativePath.replace(/\.(?:c|m)?[jt]sx?$/, '');
   return importPath.startsWith('.') ? importPath : `./${importPath}`;
 };
+
+const resolveIncludeFiles = async (root: string, include: readonly string[]): Promise<string[]> =>
+  glob([...include], {
+    absolute: true,
+    cwd: root,
+    expandDirectories: false,
+    onlyFiles: true,
+  });
+
 
 const getSourceKind = (filePath: string): ts.ScriptKind => {
   if (filePath.endsWith('.tsx')) {

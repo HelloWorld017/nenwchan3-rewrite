@@ -47,8 +47,6 @@ export const findSchemaGenConfig = async (root: string): Promise<string | undefi
   return undefined;
 };
 
-export const defineSchemaGenConfig = <T extends SchemaGenConfig>(config: T): T => config;
-
 export const normalizeSchemaGenConfig = (
   config: SchemaGenConfig,
   root: string,

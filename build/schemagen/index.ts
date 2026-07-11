@@ -1,1 +1,1 @@
-export * from './config';
+export type { SchemaGenConfig } from './config';
