@@ -3,7 +3,6 @@ import { styled } from '@linaria/react';
 import { use, useEffect, useState } from 'react';
 import { Cursor } from './_components/Cursor';
 import { Loading } from './_components/Loading';
-import { RefractedGlass } from './_components/RefractedGlass';
 import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
 import { Contact } from './contact';
@@ -50,26 +49,15 @@ export const Page = () => {
   const [showOverlay, setShowOverlay] = useState(true);
 
   useEffect(() => {
-    let isActive = true;
-
     const loadPromise = loader.load((current, total) => {
-      if (!isActive) {
-        return;
-      }
-
       const nextProgress = Math.max(0, Math.min((current / total) * 100, 100));
       setProgress(nextProgress);
     });
 
-    void Promise.all([loadPromise, delay(600)]).then(() => {
-      if (isActive) {
-        setIsLoaded(true);
-      }
-    });
-
-    return () => {
-      isActive = false;
-    };
+    void Promise.all([loadPromise, delay(600)])
+      .then(() => setIsLoaded(true))
+      .then(() => delay(3000))
+      .then(() => setShowOverlay(false));
   }, [loader]);
 
   return (
@@ -77,10 +65,7 @@ export const Page = () => {
       {isLoaded && <PageContents />}
       <Cursor />
       {showOverlay && (
-        <>
-          <RefractedGlass active={isLoaded} onComplete={() => setShowOverlay(false)} />
-          <Loading complete={isLoaded} percent={progress} />
-        </>
+        <Loading complete={isLoaded} percent={progress} />
       )}
     </div>
   );
