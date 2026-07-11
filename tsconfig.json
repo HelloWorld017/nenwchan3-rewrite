@@ -40,6 +40,7 @@
   "include": [
     "app/**/*.ts",
     "app/**/*.tsx",
+    "assetgen.config.ts",
     "build/**/*.ts",
     "build/**/*.tsx",
     "fontsubsetter.config.ts",

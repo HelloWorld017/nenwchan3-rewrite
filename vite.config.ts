@@ -4,8 +4,10 @@ import react from '@vitejs/plugin-react';
 import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import assetgen from './build/assetgen';
 import fontsubsetter from './build/fontsubsetter';
 import watchHook from './build/watchhook';
+import webp  from './build/webp';
 
 export default defineConfig(({ mode }) => {
   const resolveConfig = {
@@ -53,15 +55,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
+      assetgen(),
       svgr(),
-      wyw({
-        eval: {
-          strategy: 'hybrid',
-        },
-      }),
+      wyw({ eval: { strategy: 'hybrid' } }),
       react(),
       simplei18n(),
       fontsubsetter(),
+      webp(),
     ],
   };
 });

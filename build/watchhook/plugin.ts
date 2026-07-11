@@ -30,7 +30,9 @@ const watchHook = ({ daemon }: WatchHookOptions): Plugin => {
   return {
     name: 'watchhook',
     writeBundle() {
-      startDaemon();
+      if (this.environment.config.build.watch) {
+        startDaemon();
+      }
     },
     closeWatcher() {
       if (daemonProcess) {
