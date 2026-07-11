@@ -7,15 +7,15 @@ import {
   fromGeneratedFontFamily,
   isGenericFamily,
   splitFontFamily,
-} from './css.ts';
-import { getBestFontFace, getFontFaces } from './faces.ts';
-import type { NormalizedFontFace } from './faces.ts';
+} from './css';
+import { getBestFontFace, getFontFaces } from './faces';
+import type { NormalizedFontFace } from './faces';
 import type {
   CollectedFontChars,
   FontCoverage,
   FontSubsetterItem,
   NormalizedFontSubsetterConfig,
-} from './types.ts';
+} from './types';
 import type { ComponentType, PropsWithChildren } from 'react';
 
 const shouldCollectChar = (char: string): boolean =>

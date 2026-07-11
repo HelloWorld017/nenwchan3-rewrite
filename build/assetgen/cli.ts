@@ -1,7 +1,6 @@
-#!/usr/bin/env node
 import { resolve } from 'node:path';
-import { loadConfig } from './config.ts';
-import { generateAssets } from './generate.ts';
+import { loadConfig } from './config';
+import { generateAssets } from './generate';
 
 const parseArgs = (): { root: string } => {
   const args = process.argv.slice(2);

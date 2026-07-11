@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import ts from 'typescript';
-import type { NormalizedAssetGenConfig } from './config.ts';
+import type { NormalizedAssetGenConfig } from './config';
 
 export type AssetDefinition = {
   filePath: string;

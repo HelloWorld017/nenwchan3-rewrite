@@ -1,4 +1,4 @@
-import { findAssetGenConfig, loadConfig } from './config.ts';
+import { findAssetGenConfig, loadConfig } from './config';
 import type { Plugin } from 'vite';
 
 export type AssetGenPluginOptions = {

@@ -1,4 +1,4 @@
-import type { FontFaceSourceDefinition, NormalizedFontSubsetterConfig } from './types.ts';
+import type { FontFaceSourceDefinition, NormalizedFontSubsetterConfig } from './types';
 
 export type NormalizedFontFace = FontFaceSourceDefinition & {
   id: string;

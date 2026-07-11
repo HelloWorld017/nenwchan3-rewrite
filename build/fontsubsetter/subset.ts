@@ -1,14 +1,14 @@
 import { createHash } from 'node:crypto';
 import { access, readFile } from 'node:fs/promises';
 import { isAbsolute, resolve } from 'node:path';
-import { getFontFaces } from './faces.ts';
+import { getFontFaces } from './faces';
 import type {
   CollectedFontChars,
   FontCoverage,
   GeneratedFontAsset,
   NormalizedFontSubsetterConfig,
   FontSubsetOptions,
-} from './types.ts';
+} from './types';
 
 type FonttoolsModule = {
   subset: (

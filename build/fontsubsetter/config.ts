@@ -1,7 +1,7 @@
 import { access } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import type { FontSubsetterConfig, NormalizedFontSubsetterConfig } from './types.ts';
+import type { FontSubsetterConfig, NormalizedFontSubsetterConfig } from './types';
 
 const configFileNames = [
   'fontsubsetter.config.ts',

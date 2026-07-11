@@ -1,4 +1,4 @@
-import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types.ts';
+import type { GeneratedFontCssInput, NormalizedFontSubsetterConfig } from './types';
 
 const fontFamilyPrefix = '__fontsubsetter_';
 

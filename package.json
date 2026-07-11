@@ -22,10 +22,10 @@
     "clean": "rm -rf dist",
     "format": "oxfmt",
     "generate": "pnpm run '/generate:.*/'",
-    "generate:asset": "node ./build/assetgen/cli.ts && oxfmt ./app/assets/index.tsx",
+    "generate:asset": "tsx ./build/assetgen/cli.ts && oxfmt ./app/assets/index.tsx",
     "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
-    "generate:font": "node ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
-    "generate:schema": "node ./build/schemagen/cli.ts && oxfmt ./app/schemas",
+    "generate:font": "tsx ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
+    "generate:schema": "tsx ./build/schemagen/cli.ts && oxfmt ./app/schemas",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"
   },
@@ -56,6 +56,7 @@
     "oxlint-tsgolint": "^0.23.0",
     "sharp": "^0.35.3",
     "tinyglobby": "^0.2.15",
+    "tsx": "^4.23.0",
     "vite": "^8.0.16",
     "vite-plugin-svgr": "^5.2.0"
   },

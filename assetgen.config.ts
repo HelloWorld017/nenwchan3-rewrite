@@ -1,4 +1,4 @@
-import { defineAssetGenConfig } from './build/assetgen/index.ts';
+import { defineAssetGenConfig } from './build/assetgen/index';
 
 export default defineAssetGenConfig({
   include: './app/**/*.{ts,tsx}',

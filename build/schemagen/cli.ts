@@ -1,10 +1,9 @@
-#!/usr/bin/env node
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import ts from 'typescript';
-import { loadConfig } from './config.ts';
-import type { NormalizedSchemaGenConfig } from './config.ts';
+import { loadConfig } from './config';
+import type { NormalizedSchemaGenConfig } from './config';
 
 type RouteDefinition = {
   exportName: string;

@@ -1,3 +1,3 @@
-export { default } from './plugin.ts';
-export { defineFontSubsetterConfig } from './config.ts';
-export type { FontFaceDefinition, FontSubsetterConfig, FontSubsetterOverride } from './types.ts';
+export { default } from './plugin';
+export { defineFontSubsetterConfig } from './config';
+export type { FontFaceDefinition, FontSubsetterConfig, FontSubsetterOverride } from './types';

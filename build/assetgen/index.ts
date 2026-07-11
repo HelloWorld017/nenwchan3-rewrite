@@ -1,3 +1,3 @@
-export * from './config.ts';
-export { assetgen as default } from './plugin.ts';
-export type { AssetGenPluginOptions } from './plugin.ts';
+export * from './config';
+export { assetgen as default } from './plugin';
+export type { AssetGenPluginOptions } from './plugin';

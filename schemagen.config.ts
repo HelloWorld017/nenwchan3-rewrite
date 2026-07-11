@@ -1,4 +1,4 @@
-import { defineSchemaGenConfig } from './build/schemagen/index.ts';
+import { defineSchemaGenConfig } from './build/schemagen/index';
 
 export default defineSchemaGenConfig({
   include: './app/functions/**/*.ts',

@@ -1,8 +1,8 @@
-import { defineFontSubsetterConfig } from './config.ts';
+import { defineFontSubsetterConfig } from './config';
 import type { Plugin } from 'vite';
 
 export { defineFontSubsetterConfig };
-export type { FontFaceDefinition, FontSubsetterConfig, FontSubsetterOverride } from './types.ts';
+export type { FontFaceDefinition, FontSubsetterConfig, FontSubsetterOverride } from './types';
 
 const virtualModuleId = 'virtual:fontsubsetter';
 const resolvedVirtualModuleId = `\x00${virtualModuleId}`;
