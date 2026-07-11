@@ -1,0 +1,14 @@
+{
+  "target": "widely_available",
+  "unsupported_features": {
+    "css-backdrop-filter": { "status": "fallbacked" },
+    "css-overscroll-behavior": { "status": "ignored" },
+    "css-scrollbar": { "status": "ignored" },
+    "css-selection": { "status": "ignored" },
+    "css3-cursors": { "status": "ignored" },
+    "devicepixelratio": { "status": "ignored" },
+    "user-select-none": { "status": "ignored" },
+    "wf-request-video-frame-callback": { "status": "fallbacked" },
+    "wf-scrollbar-gutter": { "status": "ignored" }
+  }
+}
