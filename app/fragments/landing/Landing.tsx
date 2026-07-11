@@ -1,9 +1,11 @@
 import roofrain from '@/assets/videos/roofrain.mp4?asset';
+import LogoMonochrome from '@/assets/icons/LogoMonochrome.svg?react';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useEffect, useMemo, useRef } from 'react';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
+import {addToFonts} from 'virtual:fontsubsetter';
 
 const LandingWrapper = styled.section`
   position: relative;
@@ -24,11 +26,48 @@ const LandingInner = styled.div`
   }
 `;
 
+const LandingContents = styled.div`
+  position: absolute;
+  inset: 10rem 12rem 18rem 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  color: var(--grey-900);
+`;
+
+const LandingLogo = styled(LogoMonochrome)`
+  font-size: 12lvmin;
+  margin-left: -1lvmin;
+  margin-bottom: 8rem;
+`;
+
+const LandingText = styled.div`
+  font-family: var(--font-display);
+  font-size: 8lvmin;
+  font-weight: 700;
+  line-height: 1.1em;
+  letter-spacing: -0.015em;
+`;
+
+const LandingTextLight = styled.span`
+  font-weight: 300;
+`;
+
 const LandingVideo = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+`;
+
+const LandingVideoInfo = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--grey-900);
+  font-size: 1.6rem;
+  opacity: 0.75;
 `;
 
 export const Landing = () => {
@@ -56,7 +95,19 @@ export const Landing = () => {
     <LandingWrapper ref={ref}>
       <LandingInner ref={innerRef}>
         <LandingVideo src={roofrain.use} autoPlay muted loop playsInline />
+        <LandingContents>
+          <LandingLogo />
+          <LandingText>
+            Aviation<br />
+            <LandingTextLight>In Progress</LandingTextLight>
+          </LandingText>
+          <LandingVideoInfo>
+            雨が降る屋上 | 2024. 11. 18 | nenw*
+          </LandingVideoInfo>
+        </LandingContents>
       </LandingInner>
     </LandingWrapper>
   );
 };
+
+addToFonts(<Landing />);
