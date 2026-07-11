@@ -6,15 +6,17 @@ export type AssetGenConfig = {
   include: string | readonly string[];
   outFile: string;
   loaderModule: string;
+  react?: boolean;
 };
 
 export type NormalizedAssetGenConfig = Omit<
   AssetGenConfig,
-  'include' | 'outFile' | 'loaderModule'
+  'include' | 'outFile' | 'loaderModule' | 'react'
 > & {
   include: string[];
   outFile: string;
   loaderModule: string;
+  react: boolean;
 };
 
 const configFileNames = [
@@ -57,6 +59,7 @@ export const normalizeAssetGenConfig = (
   include: Array.isArray(config.include) ? [...config.include] : [config.include],
   outFile: resolve(root, config.outFile),
   loaderModule: normalizeModuleSpecifier(config.loaderModule, root),
+  react: config.react ?? false,
 });
 
 export const isAssetGenConfig = (value: unknown): value is AssetGenConfig => {
@@ -65,7 +68,12 @@ export const isAssetGenConfig = (value: unknown): value is AssetGenConfig => {
   }
 
   const config = value as Partial<AssetGenConfig>;
-  return Boolean(config.include && config.outFile && config.loaderModule);
+  return Boolean(
+    config.include &&
+    config.outFile &&
+    config.loaderModule &&
+    (config.react === undefined || typeof config.react === 'boolean'),
+  );
 };
 
 export type LoadedAssetGenConfig = {

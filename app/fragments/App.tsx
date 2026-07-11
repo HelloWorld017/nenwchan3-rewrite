@@ -1,3 +1,4 @@
+import { AssetsProvider } from '@/assets';
 import i18n from '@/i18n';
 import { globalStyle } from '@/styles';
 import { createI18nResource, I18nProvider } from '@simplei18n/core/react';
@@ -14,11 +15,13 @@ type AppFrameProps = PropsWithChildren<{
 
 export const AppFrame = ({ children, lang = 'ko' }: AppFrameProps) => (
   <StrictMode>
-    <QueryProvider>
-      <I18nProvider lang={lang} resource={i18nResources}>
-        <main className={globalStyle}>{children}</main>
-      </I18nProvider>
-    </QueryProvider>
+    <AssetsProvider>
+      <QueryProvider>
+        <I18nProvider lang={lang} resource={i18nResources}>
+          <main className={globalStyle}>{children}</main>
+        </I18nProvider>
+      </QueryProvider>
+    </AssetsProvider>
   </StrictMode>
 );
 

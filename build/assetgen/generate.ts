@@ -142,23 +142,52 @@ export const renderGeneratedAssets = (
   }
 
   const assetUtilSpecifier = JSON.stringify(toImportSpecifier(config.outFile, config.loaderModule));
-  lines.push(
-    `import { createAssetsLoader } from ${assetUtilSpecifier};`,
-    '',
-    'const loader = createAssetsLoader();',
-  );
+  lines.push(`import { createAssetsLoader } from ${assetUtilSpecifier};`);
 
-  if (assets.length === 0) {
-    lines.push('loader.add([]);');
-  } else {
+  if (config.react) {
     lines.push(
-      'loader.add([',
-      ...assets.map(asset => `  ${getAssetIdentifier(asset.importSpecifier)},`),
-      ']);',
+      "import { createContext, useState } from 'react';",
+      "import type { PropsWithChildren } from 'react';",
     );
   }
 
-  lines.push('', 'export { loader };');
+  lines.push(
+    '',
+    'const createRegisteredAssetsLoader = () => {',
+    '  const loader = createAssetsLoader();',
+  );
+
+  if (assets.length === 0) {
+    lines.push('  loader.add([]);');
+  } else {
+    lines.push(
+      '  loader.add([',
+      ...assets.map(asset => `    ${getAssetIdentifier(asset.importSpecifier)},`),
+      '  ]);',
+    );
+  }
+
+  lines.push(
+    '  return loader;',
+    '};',
+    '',
+    'const globalAssetsLoader = createRegisteredAssetsLoader();',
+    'export default globalAssetsLoader;',
+  );
+
+  if (config.react) {
+    lines.push(
+      '',
+      'export const AssetsContext = createContext(globalAssetsLoader);',
+      '',
+      'export const AssetsProvider = ({ children }: PropsWithChildren) => {',
+      '  const [assets] = useState(() => createRegisteredAssetsLoader());',
+      '',
+      '  return <AssetsContext.Provider value={assets}>{children}</AssetsContext.Provider>;',
+      '};',
+    );
+  }
+
   return `${lines.join('\n')}\n`;
 };
 

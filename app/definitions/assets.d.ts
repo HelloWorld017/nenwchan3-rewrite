@@ -1,4 +1,8 @@
 declare module '*?asset' {
-  const lookup: () => string;
-  export default lookup;
+  const mod: {
+    get use(): string;
+    get url(): string;
+  };
+
+  export default mod;
 }

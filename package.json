@@ -22,7 +22,7 @@
     "clean": "rm -rf dist",
     "format": "oxfmt",
     "generate": "pnpm run '/generate:.*/'",
-    "generate:asset": "node ./build/assetgen/cli.ts && oxfmt ./app/assets/index.ts",
+    "generate:asset": "node ./build/assetgen/cli.ts && oxfmt ./app/assets/index.tsx",
     "generate:i18n": "simplei18n generate -D && oxfmt ./app/i18n",
     "generate:font": "node ./build/fontsubsetter/cli.ts && oxfmt ./app/assets/fonts/generated",
     "generate:schema": "node ./build/schemagen/cli.ts && oxfmt ./app/schemas",

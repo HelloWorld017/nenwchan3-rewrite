@@ -1,9 +1,9 @@
 import IconDatabaseSync from '@/assets/icons/IconDatabaseSync.svg?react';
 import IconGitBranchWrench from '@/assets/icons/IconGitBranchWrench.svg?react';
-import ImageIrodori from '@/assets/images/irodori.png?url';
-import ImageKaede from '@/assets/images/kaede.png?url';
-import ImageMidnightway from '@/assets/images/midnightway.png?url';
-import ImageToneMarble from '@/assets/images/tone-marble.png?url';
+import ImageIrodori from '@/assets/images/irodori.png?asset';
+import ImageKaede from '@/assets/images/kaede.png?asset';
+import ImageMidnightway from '@/assets/images/midnightway.png?asset';
+import ImageToneMarble from '@/assets/images/tone-marble.png?asset';
 import { Container } from '@/fragments/_components/Container';
 import { useSize } from '@/hooks/useSize';
 import { IconAudioWaveform, IconBookText, IconGhost, IconMoonStar, IconSnowflake } from '@/icons';
@@ -214,7 +214,7 @@ export const Projects = () => (
           icon={<IconAudioWaveform />}
           title="tone-marble"
           description="an unrealistic instrument"
-          image={ImageToneMarble}
+          image={ImageToneMarble.use}
         />
         <ProjectItem
           icon={<IconDatabaseSync />}
@@ -225,19 +225,19 @@ export const Projects = () => (
           icon={<IconMoonStar />}
           title="midnightway"
           description="webkit-based wayland bar and panels"
-          image={ImageMidnightway}
+          image={ImageMidnightway.use}
         />
         <ProjectItem
           icon={<IconGhost />}
           title="kaede"
           description="neat ghost theme"
-          image={ImageKaede}
+          image={ImageKaede.use}
         />
         <ProjectItem
           icon={<IconBookText />}
           title="irodori"
           description="local-first diary app"
-          image={ImageIrodori}
+          image={ImageIrodori.use}
         />
         <ProjectItem
           icon={<IconGitBranchWrench />}

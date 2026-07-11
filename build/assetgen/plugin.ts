@@ -1,3 +1,4 @@
+import { findAssetGenConfig, loadConfig } from './config.ts';
 import type { Plugin } from 'vite';
 
 export type AssetGenPluginOptions = {
@@ -6,38 +7,72 @@ export type AssetGenPluginOptions = {
 
 const resolvedAssetPrefix = '\x00assetgen:';
 
-export const assetgen = ({ loaderModule = '@/assets' }: AssetGenPluginOptions = {}): Plugin => ({
-  name: 'assetgen',
-  enforce: 'pre',
+export const assetgen = ({ loaderModule = '@/assets' }: AssetGenPluginOptions = {}): Plugin => {
+  let react = false;
 
-  async resolveId(id, importer) {
-    if (!id.endsWith('?asset')) {
-      return undefined;
-    }
+  return {
+    name: 'assetgen',
+    enforce: 'pre',
 
-    const source = id.slice(0, -'?asset'.length);
-    const resolved = await this.resolve(source, importer, { skipSelf: true });
-    if (!resolved) {
-      return undefined;
-    }
+    async configResolved(config) {
+      if (await findAssetGenConfig(config.root)) {
+        react = (await loadConfig(config.root)).config.react;
+      }
+    },
 
-    return `${resolvedAssetPrefix}${resolved.id}`;
-  },
+    async resolveId(id, importer) {
+      if (!id.endsWith('?asset')) {
+        return undefined;
+      }
 
-  load(id) {
-    if (!id.startsWith(resolvedAssetPrefix)) {
-      return undefined;
-    }
+      const source = id.slice(0, -'?asset'.length);
+      const resolved = await this.resolve(source, importer, { skipSelf: true });
+      if (!resolved) {
+        return undefined;
+      }
 
-    const source = id.slice(resolvedAssetPrefix.length);
+      return `${resolvedAssetPrefix}${resolved.id}`;
+    },
 
-    return [
-      `import asset from ${JSON.stringify(`${source}?url`)};`,
-      `import { loader } from ${JSON.stringify(loaderModule)};`,
-      '',
-      'export default () => loader.lookup(asset);',
-    ].join('\n');
-  },
-});
+    load(id) {
+      if (!id.startsWith(resolvedAssetPrefix)) {
+        return undefined;
+      }
+
+      const source = id.slice(resolvedAssetPrefix.length);
+      const lines = [
+        `import asset from ${JSON.stringify(`${source}?url`)};`,
+        react
+          ? `import loader, { AssetsContext } from ${JSON.stringify(loaderModule)};`
+          : `import loader from ${JSON.stringify(loaderModule)};`,
+      ];
+
+      if (react) {
+        lines.push("import { use } from 'react';");
+      }
+
+      lines.push(
+        '',
+        'export default {',
+        '  get url() {',
+        '    return loader.lookup(asset);',
+        '  },',
+      );
+
+      if (react) {
+        lines.push(
+          '',
+          '  get use() {',
+          '    const assets = use(AssetsContext);',
+          '    return assets.lookup(asset);',
+          '  },',
+        );
+      }
+
+      lines.push('};');
+      return lines.join('\n');
+    },
+  };
+};
 
 export default assetgen;

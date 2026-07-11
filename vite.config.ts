@@ -7,7 +7,7 @@ import svgr from 'vite-plugin-svgr';
 import assetgen from './build/assetgen';
 import fontsubsetter from './build/fontsubsetter';
 import watchHook from './build/watchhook';
-import webp  from './build/webp';
+import webp from './build/webp';
 
 export default defineConfig(({ mode }) => {
   const resolveConfig = {
