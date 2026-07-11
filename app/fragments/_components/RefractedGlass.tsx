@@ -10,18 +10,8 @@ const RefractedGlassLayer = styled.div`
   inset: 0;
   z-index: ${zLayer.overlay};
   overflow: hidden;
-  opacity: 0;
   pointer-events: none;
   isolation: isolate;
-  transition: opacity 400ms ease;
-
-  &[data-active='true'] {
-    opacity: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `;
 
 const GlassSection = styled.div`
@@ -32,28 +22,37 @@ const GlassSection = styled.div`
   top: 0;
   bottom: 0;
   left: calc((var(--rib-index) + 0.5) * (var(--wide-rib-width) + var(--narrow-rib-width)));
-  width: calc(var(--wide-rib-width) + var(--narrow-rib-width));
+  width: 0;
   overflow: hidden;
   transform: translateX(-50%);
   will-change: width;
 
   &[data-active='true'] {
-    animation: refracted-glass-out 0.9s cubic-bezier(0.76, 0, 0.24, 1) var(--rib-delay) forwards;
-  }
-
-  @keyframes refracted-glass-out {
-    from {
-      width: calc(var(--wide-rib-width) + var(--narrow-rib-width));
-    }
-
-    to {
-      width: 0;
-    }
+    animation: refracted-glass 1200ms cubic-bezier(0.76, 0, 0.24, 1)
+      calc(var(--rib-index) * calc(600ms / ${RIB_COUNT}));
   }
 
   @media (prefers-reduced-motion: reduce) {
     width: 0;
-    animation: none;
+    transition: none;
+  }
+
+  @keyframes refracted-glass {
+    0% {
+      width: 0;
+    }
+
+    33% {
+      width: calc(var(--wide-rib-width) + var(--narrow-rib-width));
+    }
+
+    66% {
+      width: calc(var(--wide-rib-width) + var(--narrow-rib-width));
+    }
+
+    100% {
+      width: 0;
+    }
   }
 `;
 
@@ -81,7 +80,7 @@ const GlassRib = styled.div`
       90deg,
       transparent 0,
       rgb(0 0 0 / 8%) 45%,
-      rgb(0 0 0 / 30%) 88%,
+      rgb(0 0 0 / 15%) 88%,
       transparent 100%
     );
   }
@@ -114,14 +113,13 @@ export const RefractedGlass = ({ active, onComplete }: RefractedGlassProps) => {
   }, [active, onComplete, prefersReducedMotion]);
 
   return (
-    <RefractedGlassLayer aria-hidden data-active={active ? 'true' : 'false'}>
+    <RefractedGlassLayer aria-hidden>
       {Array.from({ length: RIB_COUNT }, (_, index) => (
         <GlassSection
-          data-active={active ? 'true' : 'false'}
+          data-active={active}
           key={index}
-          onAnimationEnd={index === RIB_COUNT - 1 ? onComplete : undefined}
+          onTransitionEnd={index === RIB_COUNT - 1 ? onComplete : undefined}
           style={{
-            '--rib-delay': `${800 + index * 40}ms`,
             '--rib-index': index,
           }}
         >

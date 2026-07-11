@@ -22,7 +22,7 @@ const LoadingLayer = styled.div`
   opacity: 1;
   pointer-events: auto;
   background: white;
-  transition: opacity 400ms ease 400ms;
+  transition: opacity 400ms ease 800ms;
 
   &[data-complete='true'] {
     opacity: 0;
