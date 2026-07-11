@@ -1,4 +1,4 @@
-import ruriVideoUrl from '@/assets/videos/ruri.mp4';
+import ruriVideoUrl from '@/assets/videos/ruri.mp4?asset';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useMergedRef } from '@/hooks/useMergedRef';
 import { zLayer } from '@/styles';
@@ -60,7 +60,7 @@ const FooterScrollVideo = () => {
     <FooterScrollVideoWrapper data-is-visible={isVisible}>
       <FooterScrollVideoPlayer
         ref={ref}
-        src={ruriVideoUrl}
+        src={ruriVideoUrl.use}
         muted
         playsInline
         preload="auto"

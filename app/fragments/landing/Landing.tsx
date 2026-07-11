@@ -1,4 +1,4 @@
-import roofrain from '@/assets/videos/roofrain.mp4';
+import roofrain from '@/assets/videos/roofrain.mp4?asset';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
@@ -55,7 +55,7 @@ export const Landing = () => {
   return (
     <LandingWrapper ref={ref}>
       <LandingInner ref={innerRef}>
-        <LandingVideo src={roofrain} autoPlay muted loop playsInline />
+        <LandingVideo src={roofrain.use} autoPlay muted loop playsInline />
       </LandingInner>
     </LandingWrapper>
   );

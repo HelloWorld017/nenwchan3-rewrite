@@ -1,5 +1,8 @@
+import { AssetsContext } from '@/assets';
 import { styled } from '@linaria/react';
+import { use, useEffect, useState } from 'react';
 import { Cursor } from './_components/Cursor';
+import { Loading } from './_components/Loading';
 import { RefractedGlass } from './_components/RefractedGlass';
 import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
@@ -11,6 +14,7 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
+import {delay} from 'es-toolkit';
 
 const SectionList = styled.div`
   display: flex;
@@ -21,7 +25,7 @@ const SectionList = styled.div`
 `;
 
 const PageContents = () => (
-  <div>
+  <>
     <main>
       <Landing />
       <Profile />
@@ -35,10 +39,49 @@ const PageContents = () => (
       </SectionList>
     </main>
     <Footer />
-    <Cursor />
     <Sidebar />
-    <RefractedGlass />
-  </div>
+  </>
 );
 
-export const Page = () => <PageContents />;
+export const Page = () => {
+  const loader = use(AssetsContext);
+  const [progress, setProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  useEffect(() => {
+    let isActive = true;
+
+    const loadPromise = loader.load((current, total) => {
+      if (!isActive) {
+        return;
+      }
+
+      const nextProgress = Math.max(0, Math.min((current / total) * 100, 100));
+      setProgress(nextProgress);
+    });
+
+    void Promise.all([loadPromise, delay(600)]).then(() => {
+      if (isActive) {
+        setIsLoaded(true);
+      }
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [loader]);
+
+  return (
+    <div>
+      {isLoaded && <PageContents />}
+      <Cursor />
+      {showOverlay && (
+        <>
+          <RefractedGlass active={isLoaded} onComplete={() => setShowOverlay(false)} />
+          <Loading complete={isLoaded} percent={progress} />
+        </>
+      )}
+    </div>
+  );
+};

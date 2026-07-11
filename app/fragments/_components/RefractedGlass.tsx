@@ -1,5 +1,7 @@
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
+import { useEffect } from 'react';
 
 const RIB_COUNT = 18;
 
@@ -8,8 +10,18 @@ const RefractedGlassLayer = styled.div`
   inset: 0;
   z-index: ${zLayer.overlay};
   overflow: hidden;
+  opacity: 0;
   pointer-events: none;
   isolation: isolate;
+  transition: opacity 400ms ease;
+
+  &[data-active='true'] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;
 
 const GlassSection = styled.div`
@@ -23,8 +35,11 @@ const GlassSection = styled.div`
   width: calc(var(--wide-rib-width) + var(--narrow-rib-width));
   overflow: hidden;
   transform: translateX(-50%);
-  animation: refracted-glass-out 0.9s cubic-bezier(0.76, 0, 0.24, 1) var(--rib-delay) forwards;
   will-change: width;
+
+  &[data-active='true'] {
+    animation: refracted-glass-out 0.9s cubic-bezier(0.76, 0, 0.24, 1) var(--rib-delay) forwards;
+  }
 
   @keyframes refracted-glass-out {
     from {
@@ -84,21 +99,38 @@ const GlassRib = styled.div`
   }
 `;
 
-export const RefractedGlass = () => (
-  <RefractedGlassLayer aria-hidden>
-    {Array.from({ length: RIB_COUNT }, (_, index) => (
-      <GlassSection
-        key={index}
-        style={{
-          '--rib-delay': `${500 + index * 40}ms`,
-          '--rib-index': index,
-        }}
-      >
-        <GlassSectionContents>
-          <GlassRib data-rib="wide" />
-          <GlassRib data-rib="narrow" />
-        </GlassSectionContents>
-      </GlassSection>
-    ))}
-  </RefractedGlassLayer>
-);
+type RefractedGlassProps = {
+  active: boolean;
+  onComplete: () => void;
+};
+
+export const RefractedGlass = ({ active, onComplete }: RefractedGlassProps) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (active && prefersReducedMotion) {
+      onComplete();
+    }
+  }, [active, onComplete, prefersReducedMotion]);
+
+  return (
+    <RefractedGlassLayer aria-hidden data-active={active ? 'true' : 'false'}>
+      {Array.from({ length: RIB_COUNT }, (_, index) => (
+        <GlassSection
+          data-active={active ? 'true' : 'false'}
+          key={index}
+          onAnimationEnd={index === RIB_COUNT - 1 ? onComplete : undefined}
+          style={{
+            '--rib-delay': `${800 + index * 40}ms`,
+            '--rib-index': index,
+          }}
+        >
+          <GlassSectionContents>
+            <GlassRib data-rib="wide" />
+            <GlassRib data-rib="narrow" />
+          </GlassSectionContents>
+        </GlassSection>
+      ))}
+    </RefractedGlassLayer>
+  );
+};

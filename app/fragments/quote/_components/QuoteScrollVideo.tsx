@@ -1,4 +1,4 @@
-import reinaVideoUrl from '@/assets/videos/reina.linear.mp4';
+import reinaVideoUrl from '@/assets/videos/reina.linear.mp4?asset';
 import { ScrollVideo } from '@/fragments/_components/ScrollVideo';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -72,7 +72,7 @@ export const QuoteScrollVideo = () => {
 
   return (
     <QuoteScrollVideoWrapper ref={setWrapperRef}>
-      <QuoteScrollVideoPlayer src={reinaVideoUrl} playOffset={viewportHeight * 0.1} />
+      <QuoteScrollVideoPlayer src={reinaVideoUrl.use} playOffset={viewportHeight * 0.1} />
     </QuoteScrollVideoWrapper>
   );
 };

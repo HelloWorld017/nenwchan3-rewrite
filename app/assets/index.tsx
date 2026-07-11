@@ -3,13 +3,24 @@ import asset_1b9dd662 from '@/assets/images/irodori.png?url';
 import asset_187b5c11 from '@/assets/images/kaede.png?url';
 import asset_9a70e5eb from '@/assets/images/midnightway.png?url';
 import asset_2bcab20a from '@/assets/images/tone-marble.png?url';
-import { createContext, useState } from 'react';
+import asset_d93825e0 from '@/assets/videos/reina.linear.mp4?url';
+import asset_f03adc91 from '@/assets/videos/roofrain.mp4?url';
+import asset_45a09fcc from '@/assets/videos/ruri.mp4?url';
+import { createContext, useEffect, useState } from 'react';
 import { createAssetsLoader } from '../utils/assets';
 import type { PropsWithChildren } from 'react';
 
 const createRegisteredAssetsLoader = () => {
   const loader = createAssetsLoader();
-  loader.add([asset_1b9dd662, asset_187b5c11, asset_9a70e5eb, asset_2bcab20a]);
+  loader.add([
+    asset_1b9dd662,
+    asset_187b5c11,
+    asset_9a70e5eb,
+    asset_2bcab20a,
+    asset_d93825e0,
+    asset_f03adc91,
+    asset_45a09fcc,
+  ]);
   return loader;
 };
 
@@ -20,6 +31,7 @@ export const AssetsContext = createContext(globalAssetsLoader);
 
 export const AssetsProvider = ({ children }: PropsWithChildren) => {
   const [assets] = useState(() => createRegisteredAssetsLoader());
+  useEffect(() => () => assets.dispose(), []);
 
   return <AssetsContext.Provider value={assets}>{children}</AssetsContext.Provider>;
 };

@@ -7,20 +7,19 @@ export const createAssetsLoader = () => {
     newAssets.forEach(asset => assetsMap.set(asset, null));
   };
 
-  const load = (onProgress: (progress: number, total: number) => void) => {
+  const load = async (onProgress: (progress: number, total: number) => void) => {
     const assetsToLoad = Array.from(assetsMap.entries())
       .filter(([, blobUrl]) => blobUrl === null)
       .map(([key]) => key);
 
-    return createPromisePool(
+    await createPromisePool(
       (function* generateAssetLoader() {
         let count = 0;
         for (const asset of assetsToLoad) {
           yield fetch(asset)
             .then(res => res.blob())
-            .then(blob => assetsMap.set(asset, URL.createObjectURL(blob)));
-
-          onProgress(++count, assetsToLoad.length);
+            .then(blob => assetsMap.set(asset, URL.createObjectURL(blob)))
+            .then(() => onProgress(++count, assetsToLoad.length));
         }
       })(),
     );

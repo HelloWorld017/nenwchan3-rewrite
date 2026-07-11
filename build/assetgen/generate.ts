@@ -146,7 +146,7 @@ export const renderGeneratedAssets = (
 
   if (config.react) {
     lines.push(
-      "import { createContext, useState } from 'react';",
+      "import { createContext, useEffect, useState } from 'react';",
       "import type { PropsWithChildren } from 'react';",
     );
   }
@@ -182,6 +182,7 @@ export const renderGeneratedAssets = (
       '',
       'export const AssetsProvider = ({ children }: PropsWithChildren) => {',
       '  const [assets] = useState(() => createRegisteredAssetsLoader());',
+      '  useEffect(() => () => assets.dispose(), []);',
       '',
       '  return <AssetsContext.Provider value={assets}>{children}</AssetsContext.Provider>;',
       '};',
