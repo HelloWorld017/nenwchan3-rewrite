@@ -22,7 +22,7 @@ const LoadingLayer = styled.div`
   opacity: 1;
   pointer-events: auto;
   background: white;
-  transition: opacity 400ms ease 800ms;
+  transition: opacity 800ms ease 800ms;
 
   &[data-complete='true'] {
     opacity: 0;
@@ -61,8 +61,14 @@ const Water = styled.div`
   width: 100%;
   height: 0;
   background: linear-gradient(to bottom, var(--bluegrey-800), var(--grey-900));
-  transition: height 2s ease;
+  transition:
+    opacity 400ms ease 400ms,
+    height 2s ease;
   will-change: height;
+
+  [data-complete='true'] > & {
+    opacity: 0;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;

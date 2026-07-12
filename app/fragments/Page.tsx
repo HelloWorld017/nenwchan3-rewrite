@@ -1,5 +1,6 @@
 import { AssetsContext } from '@/assets';
 import { styled } from '@linaria/react';
+import { delay } from 'es-toolkit';
 import { use, useEffect, useState } from 'react';
 import { Cursor } from './_components/Cursor';
 import { Loading } from './_components/Loading';
@@ -13,7 +14,6 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
-import {delay} from 'es-toolkit';
 
 const SectionList = styled.div`
   display: flex;
@@ -64,9 +64,7 @@ export const Page = () => {
     <div>
       {isLoaded && <PageContents />}
       <Cursor />
-      {showOverlay && (
-        <Loading complete={isLoaded} percent={progress} />
-      )}
+      {showOverlay && <Loading complete={isLoaded} percent={progress} />}
     </div>
   );
 };

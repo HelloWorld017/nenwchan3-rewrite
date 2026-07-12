@@ -34,7 +34,6 @@ const resolveIncludeFiles = async (root: string, include: readonly string[]): Pr
     onlyFiles: true,
   });
 
-
 const getSourceKind = (filePath: string): ts.ScriptKind => {
   if (filePath.endsWith('.tsx')) {
     return ts.ScriptKind.TSX;

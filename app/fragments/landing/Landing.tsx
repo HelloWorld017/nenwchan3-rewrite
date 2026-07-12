@@ -1,11 +1,12 @@
-import roofrain from '@/assets/videos/roofrain.mp4?asset';
 import LogoMonochrome from '@/assets/icons/LogoMonochrome.svg?react';
+import roofrain from '@/assets/videos/roofrain.mp4?asset';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useEffect, useMemo, useRef } from 'react';
+import { addToFonts } from 'virtual:fontsubsetter';
+import { ScrollIndicator } from '../_components/ScrollIndicator';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
-import {addToFonts} from 'virtual:fontsubsetter';
 
 const LandingWrapper = styled.section`
   position: relative;
@@ -37,9 +38,8 @@ const LandingContents = styled.div`
 `;
 
 const LandingLogo = styled(LogoMonochrome)`
-  font-size: 12lvmin;
-  margin-left: -1lvmin;
-  margin-bottom: 8rem;
+  font-size: 8lvmin;
+  margin-bottom: 6rem;
 `;
 
 const LandingText = styled.div`
@@ -98,12 +98,12 @@ export const Landing = () => {
         <LandingContents>
           <LandingLogo />
           <LandingText>
-            Aviation<br />
+            Aviation
+            <br />
             <LandingTextLight>In Progress</LandingTextLight>
           </LandingText>
-          <LandingVideoInfo>
-            雨が降る屋上 | 2024. 11. 18 | nenw*
-          </LandingVideoInfo>
+          <ScrollIndicator />
+          <LandingVideoInfo>雨が降る屋上 | 2024. 11. 18 | nenw*</LandingVideoInfo>
         </LandingContents>
       </LandingInner>
     </LandingWrapper>
