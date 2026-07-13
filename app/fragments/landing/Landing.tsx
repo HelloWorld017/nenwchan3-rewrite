@@ -1,10 +1,10 @@
 import LogoMonochrome from '@/assets/icons/LogoMonochrome.svg?react';
-import roofrain from '@/assets/videos/roofrain.mp4?asset';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useEffect, useMemo, useRef } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
+import { LandingVideo } from './_components/LandingVideo';
 import { ScrollIndicator } from './_components/ScrollIndicator';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
 import {breakpoints} from '@/styles';
@@ -63,22 +63,6 @@ const LandingTextLight = styled.span`
   font-weight: 300;
 `;
 
-const LandingVideo = styled.video`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-`;
-
-const LandingVideoInfo = styled.div`
-  position: absolute;
-  top: 10rem;
-  right: 12rem;
-  color: var(--grey-900);
-  font-size: 1.6rem;
-  opacity: 0.75;
-`;
-
 export const Landing = () => {
   const windowSize = useWindowSize();
   const scrollHeight = 0.5 * (windowSize?.largeViewportHeight ?? 0);
@@ -103,8 +87,7 @@ export const Landing = () => {
   return (
     <LandingWrapper ref={ref}>
       <LandingInner ref={innerRef}>
-        <LandingVideo src={roofrain.use} autoPlay muted loop playsInline />
-        <LandingVideoInfo>雨が降る屋上 | 2024. 11. 18 | nenw*</LandingVideoInfo>
+        <LandingVideo />
         <LandingContents>
           <LandingLogo />
           <LandingText>

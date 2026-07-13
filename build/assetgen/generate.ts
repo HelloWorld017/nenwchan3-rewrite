@@ -185,7 +185,7 @@ export const renderGeneratedAssets = (
       '',
       'export const AssetsProvider = ({ children }: PropsWithChildren) => {',
       '  const [assets] = useState(() => createRegisteredAssetsLoader());',
-      '  useEffect(() => () => assets.dispose(), []);',
+      '  useEffect(() => () => assets.dispose(), [assets]);',
       '',
       '  return <AssetsContext.Provider value={assets}>{children}</AssetsContext.Provider>;',
       '};',
