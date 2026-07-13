@@ -5,6 +5,7 @@ import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import assetgen from './build/assetgen';
+import codecs from './build/codecs';
 import fontsubsetter from './build/fontsubsetter';
 import watchHook from './build/watchhook';
 import webp from './build/webp';
@@ -56,6 +57,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       assetgen(),
+      codecs(),
       svgr(),
       wyw({ eval: { strategy: 'hybrid' } }),
       react(),

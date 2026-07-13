@@ -1,8 +1,13 @@
 import { findAssetGenConfig, loadConfig } from './config';
+import { resolveAssetRequest } from './utils';
 import type { NormalizedAssetGenConfig } from './config';
 import type { Plugin } from 'vite';
 
 const resolvedAssetPrefix = '\x00assetgen:';
+
+const encodeAssetSource = (source: string): string => encodeURIComponent(source);
+const decodeAssetSource = (id: string): string =>
+  decodeURIComponent(id.slice(resolvedAssetPrefix.length));
 
 export const assetgen = (): Plugin => {
   let assetGenConfig: NormalizedAssetGenConfig | null = null;
@@ -18,17 +23,17 @@ export const assetgen = (): Plugin => {
     },
 
     async resolveId(id, importer) {
-      if (!id.endsWith('?asset')) {
+      const request = resolveAssetRequest(id);
+      if (!request) {
         return undefined;
       }
 
-      const source = id.slice(0, -'?asset'.length);
-      const resolved = await this.resolve(source, importer, { skipSelf: true });
+      const resolved = await this.resolve(request, importer, { skipSelf: true });
       if (!resolved) {
         return undefined;
       }
 
-      return `${resolvedAssetPrefix}${resolved.id}`;
+      return `${resolvedAssetPrefix}${encodeAssetSource(resolved.id)}`;
     },
 
     load(id) {
@@ -37,9 +42,9 @@ export const assetgen = (): Plugin => {
       }
 
       const react = assetGenConfig!.react;
-      const source = id.slice(resolvedAssetPrefix.length);
+      const source = decodeAssetSource(id);
       const lines = [
-        `import asset from ${JSON.stringify(`${source}?url`)};`,
+        `import asset from ${JSON.stringify(source)};`,
         react
           ? `import loader, { AssetsContext } from ${JSON.stringify(assetGenConfig!.outFile)};`
           : `import loader from ${JSON.stringify(assetGenConfig!.outFile)};`,

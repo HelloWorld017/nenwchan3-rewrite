@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { glob } from 'tinyglobby';
 import ts from 'typescript';
+import { resolveAssetRequest } from './utils';
 import type { NormalizedAssetGenConfig } from './config';
 
 export type AssetDefinition = {
@@ -51,19 +52,22 @@ const resolveAssetImport = (
   sourceFile: string,
   specifier: string,
 ): string | undefined => {
-  if (!specifier.endsWith('?asset')) {
+  const request = resolveAssetRequest(specifier);
+  if (!request) {
     return undefined;
   }
 
-  const source = specifier.slice(0, -'?asset'.length);
+  const queryIndex = request.indexOf('?');
+  const source = request.slice(0, queryIndex);
+  const query = request.slice(queryIndex);
   if (!source.startsWith('.')) {
-    return `${source}?url`;
+    return request;
   }
 
   const target = resolve(dirname(sourceFile), source);
   const importPath = toPosixPath(relative(dirname(outFile), target));
   const relativeSpecifier = importPath.startsWith('.') ? importPath : `./${importPath}`;
-  return `${relativeSpecifier}?url`;
+  return `${relativeSpecifier}${query}`;
 };
 
 const collectAssetsFromFile = async (
