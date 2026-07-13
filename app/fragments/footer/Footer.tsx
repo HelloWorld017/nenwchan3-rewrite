@@ -1,14 +1,12 @@
-import ruriVideoUrl from '@/assets/videos/ruri.mp4?asset';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useMergedRef } from '@/hooks/useMergedRef';
 import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
 import { t } from '@simplei18n/core/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { Container } from '../_components/Container';
 import { Counter } from './_components/Counter';
+import { FooterVideo } from './_components/FooterVideo';
 
 defineI18n(
   yaml => yaml`
@@ -16,59 +14,6 @@ defineI18n(
     counter.description: '번째로 읽어주셔서 감사합니다!'
   `,
 );
-
-const FooterScrollVideoWrapper = styled.div`
-  width: 100%;
-  height: 50lvh;
-  overflow: hidden;
-  line-height: 0;
-  opacity: 0;
-  transition: opacity var(--transition-default);
-
-  &[data-is-visible='true'] {
-    opacity: 1;
-  }
-`;
-
-const FooterScrollVideoPlayer = styled.video`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
-`;
-
-const FooterScrollVideo = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const intersectionRef = useIntersectionObserver(
-    entry => {
-      if (!isVisible && entry.isIntersecting) {
-        setIsVisible(true);
-      }
-
-      const video = videoRef.current;
-      if (video && video.paused && entry.isIntersecting) {
-        void video.play();
-      }
-    },
-    { threshold: 0.75 },
-  );
-
-  const ref = useMergedRef(videoRef, intersectionRef);
-
-  return (
-    <FooterScrollVideoWrapper data-is-visible={isVisible}>
-      <FooterScrollVideoPlayer
-        ref={ref}
-        src={ruriVideoUrl.use}
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden={true}
-      />
-    </FooterScrollVideoWrapper>
-  );
-};
 
 const FooterCounterWrapper = styled.div`
   display: flex;
@@ -123,7 +68,7 @@ const FooterContents = () => {
 
 export const Footer = () => (
   <section>
-    <FooterScrollVideo />
+    <FooterVideo />
     <FooterCounter />
     <FooterContents />
   </section>

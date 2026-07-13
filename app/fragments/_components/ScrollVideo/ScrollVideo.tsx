@@ -1,8 +1,8 @@
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
+import { useVideoFrame } from '@/hooks/useVideoFrame';
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useVideoFrameCallback } from './_hooks/useVideoFrameCallback';
 import type { ComponentPropsWithoutRef, ReactEventHandler, RefCallback } from 'react';
 
 const PLAYBACK_LERP_FACTOR = 0.18;
@@ -34,7 +34,7 @@ export const ScrollVideo = ({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const targetPlaybackRef = useRef(0);
   const currentPlaybackRef = useRef(0);
-  const { updateNextVideoCallback } = useVideoFrameCallback(videoRef);
+  const { updateNextVideoCallback } = useVideoFrame(videoRef);
 
   const playbackKeyframes = useMemo(
     () => [
