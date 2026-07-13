@@ -5,7 +5,7 @@ import asset_9a70e5eb from '@/assets/images/midnightway.png?url';
 import asset_2bcab20a from '@/assets/images/tone-marble.png?url';
 import asset_d93825e0 from '@/assets/videos/reina.linear.mp4?url';
 import asset_f03adc91 from '@/assets/videos/roofrain.mp4?url';
-import asset_45a09fcc from '@/assets/videos/ruri.mp4?url';
+import asset_5e4f551f from '@/assets/videos/ruri.webm?codec=vp9:webm,h264:mp4+video';
 import { createContext, useEffect, useState } from 'react';
 import { createAssetsLoader } from '../utils/assets';
 import type { PropsWithChildren } from 'react';
@@ -19,7 +19,7 @@ const createRegisteredAssetsLoader = () => {
     asset_2bcab20a,
     asset_d93825e0,
     asset_f03adc91,
-    asset_45a09fcc,
+    asset_5e4f551f,
   ]);
   return loader;
 };

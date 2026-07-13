@@ -3,3 +3,8 @@ declare module 'virtual:codecs-supported-*' {
 
   export default supported;
 }
+
+declare module '*+video' {
+  const url: string;
+  export default url;
+}

@@ -1,4 +1,4 @@
-import ruriVideoUrl from '@/assets/videos/ruri.mp4?asset';
+import ruriVideoUrl from '@/assets/videos/ruri.webm?codecs=vp9:webm,h264:mp4+video&asset';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useMergedRef } from '@/hooks/useMergedRef';
 import { useVideoFrame } from '@/hooks/useVideoFrame';

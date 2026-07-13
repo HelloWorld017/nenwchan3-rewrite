@@ -51,7 +51,7 @@ const parseCodecsRequest = (id: string): CodecsRequest | undefined => {
     throw new Error(`Invalid codecs query in ${id}.`);
   }
 
-  const candidates = value.split(',').map(candidate => {
+  const candidates = value.replace(/\+(?:video)/, '').split(',').map(candidate => {
     const separatorIndex = candidate.indexOf(':');
     if (separatorIndex <= 0 || separatorIndex === candidate.length - 1) {
       throw new Error(`Invalid codec candidate ${JSON.stringify(candidate)} in ${id}.`);
@@ -135,6 +135,7 @@ const renderCodecSelector = (candidates: ResolvedCodecCandidate[]): string => {
 
 export const codecs = (): Plugin => ({
   name: 'codecs',
+  enforce: 'pre',
 
   async resolveId(id, importer) {
     if (id.startsWith(resolvedVirtualSupportPrefix) || id.startsWith(resolvedSelectorPrefix)) {
@@ -143,7 +144,7 @@ export const codecs = (): Plugin => ({
 
     if (id.startsWith(virtualSupportPrefix)) {
       const name = id.slice(virtualSupportPrefix.length);
-      if (!['av1', 'vp9', 'h264'].includes(name)) {
+      if (!Object.hasOwn(codecDefinitions, name)) {
         throw new Error(`Unsupported codec ${JSON.stringify(name)}.`);
       }
 
