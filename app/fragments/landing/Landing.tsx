@@ -5,7 +5,7 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import { styled } from '@linaria/react';
 import { useEffect, useMemo, useRef } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
-import { ScrollIndicator } from '../_components/ScrollIndicator';
+import { ScrollIndicator } from './_components/ScrollIndicator';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
 
 const LandingWrapper = styled.section`
@@ -63,8 +63,8 @@ const LandingVideo = styled.video`
 
 const LandingVideoInfo = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10rem;
+  right: 12rem;
   color: var(--grey-900);
   font-size: 1.6rem;
   opacity: 0.75;
@@ -95,6 +95,7 @@ export const Landing = () => {
     <LandingWrapper ref={ref}>
       <LandingInner ref={innerRef}>
         <LandingVideo src={roofrain.use} autoPlay muted loop playsInline />
+        <LandingVideoInfo>雨が降る屋上 | 2024. 11. 18 | nenw*</LandingVideoInfo>
         <LandingContents>
           <LandingLogo />
           <LandingText>
@@ -103,7 +104,6 @@ export const Landing = () => {
             <LandingTextLight>In Progress</LandingTextLight>
           </LandingText>
           <ScrollIndicator />
-          <LandingVideoInfo>雨が降る屋上 | 2024. 11. 18 | nenw*</LandingVideoInfo>
         </LandingContents>
       </LandingInner>
     </LandingWrapper>
