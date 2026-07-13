@@ -69,7 +69,7 @@ const SidebarContainer = styled.aside`
 
   @media (max-width: ${breakpoints.md}px) {
     width: auto;
-    right: 4rem;
+    inset: 2rem;
   }
 
   @media (prefers-reduced-motion: reduce) {

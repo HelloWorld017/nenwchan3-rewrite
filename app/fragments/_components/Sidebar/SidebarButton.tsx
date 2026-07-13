@@ -1,5 +1,5 @@
 import Squircle from '@/assets/icons/Squircle.svg?react';
-import { zLayer } from '@/styles';
+import { breakpoints, zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 
 const SidebarButtonBar = styled.div<{ direction: number }>`
@@ -52,6 +52,10 @@ const SidebarButtonWrapper = styled.button`
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    left: 6rem;
   }
 `;
 

@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { ScrollIndicator } from './_components/ScrollIndicator';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
+import {breakpoints} from '@/styles';
 
 const LandingWrapper = styled.section`
   position: relative;
@@ -35,16 +36,24 @@ const LandingContents = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
   color: var(--grey-900);
+
+  @media (max-width: ${breakpoints.xl}px) {
+    inset: 10rem 12rem 12rem 12rem;
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    inset: 10rem 12rem 12rem 10rem;
+  }
 `;
 
 const LandingLogo = styled(LogoMonochrome)`
-  font-size: 8lvmin;
+  font-size: clamp(4rem, 8lvmin, 8rem);
   margin-bottom: 6rem;
 `;
 
 const LandingText = styled.div`
   font-family: var(--font-display);
-  font-size: 8lvmin;
+  font-size: clamp(4rem, 8lvmin, 8rem);
   font-weight: 700;
   line-height: 1.1em;
   letter-spacing: -0.015em;
