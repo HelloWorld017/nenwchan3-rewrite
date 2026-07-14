@@ -1,5 +1,7 @@
+import hizashiVideoUrl from '@/assets/videos/hizashi.webm?codecs=vp9:webm,h264:mp4+video';
+import manabiVideoUrl from '@/assets/videos/manabi.webm?codecs=vp9:webm,h264:mp4+video';
 import roofrainVideoAsset from '@/assets/videos/roofrain.mp4?asset';
-import {breakpoints} from '@/styles';
+import { breakpoints } from '@/styles';
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { RefCallback, TransitionEvent } from 'react';
@@ -20,7 +22,21 @@ const videos = [
     description: '雨が降る屋上 | 2024. 11. 18 | nenw*',
     use: () => roofrainVideoAsset.use,
     origin: '34% 70%',
+    loop: 4,
+  },
+  {
+    key: 'manabi',
+    description: '卒業式 | 2021. 07. 03 | nenw*',
+    use: () => manabiVideoUrl,
+    origin: '50% 50%',
     loop: 1,
+  },
+  {
+    key: 'hizashi',
+    description: '日差し | 2025. 04. 21 | nenw*',
+    use: () => hizashiVideoUrl,
+    origin: '50% 50%',
+    loop: 4,
   },
 ] satisfies readonly LandingVideoData[];
 

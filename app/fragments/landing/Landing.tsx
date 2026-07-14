@@ -1,13 +1,13 @@
 import LogoMonochrome from '@/assets/icons/LogoMonochrome.svg?react';
 import { useScrollTimeline } from '@/hooks/useScrollTimeline';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { breakpoints } from '@/styles';
 import { styled } from '@linaria/react';
 import { useEffect, useMemo, useRef } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
 import { LandingVideo } from './_components/LandingVideo';
 import { ScrollIndicator } from './_components/ScrollIndicator';
 import type { ScrollTimelineKeyframe } from '@/hooks/useScrollTimeline';
-import {breakpoints} from '@/styles';
 
 const LandingWrapper = styled.section`
   position: relative;

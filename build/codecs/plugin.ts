@@ -51,24 +51,27 @@ const parseCodecsRequest = (id: string): CodecsRequest | undefined => {
     throw new Error(`Invalid codecs query in ${id}.`);
   }
 
-  const candidates = value.replace(/\+(?:video)/, '').split(',').map(candidate => {
-    const separatorIndex = candidate.indexOf(':');
-    if (separatorIndex <= 0 || separatorIndex === candidate.length - 1) {
-      throw new Error(`Invalid codec candidate ${JSON.stringify(candidate)} in ${id}.`);
-    }
+  const candidates = value
+    .replace(/\+(?:video)/, '')
+    .split(',')
+    .map(candidate => {
+      const separatorIndex = candidate.indexOf(':');
+      if (separatorIndex <= 0 || separatorIndex === candidate.length - 1) {
+        throw new Error(`Invalid codec candidate ${JSON.stringify(candidate)} in ${id}.`);
+      }
 
-    const name = candidate.slice(0, separatorIndex);
-    const suffix = candidate.slice(separatorIndex + 1);
-    if (!isCodecName(name)) {
-      throw new Error(`Unsupported codec ${JSON.stringify(name)} in ${id}.`);
-    }
+      const name = candidate.slice(0, separatorIndex);
+      const suffix = candidate.slice(separatorIndex + 1);
+      if (!isCodecName(name)) {
+        throw new Error(`Unsupported codec ${JSON.stringify(name)} in ${id}.`);
+      }
 
-    if (!suffixPattern.test(suffix)) {
-      throw new Error(`Invalid codec suffix ${JSON.stringify(suffix)} in ${id}.`);
-    }
+      if (!suffixPattern.test(suffix)) {
+        throw new Error(`Invalid codec suffix ${JSON.stringify(suffix)} in ${id}.`);
+      }
 
-    return { name, suffix };
-  });
+      return { name, suffix };
+    });
 
   if (new Set(candidates.map(candidate => candidate.name)).size !== candidates.length) {
     throw new Error(`Duplicate codec names in ${id}.`);
