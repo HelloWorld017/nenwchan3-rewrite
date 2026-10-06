@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs = {
-      url ="github:NixOS/nixpkgs/nixos-unstable";
+      url ="github:NixOS/nixpkgs/nixpkgs-unstable";
     };
 
     flake-utils = {
@@ -101,6 +101,7 @@
       '';
 
       backendEntrypointDev = pkgs.writeShellScriptBin "${name}-backend-entrypoint-dev" ''
+        mkdir -p ./data
         exec ${workerd}/bin/workerd serve "${backendConfig}" config \
           --import-path "./dist" \
           --directory-path "do-storage=./data" \
