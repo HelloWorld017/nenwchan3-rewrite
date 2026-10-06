@@ -3,6 +3,7 @@ import { styled } from '@linaria/react';
 import { delay } from 'es-toolkit';
 import { use, useEffect, useState } from 'react';
 import { Cursor } from './_components/Cursor';
+import { I18nButton } from './_components/I18nButton';
 import { Loading } from './_components/Loading';
 import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
@@ -14,6 +15,10 @@ import { Landing } from './landing';
 import { Profile } from './profile';
 import { Projects } from './projects';
 import { Quote } from './quote';
+
+const PageWrapper = styled.div`
+  position: relative;
+`;
 
 const SectionList = styled.div`
   display: flex;
@@ -39,6 +44,7 @@ const PageContents = () => (
     </main>
     <Footer />
     <Sidebar />
+    <I18nButton />
   </>
 );
 
@@ -61,10 +67,10 @@ export const Page = () => {
   }, [loader]);
 
   return (
-    <div>
+    <PageWrapper>
       {isLoaded && <PageContents />}
       <Cursor />
       {showOverlay && <Loading complete={isLoaded} percent={progress} />}
-    </div>
+    </PageWrapper>
   );
 };
