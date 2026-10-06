@@ -6,7 +6,7 @@ import ImageMidnightway from '@/assets/images/midnightway.png?asset';
 import ImageToneMarble from '@/assets/images/tone-marble.png?asset';
 import { Container } from '@/fragments/_components/Container';
 import { useSize } from '@/hooks/useSize';
-import { IconAudioWaveform, IconBookText, IconGhost, IconMoonStar, IconSnowflake } from '@/icons';
+import { IconAudioWaveform, IconBookText, IconGhost, IconKey, IconMoonStar, IconSnowflake } from '@/icons';
 import { breakpoints, hoverStyle, zLayer } from '@/styles';
 import { styled } from '@linaria/react';
 import { defineI18n } from '@simplei18n/core';
@@ -239,10 +239,15 @@ export const Projects = () => (
           description="local-first diary app"
           image={ImageIrodori.use}
         />
-        <ProjectItem
+        {/* <ProjectItem
           icon={<IconGitBranchWrench />}
           title="kanrinin"
           description="CI/CD tool for small-scale nixos deployments"
+        /> */}
+        <ProjectItem
+          icon={<IconKey />}
+          title="keeless"
+          description="modern password manager"
         />
       </ProjectsColumns>
     </Container>

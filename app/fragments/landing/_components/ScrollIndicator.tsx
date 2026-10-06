@@ -53,8 +53,8 @@ const ScrollBar = styled.span`
 
 export const ScrollIndicator = () => (
   <ScrollIndicatorWrapper>
-    <ScrollBar aria-hidden />
     <span>Scroll</span>
+    <ScrollBar aria-hidden />
   </ScrollIndicatorWrapper>
 );
 

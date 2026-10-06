@@ -5,6 +5,7 @@ import {
   ChevronRightIcon,
   CodeXmlIcon,
   GhostIcon,
+  KeyIcon,
   MailIcon,
   MoonStarIcon,
   ServerIcon,
@@ -29,6 +30,7 @@ export const IconChevronLeft = wrapLucideComponent(ChevronLeftIcon);
 export const IconChevronRight = wrapLucideComponent(ChevronRightIcon);
 export const IconCodeXml = wrapLucideComponent(CodeXmlIcon);
 export const IconGhost = wrapLucideComponent(GhostIcon);
+export const IconKey = wrapLucideComponent(KeyIcon);
 export const IconMail = wrapLucideComponent(MailIcon);
 export const IconMoonStar = wrapLucideComponent(MoonStarIcon);
 export const IconServer = wrapLucideComponent(ServerIcon);
