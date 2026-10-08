@@ -3,7 +3,7 @@ import type { FontSubsetterConfig } from './build/fontsubsetter';
 export default {
   include: ['./app/fragments/**/*.tsx'],
   outDir: './app/assets/fonts/generated',
-  frame: './app/fragments/App.tsx#AppFrame',
+  frame: './app/fragments/_build/FontSubsetterFrame.tsx#FontSubsetterFrame',
   fonts: {
     sans: ['Pretendard JP', 'sans-serif'],
     letter: ['RIDIBatang', 'cursive'],

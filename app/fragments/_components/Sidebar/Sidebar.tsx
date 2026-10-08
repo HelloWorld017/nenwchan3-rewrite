@@ -4,6 +4,7 @@ import { defineI18n } from '@simplei18n/core';
 import { t, useI18n } from '@simplei18n/core/react';
 import { useCallback, useState } from 'react';
 import { addToFonts } from 'virtual:fontsubsetter';
+import { I18nButton } from './I18nButton';
 import { SidebarButton } from './SidebarButton';
 import { SidebarBranding, SidebarItem } from './SidebarItem';
 import type { TransitionEvent } from 'react';
@@ -135,6 +136,7 @@ export const Sidebar = () => {
           <SidebarItem title={ts(t.sidebar.github.title)} href="https://github.com/HelloWorld017">
             <t._>{t.sidebar.github.description}</t._>
           </SidebarItem>
+          <I18nButton />
         </SidebarContainer>
       </SidebarWrapper>
 

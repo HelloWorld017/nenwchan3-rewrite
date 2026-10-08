@@ -12,19 +12,20 @@ const SidebarButtonBar = styled.div<{ direction: number }>`
   margin-top: -0.15rem;
 
   border-radius: 0.3rem;
-  background: var(--grey-900);
+  background: transparent;
+  backdrop-filter: blur(20px) invert(1);
   transition:
     background var(--transition-default),
     transform var(--transition-bounce);
   transform: rotate(-45deg) ${({ direction }) => `translate(0, ${direction * -0.5}rem)`};
 
   [data-is-active='true'] > & {
-    background: var(--grey-100);
+    background: var(--grey-100) !important;
     transform: ${({ direction }) => `rotate(${(direction - 1) * 45 + 45}deg)`};
   }
 
   *:hover > & {
-    background: var(--grey-100);
+    background: var(--grey-900);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -41,7 +42,6 @@ const SidebarButtonWrapper = styled.button`
 
   border: none;
   border-radius: 1rem;
-  mix-blend-mode: difference;
   transition: transform var(--transition-bounce);
   transform: rotate(45deg);
   z-index: ${zLayer.overlay};
@@ -65,7 +65,10 @@ const SidebarButtonBackground = styled(Squircle)`
   fill: transparent;
   transition: fill var(--transition-default);
 
-  *:hover > &,
+  *:hover > & {
+    fill: var(--grey-300);
+  }
+
   [data-is-active='true'] > & {
     fill: var(--grey-900);
   }

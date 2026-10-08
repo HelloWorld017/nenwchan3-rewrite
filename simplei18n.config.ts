@@ -6,6 +6,6 @@ export default defineConfig({
     outDir: './app/i18n',
     eager: true,
   },
-  locales: ['en', 'ko'],
+  locales: ['en', 'ko', 'ja'],
   defaultLocale: 'ko',
 });

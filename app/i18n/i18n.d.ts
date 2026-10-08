@@ -2,7 +2,7 @@ declare module '@simplei18n/core' {
   import type { TranslationDescriptor } from '@simplei18n/core';
 
   interface I18nConfig {
-    locales: 'en' | 'ko';
+    locales: 'en' | 'ko' | 'ja';
     defaultLocale: 'ko';
   }
 
@@ -82,6 +82,8 @@ declare module '@simplei18n/core' {
         description: TranslationDescriptor<{ interpolations: never; tags: 'b' }>;
       };
     };
+    /** 한국어 */
+    lang: TranslationDescriptor<{ interpolations: never; tags: never }>;
     profile: {
       /** Aviate in Progress */
       bio: TranslationDescriptor<{ interpolations: never; tags: never }>;

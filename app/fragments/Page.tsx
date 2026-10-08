@@ -3,7 +3,6 @@ import { styled } from '@linaria/react';
 import { delay } from 'es-toolkit';
 import { use, useEffect, useState } from 'react';
 import { Cursor } from './_components/Cursor';
-import { I18nButton } from './_components/I18nButton';
 import { Loading } from './_components/Loading';
 import { Sidebar } from './_components/Sidebar';
 import { Activities } from './activities';
@@ -44,7 +43,6 @@ const PageContents = () => (
     </main>
     <Footer />
     <Sidebar />
-    <I18nButton />
   </>
 );
 

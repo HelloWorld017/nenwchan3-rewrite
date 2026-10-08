@@ -1,0 +1,55 @@
+activities.org.ridi: RIDI
+activities.org.ridi.description: RIDI株式会社
+activities.org.sparcs: SPARCS
+activities.org.sparcs.description: 学内サービスを開発するサークル
+activities.org.ifteam: if-Team, <Light>Organic</Light>
+activities.org.ifteam.description: 青少年の開発チーム
+activities.role.frontend_engineer: フロントエンドエンジニア
+activities.role.frontend_lead: フロントエンドリード
+activities.role.fullstack_developer: フルスタック開発者
+activities.role.team_lead: チームリーダー
+activities.team.ridi.web: Webチーム
+activities.team.sparcs.newara: 学内コミュニティ開発チーム
+activities.team.sparcs.geoul: KAISTミラーチーム
+activities.team.sparcs.wheel: サーバー管理チーム
+contact.description: |
+  個人的なご連絡は、以下の方法で受け付けています。<br />
+  ご質問などがありましたら、どうぞお気軽にご連絡ください！
+education.daedeok: 大徳高等学校
+education.daedeok.major: 科学重点課程
+education.kaist: 韓国科学技術院
+education.kaist.major: 計算機科学科
+footer.counter.description: 回目の閲覧、ありがとうございます！
+introduction.developer.description: |
+  私はソフトウェア開発に深い興味を持っています。
+  <b>Web・バックエンド開発</b>から<b>ゲーム開発、機械学習、DevOps、プログラミング言語</b>まで、
+  幅広い分野に興味を持っています。
+introduction.enthusiast.description: |
+  また、誰かの記憶に残るものを作るために、
+  <b>Webデザイン、3Dモデリング・アート、印刷物のデザイン、サウンドデザイン</b>など、
+  さまざまな分野にも興味を持ち、挑戦しています。
+lang: '日本語'
+profile.bio: Aviate in Progress
+profile.description: |
+  こんにちは！ソフトウェア開発に興味を持っているキム・ヨハンです。<br/>
+  主に<tag>nenw*</tag>や<tag>Khinenw</tag>という名前で活動しています。
+projects.description: |
+  個人で取り組んできたサイドプロジェクトの中から、ご紹介したいものをまとめました。<br />
+  ほかのプロジェクトもご覧になりたい方は、ぜひ<Link>私のGitHub</Link>にも
+  お立ち寄りください！
+quote.text: 私は特別になりたい。
+quote.source: 『響け！ユーフォニアム』の作中のセリフ
+quote.summary: |
+  私は、誰かの記憶に残るものを作りたいと思っています。<br/>
+  だからこそ、人の心に届くデザインを考え、<br/>
+  それを現実にするためのエンジニアリングに取り組んでいきたいです。
+sidebar.header: nenw.dev
+sidebar.description: 2026 Redesigned
+sidebar.blog.title: Blog
+sidebar.blog.description: 学んだことをまとめて投稿する場所
+sidebar.misskey.title: Misskey
+sidebar.misskey.description: 思いついたことを気ままに投稿する場所
+sidebar.email.title: Email
+sidebar.email.description: 私へのご連絡はこちら
+sidebar.github.title: GitHub
+sidebar.github.description: 私のプロジェクトをご覧いただける場所

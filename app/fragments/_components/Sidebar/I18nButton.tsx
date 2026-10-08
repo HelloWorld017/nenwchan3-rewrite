@@ -1,21 +1,28 @@
 import { IconGlobe } from '@/icons';
-import { zLayer } from '@/styles';
 import { styled } from '@linaria/react';
-import { useI18n } from '@simplei18n/core/react';
-import { useSetLanguage } from '../_providers/I18nProvider';
+import { t, useI18n } from '@simplei18n/core/react';
+import { useSetLanguage } from '@/fragments/_providers/I18nProvider';
+import {defineI18n, LocaleKey} from '@simplei18n/core';
+import i18n from '@/i18n';
+
+defineI18n(
+  yaml => yaml`
+    lang: '한국어'
+  `,
+);
 
 const LanguageButtonWrapper = styled.button`
   position: absolute;
-  top: 3rem;
-  right: 3rem;
+  bottom: 4rem;
+  left: 3rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
   padding: 1rem;
   border-radius: 2rem;
   color: var(--grey-900);
   font-family: var(--font-sans);
   font-size: 2rem;
-  z-index: ${zLayer.overlay};
   transition:
     background var(--transition-default),
     color var(--transition-default);
@@ -31,14 +38,20 @@ const LanguageButtonWrapper = styled.button`
   }
 `;
 
+
+const locales = Object.keys(i18n.locales) as LocaleKey[];
+
 export const I18nButton = () => {
-  const { lang, ts } = useI18n();
+  const { lang } = useI18n();
   const setLanguage = useSetLanguage();
-  const nextLanguage = lang === 'ko' ? 'en' : 'ko';
+  const nextLanguage = locales[(locales.indexOf(lang) + 1) % locales.length];
 
   return (
     <LanguageButtonWrapper type="button" onClick={() => setLanguage(nextLanguage)}>
       <IconGlobe />
+      <span>
+        <t._>{t.lang}</t._>
+      </span>
     </LanguageButtonWrapper>
   );
 };
