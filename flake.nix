@@ -29,8 +29,8 @@
         pnpmDeps = pkgs.fetchPnpmDeps {
           inherit (finalAttrs) version src;
           pname = "${name}-app-deps";
-          fetcherVersion = 3;
-          hash = "sha256-kE07LSaM62UzVuSJM+CDGJO4zvFHIQAI/aRKPqkOkhk=";
+          fetcherVersion = 4;
+          hash = "sha256-eAdbm5b8mXSrB25E2jDFLFUxPQtXh195gWsb0HqCQMs=";
         };
 
         nativeBuildInputs = [
@@ -49,7 +49,7 @@
           runHook preInstall
 
           mkdir -p "$out/share/${name}"
-          cp -r dist/ "$out/share/${name}"
+          cp -r dist/. "$out/share/${name}/"
           runHook postInstall
         '';
       });
@@ -61,9 +61,9 @@
         }
 
         :8080 {
-          root * ${app}/share/${name}
+          root * ${app}/share/${name}/static
 
-          handle_path /api/* {
+          handle /api/* {
             reverse_proxy 127.0.0.1:8787
           }
 
@@ -79,7 +79,7 @@
         }
       '';
 
-      proxyEntrypoint = pkgs.writeShellScriptBin "${name}-proxy-endpoint" ''
+      proxyEntrypoint = pkgs.writeShellScriptBin "${name}-proxy-entrypoint" ''
         exec ${pkgs.caddy}/bin/caddy run --config ${proxyConfig} --adapter caddyfile
       '';
 
@@ -92,7 +92,7 @@
           exit 64
         fi
 
-        mkdir -p "\$BACKEND_SQLITE_PATH"
+        ${pkgs.coreutils}/bin/mkdir -p "$BACKEND_SQLITE_PATH"
 
         exec ${workerd}/bin/workerd serve "${backendConfig}" config \
           --import-path "${app}/share/${name}/" \
@@ -113,8 +113,39 @@
           "${backendEntrypoint}/bin/${name}-backend-entrypoint" \
           "${proxyEntrypoint}/bin/${name}-proxy-entrypoint"
       '';
+
+      image = pkgs.dockerTools.buildLayeredImage {
+        inherit name;
+        tag = "latest";
+        contents = with pkgs.dockerTools; [
+          usrBinEnv
+          caCertificates
+          binSh
+          fakeNss
+        ];
+
+        extraCommands = ''
+          mkdir -p data tmp
+          chmod 1777 tmp
+        '';
+
+        config = {
+          Entrypoint = [ "${entrypoint}/bin/entrypoint" ];
+          Env = [
+            "BACKEND_SQLITE_PATH=/data"
+            "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
+            "XDG_CONFIG_HOME=/config"
+            "XDG_DATA_HOME=/data"
+          ];
+          ExposedPorts = { "8080/tcp" = {}; };
+          Volumes = { "/data" = {}; };
+        };
+      };
     in {
-      packages.default = entrypoint;
+      packages = {
+        default = entrypoint;
+        inherit image;
+      };
       devShells.default = pkgs.mkShell {
         packages = [
           pkgs.nodejs
